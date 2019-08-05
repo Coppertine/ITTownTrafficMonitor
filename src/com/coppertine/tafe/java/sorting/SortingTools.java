@@ -54,4 +54,20 @@ public class SortingTools {
         }
         
     }
+    
+    public ArrayList<Object> SwapValues(ArrayList<Object> input, int indexOne, int indexTwo)
+    {
+        try {
+            
+            Object tmp = input.get(indexOne);
+            input.set(indexOne,input.get(indexTwo));
+            input.set(indexTwo, tmp);            
+        }
+        catch(Exception e)
+        {
+            //TODO: Print error on Exception
+            return null;
+        }
+        return input;
+    }
 }
