@@ -24,6 +24,10 @@
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
 import java.time.LocalTime;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 
 /**
  *
@@ -31,59 +35,59 @@ import java.time.LocalTime;
  */
 public class Traffic {
     
-    private LocalTime time;
-    private Location location;
-    private int numLanes;
-    private int totalVehicle;
-    private int averagePerLane;
-    private int averageVelocity;
+    private ObjectProperty<LocalTime> time = new SimpleObjectProperty<LocalTime>(this, "time");
+    private ObjectProperty<Location> location = new SimpleObjectProperty<Location>(this, "location");
+    private IntegerProperty numLanes;
+    private IntegerProperty totalVehicle;
+    private IntegerProperty averagePerLane;
+    private IntegerProperty averageVelocity;
 
     public LocalTime getTime() {
-        return time;
+        return time.get();
     }
 
     public void setTime(LocalTime time) {
-        this.time = time;
+        this.time.set(time);
     }
 
     public Location getLocation() {
-        return location;
+        return location.get();
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        this.location.set(location);
     }
 
     public int getNumLanes() {
-        return numLanes;
+        return numLanes.get();
     }
 
     public void setNumLanes(int numLanes) {
-        this.numLanes = numLanes;
+        this.numLanes.set(numLanes);
     }
 
     public int getTotalVehicle() {
-        return totalVehicle;
+        return totalVehicle.get();
     }
 
     public void setTotalVehicle(int totalVehicle) {
-        this.totalVehicle = totalVehicle;
+        this.totalVehicle.set(totalVehicle);
     }
 
     public int getAveragePerLane() {
-        return averagePerLane;
+        return averagePerLane.get();
     }
 
     public void setAveragePerLane(int averagePerLane) {
-        this.averagePerLane = averagePerLane;
+        this.averagePerLane.set(averagePerLane);
     }
 
     public int getAverageVelocity() {
-        return averageVelocity;
+        return averageVelocity.get();
     }
 
     public void setAverageVelocity(int averageVelocity) {
-        this.averageVelocity = averageVelocity;
+        this.averageVelocity.set(averageVelocity);
     }
     
 }
