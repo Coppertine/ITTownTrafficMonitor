@@ -46,13 +46,32 @@ public class SortingTools {
                 end
 
         */
-        for(int  = )
-        {
+        try{
             boolean swapped = false;
-            
-            for(int )
+            for(int index = 0; index < input.size() - 1; index++)
+            {           
+                swapped = false;
+                for(int innerIndex = 0; innerIndex < input.size() - index - 1; innerIndex++)
+                {
+                    if((double)input.get(innerIndex) > (double)input.get(index + 1))
+                    {
+                        input = SwapValues(input, innerIndex, index + 1);
+                        swapped = true;
+                    }
+                }
+            }
+            if(!swapped)
+            {
+                return input;
+            }
+
         }
-        
+        catch(Exception e)
+        {
+            //TODO: Print Exception
+            return input;
+        }
+        return input;
     }
     
     public ArrayList<Object> SwapValues(ArrayList<Object> input, int indexOne, int indexTwo)
