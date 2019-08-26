@@ -28,5 +28,6 @@ package com.coppertine.tafe.java.ITTownTrafficManager;
  * @author Coppertine
  */
 public class TrafficNode {
+    private DateTime time;
     
 }

@@ -28,6 +28,8 @@ import com.coppertine.tafe.java.ITTownTrafficManager.TrafficNode;
 /**
  * Node to be used for DList.
  * @author Coppertine
+ * @see DList
+ * @see TrafficNode
  */
 public class Node {
     /** Previous Node in DList. **/
@@ -43,7 +45,8 @@ public class Node {
     }
     
     /**
-     * Appends <code>Node</code> to either the next or previous <code>Node</code> of <code>DList</code>.
+     * Appends <code>Node</code> to
+     * either the next or previous <code>Node</code> of <code>DList</code>.
      * @param newNode
      */
     public void appendNode(Node newNode) {
