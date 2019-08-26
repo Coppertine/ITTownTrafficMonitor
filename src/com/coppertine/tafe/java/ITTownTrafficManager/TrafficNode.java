@@ -23,11 +23,21 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author Coppertine
  */
 public class TrafficNode {
-    private DateTime time;
-    
+    private LocalDateTime time;
+    private int intKey;
+
+    public TrafficNode(Object key, Object value) {
+        if (key instanceof LocalDateTime) {
+            this.time = (LocalDateTime) key;
+        }else if (key instanceof Integer) {
+            this.intKey = (Integer) key;
+        }
+    }
 }

@@ -40,8 +40,15 @@ public class Node {
     /** Traffic Data for each Node in DList. **/
     private TrafficNode trafficData;
 
+    public Node() {
+        this.prev = this;
+        this.next = this;
+    }
+
     public Node(Object key, Object value) {
-        
+        this.prev = null;
+        this.next = null;
+        this.trafficData = new TrafficNode(key,value);
     }
     
     /**
@@ -50,6 +57,14 @@ public class Node {
      * @param newNode
      */
     public void appendNode(Node newNode) {
+        
+    }
+    
+    public void insertNode(Node newNode) {
+        
+    }
+    
+    public void remove() {
         
     }
 

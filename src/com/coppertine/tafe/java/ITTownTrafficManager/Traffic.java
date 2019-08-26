@@ -24,7 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -37,9 +36,9 @@ import javafx.beans.property.SimpleObjectProperty;
 public class Traffic {
 
     private ObjectProperty<LocalDateTime> time =
-            new SimpleObjectProperty<LocalDateTime>(this, "time");
+            new SimpleObjectProperty<>(this, "time");
     private ObjectProperty<Location> location =
-            new SimpleObjectProperty<Location>(this, "location");
+            new SimpleObjectProperty<>(this, "location");
     private IntegerProperty numLanes;
     private IntegerProperty totalVehicle;
     private IntegerProperty averagePerLane;
