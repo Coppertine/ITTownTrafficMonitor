@@ -21,37 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.coppertine.tafe.java;
+package com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 
 /**
- * Doubly Linked List to store Nodes of Data.
+ * Creates <code>SpringPannel</code> of Binary Tree.
  * @author Coppertine
- * @param <K>
  */
-public class DList<K> {
-    // Using Generic Type K for Key and V for Value of Key
+public class BinaryTreeView extends JFrame implements ActionListener {
 
-    /** Head DLNode to store all data placed into list. **/
-    private DLNode head;
-
-    /**
-     *
-     * @param inputKey
-     */
-    public DList(final K inputKey) {
-        head = new DLNode(inputKey);
+    public BinaryTreeView() {
+        
     }
-    
-    public DLNode findNode(Object inputSearch) {
-       return null; 
-    }
-    
-    public DLNode find(int i) {
-        return null;
-    }
-    
     @Override
-    public String toString() {
-        return "";
+    public final void actionPerformed(final ActionEvent e) {
+        
     }
 }
