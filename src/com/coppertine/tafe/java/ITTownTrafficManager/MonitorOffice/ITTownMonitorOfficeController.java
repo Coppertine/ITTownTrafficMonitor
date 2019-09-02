@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -19,19 +20,25 @@ import javafx.stage.Stage;
  *
  * @author nick_
  */
-public class ITTownMonitorOfficeController implements Initializable {
-    
-    
-    double x,y;
-    
+public class ITTownMonitorOfficeController implements Initializable {    
+    double x;
+    double y;
+    public TextArea txtLinkedList;
+    /**
+     * Drags window on mouse held.
+     * @param event MouseEvent.
+     */
     @FXML
-    void dragWindow(MouseEvent event)
-    {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    final void dragWindow(final MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setX(event.getScreenX() - x);
         stage.setY(event.getScreenY() - y);
     }
-    
+
+    /**
+     *
+     * @param event
+     */
     @FXML
     void press(MouseEvent event)
     {
@@ -49,6 +56,11 @@ public class ITTownMonitorOfficeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }    
+    }
+    
+    @FXML
+    public void sortByLocation(MouseEvent event) {
+        
+    }
     
 }

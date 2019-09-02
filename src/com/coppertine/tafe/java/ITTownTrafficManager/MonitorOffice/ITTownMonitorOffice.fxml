@@ -53,7 +53,7 @@
                                     <ButtonBar prefHeight="31.0" prefWidth="463.0">
                                       <buttons>
                                     <Label text="Sort" textFill="WHITE" />
-                                        <Button mnemonicParsing="false" text="Location" />
+                                        <Button mnemonicParsing="false" onAction="#sortByLocation" text="Location" />
                                     <Button mnemonicParsing="false" text="Vehicle #" />
                                     <Button mnemonicParsing="false" text="Velocity" />
                                       </buttons>
@@ -79,7 +79,7 @@
             <VBox prefHeight="118.0" prefWidth="869.0">
                <children>
                   <Label prefHeight="9.0" prefWidth="869.0" text="Linked List" textFill="WHITE" />
-                        <TextArea prefHeight="70.0" prefWidth="869.0">
+                        <TextArea fx:id="txtLinkedList" prefHeight="70.0" prefWidth="869.0">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>

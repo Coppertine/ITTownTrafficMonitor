@@ -45,10 +45,10 @@ public class Node {
         this.next = this;
     }
 
-    public Node(Object key, Object value) {
+    public Node(Object value) {
         this.prev = null;
         this.next = null;
-        this.trafficData = new TrafficNode(key,value);
+        this.trafficData = new TrafficNode(value);
     }
     
     /**

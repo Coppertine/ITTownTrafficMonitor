@@ -35,16 +35,26 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class Traffic {
 
+    /** **/
     private ObjectProperty<LocalDateTime> time =
             new SimpleObjectProperty<>(this, "time");
+    /** **/
     private ObjectProperty<Location> location =
             new SimpleObjectProperty<>(this, "location");
+    /** **/
     private IntegerProperty numLanes;
+    /** **/
     private IntegerProperty totalVehicle;
+    /** **/
     private IntegerProperty averagePerLane;
+    /** **/
     private IntegerProperty averageVelocity;
 
-    public LocalDateTime getTime() {
+    /**
+     *
+     * @return LocalDateTime
+     */
+    public final LocalDateTime getTime() {
         return time.get();
     }
 
@@ -52,7 +62,7 @@ public class Traffic {
      *
      * @param time
      */
-    public final void setTime(LocalDateTime time) {
+    public final void setTime(final LocalDateTime time) {
         this.time.set(time);
     }
 
@@ -60,7 +70,7 @@ public class Traffic {
         return location.get();
     }
 
-    public final void setLocation(Location location) {
+    public final void setLocation(final Location location) {
         this.location.set(location);
     }
 
@@ -68,7 +78,7 @@ public class Traffic {
         return numLanes.get();
     }
 
-    public final void setNumLanes(int numLanes) {
+    public final void setNumLanes(final int numLanes) {
         this.numLanes.set(numLanes);
     }
 

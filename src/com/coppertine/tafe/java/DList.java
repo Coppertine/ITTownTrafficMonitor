@@ -27,9 +27,8 @@ package com.coppertine.tafe.java;
  * Doubly Linked List to store Nodes of Data.
  * @author Coppertine
  * @param <K>
- * @param <V>
  */
-public class DList<K, V> {
+public class DList<K> {
     // Using Generic Type K for Key and V for Value of Key
 
     /** Head Node to store all data placed into list. **/
@@ -38,10 +37,9 @@ public class DList<K, V> {
     /**
      *
      * @param inputKey
-     * @param inputValue
      */
-    public DList(final K inputKey, final V inputValue) {
-        head = new Node(inputKey, inputValue);
+    public DList(final K inputKey) {
+        head = new Node(inputKey);
     }
     
     public Node findNode(Object inputSearch) {
@@ -56,5 +54,4 @@ public class DList<K, V> {
     public String toString() {
         return "";
     }
-
 }

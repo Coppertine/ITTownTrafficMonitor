@@ -30,14 +30,20 @@ import java.time.LocalDateTime;
  * @author Coppertine
  */
 public class TrafficNode {
+    /** */
     private LocalDateTime time;
+    /** */
     private int intKey;
 
-    public TrafficNode(Object key, Object value) {
+    /**
+     *
+     * @param key
+     */
+    public TrafficNode(Object key) {
         if (key instanceof LocalDateTime) {
             this.time = (LocalDateTime) key;
         }else if (key instanceof Integer) {
-            this.intKey = (Integer) key;
+            this.intKey = (Integer) key;        
         }
     }
 }
