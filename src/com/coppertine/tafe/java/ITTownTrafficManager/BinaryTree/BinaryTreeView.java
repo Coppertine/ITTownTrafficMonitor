@@ -23,21 +23,47 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.coppertine.tafe.java.BTNode;
+import com.coppertine.tafe.java.BinaryTree;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
- * Creates <code>SpringPannel</code> of Binary Tree.
+ * Creates <code>SpringPannel</code> of Binary Tree
+ * extending the <code>BinaryTree</code>.
  * @author Coppertine
  */
-public class BinaryTreeView extends JFrame implements ActionListener {
-
+public class BinaryTreeView extends BinaryTree {
+    private JFrame frame;
+    private static final int FRAME_WIDTH = 1500;
+    private static final int FRAME_HEIGHT = 600;
+    private ArrayList<BTNode> nodeList;
+    
+    /**
+     * Creates new <code>JFrame</code> to the Binary Tree.
+     */
     public BinaryTreeView() {
-        
+        frame = new JFrame();
+        frame.setTitle("Binary Tree View");
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setResizable(false);
     }
-    @Override
-    public final void actionPerformed(final ActionEvent e) {
+    /**
+     * Includes the <code>BTNode</code> into the tree.
+     * @param node The BTNode to be added.
+     */
+    public final void include(final BTNode node) {
+        nodeList.add(node);
+        if (node.getLeft() != null) {
+            include(node.getLeft());
+        }
+        if (node.getRight() != null) {
+            include(node.getRight());
+        }
+    }
+    
+    public final void run() {
+        frame.setContentPane(new DrawBinaryTree(nodeList));
         
     }
 }
