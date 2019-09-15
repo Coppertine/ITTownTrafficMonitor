@@ -23,7 +23,7 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -34,43 +34,59 @@ import javafx.beans.property.SimpleObjectProperty;
  * @author Coppertine
  */
 public class Traffic {
-    
-    private ObjectProperty<LocalTime> time = new SimpleObjectProperty<LocalTime>(this, "time");
-    private ObjectProperty<Location> location = new SimpleObjectProperty<Location>(this, "location");
+
+    /** **/
+    private ObjectProperty<LocalDateTime> time =
+            new SimpleObjectProperty<>(this, "time");
+    /** **/
+    private ObjectProperty<Location> location =
+            new SimpleObjectProperty<>(this, "location");
+    /** **/
     private IntegerProperty numLanes;
+    /** **/
     private IntegerProperty totalVehicle;
+    /** **/
     private IntegerProperty averagePerLane;
+    /** **/
     private IntegerProperty averageVelocity;
 
-    public LocalTime getTime() {
+    /**
+     *
+     * @return LocalDateTime
+     */
+    public final LocalDateTime getTime() {
         return time.get();
     }
 
-    public void setTime(LocalTime time) {
+    /**
+     *
+     * @param time
+     */
+    public final void setTime(final LocalDateTime time) {
         this.time.set(time);
     }
 
-    public Location getLocation() {
+    public final Location getLocation() {
         return location.get();
     }
 
-    public void setLocation(Location location) {
+    public final void setLocation(final Location location) {
         this.location.set(location);
     }
 
-    public int getNumLanes() {
+    public final int getNumLanes() {
         return numLanes.get();
     }
 
-    public void setNumLanes(int numLanes) {
+    public final void setNumLanes(final int numLanes) {
         this.numLanes.set(numLanes);
     }
 
-    public int getTotalVehicle() {
+    public final int getTotalVehicle() {
         return totalVehicle.get();
     }
 
-    public void setTotalVehicle(int totalVehicle) {
+    public final void setTotalVehicle(int totalVehicle) {
         this.totalVehicle.set(totalVehicle);
     }
 

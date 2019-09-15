@@ -30,62 +30,52 @@ import java.util.ArrayList;
  * @author nick_
  */
 public class SortingTools {
-    
-    public ArrayList<Object> SortBubble(ArrayList<Object> input)
-    {
-        /*
-        
-                for i = 1:n,
-                    swapped = false
-                    for j = n:i+1,
-                        if a[j] < a[j-1],
-                            swap a[j,j-1]
-                            swapped = true
-                    → invariant: a[1..i] in final position
-                    break if not swapped
-                end
 
-        */
-        try{
+    /**
+     *
+     * @param input
+     * @return ArrayList
+     */
+    public final ArrayList<Object> sortBubble(ArrayList<Object> input) {
+        try {
             boolean swapped = false;
-            for(int index = 0; index < input.size() - 1; index++)
-            {           
+            for (int index = 0; index < input.size() - 1; index++) {
                 swapped = false;
-                for(int innerIndex = 0; innerIndex < input.size() - index - 1; innerIndex++)
-                {
-                    if((double)input.get(innerIndex) > (double)input.get(index + 1))
-                    {
-                        input = SwapValues(input, innerIndex, index + 1);
+                for (int innerIndex = 0;
+                        innerIndex < input.size() - index - 1;
+                        innerIndex++) {
+                    if ((double) input.get(innerIndex)
+                            > (double) input.get(index + 1)) {
+                        input = swapValues(input, innerIndex, index + 1);
                         swapped = true;
                     }
                 }
             }
-            if(!swapped)
-            {
+            if (!swapped) {
                 return input;
             }
 
-        }
-        catch(Exception e)
-        {
-            //TODO: Print Exception
-            return input;
+        } catch (Exception e) {
+            throw e;
         }
         return input;
     }
-    
-    public ArrayList<Object> SwapValues(ArrayList<Object> input, int indexOne, int indexTwo)
-    {
+
+    /**
+     * Swaps two selected values from ArrayList.
+     * @param input <code>ArrayList</code>
+     * @param indexOne index one to swap.
+     * @param indexTwo index two to swap.
+     * @return ArrayList
+     */
+    public final ArrayList<Object> swapValues(final ArrayList<Object> input,
+            final int indexOne, final int indexTwo) {
         try {
-            
             Object tmp = input.get(indexOne);
-            input.set(indexOne,input.get(indexTwo));
-            input.set(indexTwo, tmp);            
-        }
-        catch(Exception e)
-        {
-            //TODO: Print error on Exception
-            return null;
+            input.set(indexOne, input.get(indexTwo));
+            input.set(indexTwo, tmp);
+        } catch (Exception e) {
+            throw e;
         }
         return input;
     }

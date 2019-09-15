@@ -17,23 +17,22 @@ import javafx.stage.StageStyle;
  * @author nick_
  */
 public class ITTownTrafficMonitor extends Application {
-    
+
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ITTownMonitorOffice.fxml"));
-        stage.initStyle(StageStyle.UNDECORATED);
+    public final void start(final Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("ITTownMonitorOffice.fxml"));
         Scene scene = new Scene(root);
-        
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
-        
         stage.show();
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
-    
+
 }
