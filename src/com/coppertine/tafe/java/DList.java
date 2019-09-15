@@ -31,22 +31,22 @@ package com.coppertine.tafe.java;
 public class DList<K> {
     // Using Generic Type K for Key and V for Value of Key
 
-    /** Head Node to store all data placed into list. **/
-    private Node head;
+    /** Head DLNode to store all data placed into list. **/
+    private DLNode head;
 
     /**
      *
      * @param inputKey
      */
     public DList(final K inputKey) {
-        head = new Node(inputKey);
+        head = new DLNode(inputKey);
     }
     
-    public Node findNode(Object inputSearch) {
+    public DLNode findNode(Object inputSearch) {
        return null; 
     }
     
-    public Node find(int i) {
+    public DLNode find(int i) {
         return null;
     }
     

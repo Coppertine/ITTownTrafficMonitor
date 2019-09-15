@@ -26,41 +26,41 @@ package com.coppertine.tafe.java;
 import com.coppertine.tafe.java.ITTownTrafficManager.TrafficNode;
 
 /**
- * Node to be used for DList.
+ * DLNode to be used for DList.
  * @author Coppertine
  * @see DList
  * @see TrafficNode
  */
-public class Node {
-    /** Previous Node in DList. **/
-    private Node prev;
-    /** Next Node in DList. **/
-    private Node next;
+public class DLNode {
+    /** Previous DLNode in DList. **/
+    private DLNode prev;
+    /** Next DLNode in DList. **/
+    private DLNode next;
 
-    /** Traffic Data for each Node in DList. **/
+    /** Traffic Data for each DLNode in DList. **/
     private TrafficNode trafficData;
 
-    public Node() {
+    public DLNode() {
         this.prev = this;
         this.next = this;
     }
 
-    public Node(Object value) {
+    public DLNode(Object value) {
         this.prev = null;
         this.next = null;
         this.trafficData = new TrafficNode(value);
     }
     
     /**
-     * Appends <code>Node</code> to
-     * either the next or previous <code>Node</code> of <code>DList</code>.
+     * Appends <code>DLNode</code> to
+     * either the next or previous <code>DLNode</code> of <code>DList</code>.
      * @param newNode
      */
-    public void appendNode(Node newNode) {
+    public void appendNode(DLNode newNode) {
         
     }
     
-    public void insertNode(Node newNode) {
+    public void insertNode(DLNode newNode) {
         
     }
     
@@ -72,7 +72,7 @@ public class Node {
      *
      * @return
      */
-    public Node getPrev() {
+    public DLNode getPrev() {
         return prev;
     }
 
@@ -80,7 +80,7 @@ public class Node {
      *
      * @param prev
      */
-    public void setPrev(Node prev) {
+    public void setPrev(DLNode prev) {
         this.prev = prev;
     }
 
@@ -88,7 +88,7 @@ public class Node {
      *
      * @return
      */
-    public Node getNext() {
+    public DLNode getNext() {
         return next;
     }
 
@@ -96,7 +96,7 @@ public class Node {
      *
      * @param next
      */
-    public void setNext(Node next) {
+    public void setNext(DLNode next) {
         this.next = next;
     }
 
