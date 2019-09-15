@@ -28,7 +28,7 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class BinaryTree {
-    /** Root Node of the binary tree. */
+    /** Root {@link BTNode} of the binary tree. */
     private BTNode rootNode;
     private BTNode tempNode;
     private static int nodeAmmount = 0;
@@ -46,11 +46,14 @@ public class BinaryTree {
     public BinaryTree() {
         this.rootNode = null;
     }
-    
+    /**
+     * Inserts the {@link BTNode} into the tree strcture. 
+     * @param data 
+     */
     public void addNode(Integer data) {
         BTNode node = new BTNode(data);
         
-        if(node == null) {
+        if (rootNode == null) {
             this.rootNode = node;
             this.rootNode.setPositionX(ROOT_POSITION_X);
             this.rootNode.setPositionY(ROOT_POSITION_Y);
