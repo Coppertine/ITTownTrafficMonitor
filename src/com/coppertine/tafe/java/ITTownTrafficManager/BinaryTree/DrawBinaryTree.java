@@ -39,7 +39,7 @@ public class DrawBinaryTree extends JPanel {
     /** The Oval  */
     private static final int OVAL_HEIGHT = 40;
     private static final int OVAL_WIDTH = 40;
-    private static final int DATA_STRING_OFFSET_X = 5;
+    private static final int DATA_STRING_OFFSET_X = 10;
     private static final int DATA_STRING_OFFSET_Y = 25;
 
     /** Offsets for the Line of the Node. */
@@ -63,7 +63,8 @@ public class DrawBinaryTree extends JPanel {
             String stringValue = String.valueOf(node.getValues());
             graphics.drawString(
                     stringValue,
-                    DATA_STRING_OFFSET_X, DATA_STRING_OFFSET_Y);
+                    node.getPositionX() + DATA_STRING_OFFSET_X,
+                    node.getPositionY() + DATA_STRING_OFFSET_Y);
             if (node.getRight() != null) {
                 graphics.setColor(Color.red);
                 graphics.drawLine(
