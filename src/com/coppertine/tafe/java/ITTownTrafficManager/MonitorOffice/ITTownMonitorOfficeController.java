@@ -5,6 +5,7 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
+import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -63,4 +64,23 @@ public class ITTownMonitorOfficeController implements Initializable {
         
     }
     
+    @FXML
+    public void displayBinaryTree(MouseEvent event) {
+        BinaryTreeView tree = new BinaryTreeView();
+        
+        tree.addNode(12);
+        tree.addNode(2);
+        tree.addNode(13);
+        tree.addNode(52);
+        tree.addNode(33);
+        tree.addNode(23);
+        tree.addNode(4);
+        tree.addNode(27);
+        tree.addNode(44);
+        tree.addNode(3);
+        tree.addNode(1);
+        
+        tree.include(tree.getRootNode());
+        tree.run();
+    }
 }

@@ -62,8 +62,8 @@ public class BinaryTree {
             boolean continueLoop = true;
             tempNode = rootNode;
             while (continueLoop) {
-                if ((int)tempNode.getValues() > data) {
-                    if(tempNode.getLeft() == null) {
+                if ((int) tempNode.getValues() > data) {
+                    if (tempNode.getLeft() == null) {
                         tempNode.setLeft(node);
                         tempNode.getLeft().setPositionX(
                                 tempNode.getPositionX() - treeWidth);
@@ -76,7 +76,7 @@ public class BinaryTree {
                         tempNode = tempNode.getLeft();
                     }
                 } else {
-                    if(tempNode.getRight() == null) {
+                    if (tempNode.getRight() == null) {
                         tempNode.setRight(node);
                         tempNode.getRight().setPositionX(
                             tempNode.getPositionX() + treeWidth);
@@ -100,7 +100,12 @@ public class BinaryTree {
     public static void setNodeAmmount(int nodeAmmount) {
         BinaryTree.nodeAmmount = nodeAmmount;
     }
-    
-    
-    
+
+    public BTNode getRootNode() {
+        return this.rootNode;
+    }
+
+    public void setRootNode(BTNode rootNode) {
+        this.rootNode = rootNode;
+    }
 }

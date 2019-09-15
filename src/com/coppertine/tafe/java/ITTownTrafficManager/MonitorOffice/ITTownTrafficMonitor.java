@@ -22,8 +22,8 @@ public class ITTownTrafficMonitor extends Application {
     public final void start(final Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass()
                 .getResource("ITTownMonitorOffice.fxml"));
-        stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

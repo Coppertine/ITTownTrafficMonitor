@@ -35,7 +35,7 @@ import javax.swing.JPanel;
  */
 public class DrawBinaryTree extends JPanel {
     /** ArrayList of Nodes to be displayed into the tree. */
-    private static ArrayList<BTNode> nodeList;
+    private static ArrayList<BTNode> nodeList = new ArrayList<BTNode>();
     /** The Oval  */
     private static final int OVAL_HEIGHT = 40;
     private static final int OVAL_WIDTH = 40;

@@ -38,7 +38,7 @@ public class BinaryTreeView extends BinaryTree {
     private static final int FRAME_WIDTH = 1500;
     private static final int FRAME_HEIGHT = 600;
     private ArrayList<BTNode> nodeList;
-    
+
     /**
      * Creates new <code>JFrame</code> to the Binary Tree.
      */
@@ -47,6 +47,7 @@ public class BinaryTreeView extends BinaryTree {
         frame.setTitle("Binary Tree View");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setResizable(false);
+        nodeList = new ArrayList<BTNode>();
     }
     /**
      * Includes the <code>BTNode</code> into the tree.
@@ -54,16 +55,21 @@ public class BinaryTreeView extends BinaryTree {
      */
     public final void include(final BTNode node) {
         nodeList.add(node);
+        System.out.println((int)node.getValues());
         if (node.getLeft() != null) {
+            System.out.println((int)node.getLeft().getValues());
             include(node.getLeft());
         }
         if (node.getRight() != null) {
+            System.out.println((int)node.getRight().getValues());
+
             include(node.getRight());
         }
     }
     
     public final void run() {
         frame.setContentPane(new DrawBinaryTree(nodeList));
-        
+        frame.setVisible(true);
+        System.out.println("Running Frame");
     }
 }

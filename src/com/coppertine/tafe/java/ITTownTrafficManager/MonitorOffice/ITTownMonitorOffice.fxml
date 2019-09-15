@@ -86,7 +86,7 @@
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="869.0" VBox.vgrow="NEVER">
                      <children>
                         <Label prefHeight="21.0" prefWidth="802.0" text="Binary Tree" textFill="WHITE" />
-                        <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Display" />
+                        <Button alignment="TOP_RIGHT" mnemonicParsing="false" onMouseClicked="#displayBinaryTree" text="Display" />
                      </children>
                   </HBox>
                   <TextArea prefHeight="75.0" prefWidth="869.0" />
