@@ -89,6 +89,14 @@ public class BinaryTree {
             }
         }
     }
+
+    public static int getNodeAmmount() {
+        return nodeAmmount;
+    }
+
+    public static void setNodeAmmount(int nodeAmmount) {
+        BinaryTree.nodeAmmount = nodeAmmount;
+    }
     
     
     
