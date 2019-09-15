@@ -5,11 +5,9 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
-<<<<<<< HEAD
+
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
-=======
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
->>>>>>> doubly-linkedlist
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -85,7 +83,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     private TableColumn<?, ?> tblTrafficAverageVel;
     
     @FXML
-    private Button sort
+    private Button sort;
     /**
      * Drags window on mouse held.
      * @param event MouseEvent.
@@ -127,7 +125,6 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
     
     @FXML
-<<<<<<< HEAD
     public void displayBinaryTree(MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
         
@@ -146,8 +143,16 @@ public class ITTownMonitorOfficeController implements Initializable {
         tree.include(tree.getRootNode());
         tree.run();
     }
-=======
-    public void sortBY
+    
+    @FXML
+    public void sortByVehicle(MouseEvent event) {
+        
+    }
+    
+    @FXML
+    public void sortByVelocity(MouseEvent event) {
+        
+    }
 
     //<editor-fold defaultstate="collasped" desc="Getters and Setters">
     public TextArea getTxtLinkedList() {
@@ -231,46 +236,44 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     public TableColumn<?, ?> getTableHeader() {
-        return TableHeader;
+        return tblHeadder;
     }
 
     public void setTableHeader(TableColumn<?, ?> TableHeader) {
-        this.TableHeader = TableHeader;
+        this.tblHeadder = TableHeader;
     }
 
     public TableColumn<?, ?> getTrafficTime() {
-        return TrafficTime;
+        return tblTrafficTime;
     }
 
     public void setTrafficTime(TableColumn<?, ?> TrafficTime) {
-        this.TrafficTime = TrafficTime;
+        this.tblTrafficTime = TrafficTime;
     }
 
     public TableColumn<?, ?> getTrafficLocation() {
-        return TrafficLocation;
+        return tblTrafficLocation;
     }
 
     public void setTrafficLocation(TableColumn<?, ?> TrafficLocation) {
-        this.TrafficLocation = TrafficLocation;
+        this.tblTrafficLocation = TrafficLocation;
     }
 
     public TableColumn<?, ?> getTrafficAverageVeh() {
-        return TrafficAverageVeh;
+        return tblTrafficAverageVeh;
     }
 
     public void setTrafficAverageVeh(TableColumn<?, ?> TrafficAverageVeh) {
-        this.TrafficAverageVeh = TrafficAverageVeh;
+        this.tblTrafficAverageVeh = TrafficAverageVeh;
     }
 
     public TableColumn<?, ?> getTrafficAverageVel() {
-        return TrafficAverageVel;
+        return tblTrafficAverageVel;
     }
 
     public void setTrafficAverageVel(TableColumn<?, ?> TrafficAverageVel) {
-        this.TrafficAverageVel = TrafficAverageVel;
+        this.tblTrafficAverageVel = TrafficAverageVel;
     }
 //</editor-fold>
 
-
->>>>>>> doubly-linkedlist
 }
