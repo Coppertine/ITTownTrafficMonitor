@@ -28,5 +28,68 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class BinaryTree {
+    /** Root Node of the binary tree. */
+    private BTNode rootNode;
+    private BTNode tempNode;
+    private static int nodeAmmount = 0;
+    private static int treeWidth = 120;
+    private static final int ROOT_POSITION_X = 500;
+    private static final int ROOT_POSITION_Y = 10;
+    private static final int NODE_OFFSET_Y = 80;
+    private static final int WIDTH_EXPAND_5 = 5;
+    
+
+    public BinaryTree(BTNode rootNode) {
+        this.rootNode = rootNode;
+    }
+
+    public BinaryTree() {
+        this.rootNode = null;
+    }
+    
+    public void addNode(Integer data) {
+        BTNode node = new BTNode(data);
+        
+        if(node == null) {
+            this.rootNode = node;
+            this.rootNode.setPositionX(ROOT_POSITION_X);
+            this.rootNode.setPositionY(ROOT_POSITION_Y);
+            nodeAmmount++;            
+        } else {
+            boolean continueLoop = true;
+            tempNode = rootNode;
+            while (continueLoop) {
+                if ((int)tempNode.getValues() > data) {
+                    if(tempNode.getLeft() == null) {
+                        tempNode.setLeft(node);
+                        tempNode.getLeft().setPositionX(
+                                tempNode.getPositionX() - treeWidth);
+                        tempNode.getLeft().setPositionY(
+                                tempNode.getPositionY() + NODE_OFFSET_Y);
+                        nodeAmmount++;
+                        treeWidth -= WIDTH_EXPAND_5;
+                        continueLoop = false;
+                    } else {
+                        tempNode = tempNode.getLeft();
+                    }
+                } else {
+                    if(tempNode.getRight() == null) {
+                        tempNode.setRight(node);
+                        tempNode.getRight().setPositionX(
+                            tempNode.getPositionX() + treeWidth);
+                        tempNode.getRight().setPositionY(
+                            tempNode.getPositionY() + NODE_OFFSET_Y);
+                        nodeAmmount++;
+                        treeWidth -= WIDTH_EXPAND_5;
+                        continueLoop = false;
+                    } else {
+                        tempNode = tempNode.getRight();
+                    }
+                }
+            }
+        }
+    }
+    
+    
     
 }

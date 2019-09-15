@@ -36,6 +36,9 @@ public class BTNode {
     private BTNode left;
     /** Binary Tree Node for the Right side. */
     private BTNode right;
+    
+    private int positionX;
+    private int positionY;
 
     /**
      * Creates a Binary Tree Node.
@@ -49,6 +52,13 @@ public class BTNode {
         this.left = null;
         this.right = null;
     }
+    
+    public BTNode(final Object inputData) {
+        this.values = inputData;
+        this.left = null;
+        this.right = null;
+
+    }
 
     /**
      * Creates String value of Node's Value.
@@ -57,6 +67,70 @@ public class BTNode {
      */
     public final void displayNode(final BTNode n) {
         System.out.print(n.values.toString() + " ");
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Object getValues() {
+        return values;
+    }
+
+    /**
+     *
+     * @param values
+     */
+    public void setValues(Object values) {
+        this.values = values;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public BTNode getLeft() {
+        return left;
+    }
+
+    /**
+     *
+     * @param left
+     */
+    public void setLeft(BTNode left) {
+        this.left = left;
+    }
+
+    /**
+     *
+     * @return Binary Tree on the Right side of the node.
+     */
+    public BTNode getRight() {
+        return right;
+    }
+
+    /**
+     *
+     * @param right
+     */
+    public void setRight(BTNode right) {
+        this.right = right;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 
 
