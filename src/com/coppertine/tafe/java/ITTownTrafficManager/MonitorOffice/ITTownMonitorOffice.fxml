@@ -50,8 +50,8 @@
                               </TableView>
                               <ButtonBar prefHeight="31.0" prefWidth="463.0">
                                 <buttons>
-                                  <Button mnemonicParsing="false" text="Button" />
-                              <Button fx:id="btn" mnemonicParsing="false" text="Button" />
+                                  <Button fx:id="btnSortLocation" mnemonicParsing="false" text="Location" />
+                              <Button fx:id="btnSortVehicle" mnemonicParsing="false" text="Button" />
                               <Button mnemonicParsing="false" text="Button" />
                                 </buttons>
                               </ButtonBar>
