@@ -32,11 +32,32 @@ import java.util.ArrayList;
 public class SortingTools {
 
     /**
-     *
+     * 
+     * @param type
+     * @param input
+     * @return 
+     */
+    public final ArrayList<Object> sortAlgorithm(SortingType type,
+            ArrayList<Object> input) {
+        switch (type) {
+            case BubbleSort:
+                return sortBubble(input);
+            case Insertion:
+                return sortInsertion(input);
+            case QuickSort:
+                return sortQuick(input, 0, input.size() - 1);
+            default:
+                return new ArrayList();
+        }
+    }
+    
+    /**
+     * Bubble Sort of the ArrayList of Objects.
+     * Must be accessed using the {@link sortAlgorithm()} method.
      * @param input
      * @return ArrayList
      */
-    public final ArrayList<Object> sortBubble(final ArrayList<Object> input) {
+    private ArrayList<Object> sortBubble(final ArrayList<Object> input) {
         try {
             boolean swapped = false;
             ArrayList<Object> swapedArray = input;
@@ -69,8 +90,9 @@ public class SortingTools {
      * 
      * @param input
      * @return ArrayList of Objects from the sorted array.
+     * Must be accessed using the {@link sortAlgorithm()} method.
      */
-    public final ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
+    private ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
         ArrayList<Object> sortedArray = input;
         sortedArray.subList(1, sortedArray.size())
                 .forEach((tempValue) -> {
@@ -85,13 +107,15 @@ public class SortingTools {
     
     /**
      * Grabs the partition integer from the ArrayList.
+     * Must be accessed using the {@link sortAlgorithm()} method with
+     * type = QuickSort
      * @param input
      * @param lowValue
      * @param highValue
      * @return 
      */
-    public final int partitionArray(final ArrayList<Object> input,
-            Object lowValue, Object highValue) {
+    private int partitionArray(final ArrayList<Object> input,
+            final Object lowValue, final Object highValue) {
         ArrayList<Object> sortedArray = input;
         Object pivot = highValue;
         int selectionLow = (int)lowValue - 1;
@@ -112,12 +136,13 @@ public class SortingTools {
     
     /**
      * Quick Sort method utilising the recursion of the function.
+     * Must be accessed using the {@link sortAlgorithm()} method.
      * @param input
      * @param indexLow
      * @param indexHigh
      * @return 
      */
-    public final ArrayList<Object> sortQuick(ArrayList<Object> input,
+    private ArrayList<Object> sortQuick(ArrayList<Object> input,
             int indexLow, int indexHigh) {
         if (indexLow < indexHigh) {
             int partitionIndex = partitionArray(input, indexLow, indexHigh);
