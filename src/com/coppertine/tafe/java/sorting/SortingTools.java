@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 nick_.
+ * Copyright 2019 Coppertine.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,13 @@ public class SortingTools {
         }
         return input;
     }
+    
+    public final ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
+        ArrayList<Object> sortedArray = input;
+        
+        return sortedArray;
+    }
+    
 
     /**
      * Swaps two selected values from ArrayList.
