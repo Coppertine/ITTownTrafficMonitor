@@ -25,6 +25,11 @@ package com.coppertine.tafe.java.sorting;
 
 import java.util.ArrayList;
 
+public enum SortingType {
+    BubbleSort,
+    Insertion,
+    QuickSort
+}
 /**
  *
  * @author nick_
