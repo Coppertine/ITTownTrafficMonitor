@@ -83,23 +83,55 @@ public class SortingTools {
         return sortedArray;
     }
     
-    public final Object partitionArray(final ArrayList<Object> input,
+    /**
+     * Grabs the partition integer from the ArrayList.
+     * @param input
+     * @param lowValue
+     * @param highValue
+     * @return 
+     */
+    public final int partitionArray(final ArrayList<Object> input,
             Object lowValue, Object highValue) {
         ArrayList<Object> sortedArray = input;
         Object pivot = highValue;
         int selectionLow = (int)lowValue - 1;
-        for (Object value : sortedArray.subList((int) lowValue, (int) highValue)) {
+        for (Object value : sortedArray.subList(
+                (int) lowValue,
+                (int) highValue)) {
             if ((int) value < (int) pivot) {
                 selectionLow++;
-                sortedArray = swapValues(sortedArray, selectionLow, (int) value);
+                sortedArray = swapValues(
+                        sortedArray,
+                        selectionLow,
+                        (int) value);
             }
         }
         swapValues(sortedArray, selectionLow + 1, (int) highValue);
         return selectionLow + 1;
     }
-
+    
+    /**
+     * Quick Sort method utilising the recursion of the function.
+     * @param input
+     * @param indexLow
+     * @param indexHigh
+     * @return 
+     */
+    public final ArrayList<Object> sortQuick(ArrayList<Object> input,
+            int indexLow, int indexHigh) {
+        if (indexLow < indexHigh) {
+            int partitionIndex = partitionArray(input, indexLow, indexHigh);
+            sortQuick(input, indexLow, partitionIndex - 1);
+            sortQuick(input, partitionIndex - 1, indexHigh);
+        } else {
+            return input;
+        }
+        return null;
+    }
     /**
      * Swaps two selected values from ArrayList.
+     * The returned array is the exact same as the input array with only
+     * the index values swapped.
      * @param input <code>ArrayList</code>
      * @param indexOne index one to swap.
      * @param indexTwo index two to swap.
