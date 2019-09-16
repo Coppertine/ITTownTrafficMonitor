@@ -82,6 +82,21 @@ public class SortingTools {
         });
         return sortedArray;
     }
+    
+    public final Object partitionArray(final ArrayList<Object> input,
+            Object lowValue, Object highValue) {
+        ArrayList<Object> sortedArray = input;
+        Object pivot = highValue;
+        int selectionLow = (int)lowValue - 1;
+        for (Object value : sortedArray.subList((int) lowValue, (int) highValue)) {
+            if ((int) value < (int) pivot) {
+                selectionLow++;
+                sortedArray = swapValues(sortedArray, selectionLow, (int) value);
+            }
+        }
+        swapValues(sortedArray, selectionLow + 1, (int) highValue);
+        return selectionLow + 1;
+    }
 
     /**
      * Swaps two selected values from ArrayList.
