@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 nick_.
+ * Copyright 2019 Coppertine.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,23 +36,27 @@ public class SortingTools {
      * @param input
      * @return ArrayList
      */
-    public final ArrayList<Object> sortBubble(ArrayList<Object> input) {
+    public final ArrayList<Object> sortBubble(final ArrayList<Object> input) {
         try {
             boolean swapped = false;
-            for (int index = 0; index < input.size() - 1; index++) {
+            ArrayList<Object> swapedArray = input;
+            for (Object indexItem : swapedArray) {
                 swapped = false;
-                for (int innerIndex = 0;
-                        innerIndex < input.size() - index - 1;
-                        innerIndex++) {
-                    if ((double) input.get(innerIndex)
-                            > (double) input.get(index + 1)) {
-                        input = swapValues(input, innerIndex, index + 1);
+                for (Object innerItem : swapedArray.subList(0,
+                        swapedArray.size()
+                                - swapedArray.indexOf(indexItem) - 1)) {
+                    if ((double) indexItem > (double) swapedArray.get(
+                            swapedArray.indexOf(indexItem) + 1)) {
+                        swapedArray = swapValues(swapedArray,
+                                                swapedArray.indexOf(innerItem),
+                                                swapedArray.indexOf(indexItem)
+                                                        + 1);
                         swapped = true;
                     }
                 }
             }
             if (!swapped) {
-                return input;
+                return swapedArray;
             }
 
         } catch (Exception e) {
@@ -62,7 +66,72 @@ public class SortingTools {
     }
 
     /**
+     * 
+     * @param input
+     * @return ArrayList of Objects from the sorted array.
+     */
+    public final ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
+        ArrayList<Object> sortedArray = input;
+        sortedArray.subList(1, sortedArray.size())
+                .forEach((tempValue) -> {
+            for (int i = sortedArray.indexOf((int) tempValue) - 1;
+                    (i >= 0) && ((int) sortedArray.get(i) < (int) tempValue);
+                    i--) {
+                sortedArray.set(i + 1, sortedArray.get(i));
+            }
+        });
+        return sortedArray;
+    }
+    
+    /**
+     * Grabs the partition integer from the ArrayList.
+     * @param input
+     * @param lowValue
+     * @param highValue
+     * @return 
+     */
+    public final int partitionArray(final ArrayList<Object> input,
+            Object lowValue, Object highValue) {
+        ArrayList<Object> sortedArray = input;
+        Object pivot = highValue;
+        int selectionLow = (int)lowValue - 1;
+        for (Object value : sortedArray.subList(
+                (int) lowValue,
+                (int) highValue)) {
+            if ((int) value < (int) pivot) {
+                selectionLow++;
+                sortedArray = swapValues(
+                        sortedArray,
+                        selectionLow,
+                        (int) value);
+            }
+        }
+        swapValues(sortedArray, selectionLow + 1, (int) highValue);
+        return selectionLow + 1;
+    }
+    
+    /**
+     * Quick Sort method utilising the recursion of the function.
+     * @param input
+     * @param indexLow
+     * @param indexHigh
+     * @return 
+     */
+    public final ArrayList<Object> sortQuick(ArrayList<Object> input,
+            int indexLow, int indexHigh) {
+        if (indexLow < indexHigh) {
+            int partitionIndex = partitionArray(input, indexLow, indexHigh);
+            sortQuick(input, indexLow, partitionIndex - 1);
+            sortQuick(input, partitionIndex - 1, indexHigh);
+        } else {
+            return input;
+        }
+        return null;
+    }
+    /**
      * Swaps two selected values from ArrayList.
+     * The returned array is the exact same as the input array with only
+     * the index values swapped.
      * @param input <code>ArrayList</code>
      * @param indexOne index one to swap.
      * @param indexTwo index two to swap.

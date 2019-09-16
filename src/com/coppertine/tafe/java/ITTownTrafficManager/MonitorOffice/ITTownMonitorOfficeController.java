@@ -83,7 +83,11 @@ public class ITTownMonitorOfficeController implements Initializable {
     private TableColumn<?, ?> tblTrafficAverageVel;
     
     @FXML
-    private Button sort;
+    private Button btnSortLocation;
+    @FXML
+    private Button btnSortVehicle;
+    @FXML
+    private Button btnSortVelocity;
     /**
      * Drags window on mouse held.
      * @param event MouseEvent.
