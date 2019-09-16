@@ -7,20 +7,22 @@ package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
+import com.coppertine.tafe.java.ITTownTrafficManager.Location;
+import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -58,6 +60,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     /** Resize Icon. */
     @FXML
     private FontAwesomeIconView resizeIcon;
+    /** Close Icon */
     @FXML
     private FontAwesomeIconView closeIcon;
 
@@ -70,17 +73,20 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     private MenuItem mItemServerOptions;
 
-    /** Table */
+    /* Table */
+    /** Table view. */
+    @FXML
+    private TableView tblView;
     @FXML
     private TableColumn<?, ?> tblHeadder;
     @FXML
-    private TableColumn<?, ?> tblTrafficTime;
+    private TableColumn<LocalDateTime, Traffic> tblTrafficTime;
     @FXML
-    private TableColumn<?, ?> tblTrafficLocation;
+    private TableColumn<Location, Traffic> tblTrafficLocation;
     @FXML
-    private TableColumn<?, ?> tblTrafficAverageVeh;
+    private TableColumn<Integer, Traffic> tblTrafficAverageVeh;
     @FXML
-    private TableColumn<?, ?> tblTrafficAverageVel;
+    private TableColumn<Integer, Traffic> tblTrafficAverageVel;
     
     
     /**
@@ -115,12 +121,16 @@ public class ITTownMonitorOfficeController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        setupTable();
     }
     
+    /**
+     * Sorts the Table by location using the Bubble sort Method.
+     * @param event
+     */
     @FXML
     public void sortByLocation(MouseEvent event) {
-        
+        //new SortingTools().sortAlgorithm(SortingType.BubbleSort, );
     }
     
     @FXML
@@ -238,41 +248,60 @@ public class ITTownMonitorOfficeController implements Initializable {
         return tblHeadder;
     }
 
-    public void setTableHeader(TableColumn<?, ?> TableHeader) {
-        this.tblHeadder = TableHeader;
-    }
-
-    public TableColumn<?, ?> getTrafficTime() {
+    public TableColumn<LocalDateTime, Traffic> getTblTrafficTime() {
         return tblTrafficTime;
     }
 
-    public void setTrafficTime(TableColumn<?, ?> TrafficTime) {
-        this.tblTrafficTime = TrafficTime;
+    public void setTblTrafficTime(TableColumn<LocalDateTime, Traffic> tblTrafficTime) {
+        this.tblTrafficTime = tblTrafficTime;
     }
 
-    public TableColumn<?, ?> getTrafficLocation() {
+    public TableColumn<Location, Traffic> getTblTrafficLocation() {
         return tblTrafficLocation;
     }
 
-    public void setTrafficLocation(TableColumn<?, ?> TrafficLocation) {
-        this.tblTrafficLocation = TrafficLocation;
+    public void setTblTrafficLocation(TableColumn<Location, Traffic> tblTrafficLocation) {
+        this.tblTrafficLocation = tblTrafficLocation;
     }
 
-    public TableColumn<?, ?> getTrafficAverageVeh() {
+    public TableColumn<Integer, Traffic> getTblTrafficAverageVeh() {
         return tblTrafficAverageVeh;
     }
 
-    public void setTrafficAverageVeh(TableColumn<?, ?> TrafficAverageVeh) {
-        this.tblTrafficAverageVeh = TrafficAverageVeh;
+    public void setTblTrafficAverageVeh(TableColumn<Integer, Traffic> tblTrafficAverageVeh) {
+        this.tblTrafficAverageVeh = tblTrafficAverageVeh;
     }
 
-    public TableColumn<?, ?> getTrafficAverageVel() {
+    public TableColumn<Integer, Traffic> getTblTrafficAverageVel() {
         return tblTrafficAverageVel;
     }
 
-    public void setTrafficAverageVel(TableColumn<?, ?> TrafficAverageVel) {
-        this.tblTrafficAverageVel = TrafficAverageVel;
+    public void setTblTrafficAverageVel(TableColumn<Integer, Traffic> tblTrafficAverageVel) {
+        this.tblTrafficAverageVel = tblTrafficAverageVel;
     }
+
+    
 //</editor-fold>
+
+    /**
+     * Instantiates the Table Columns. 
+     */
+    private void setupTable() {
+        tblTrafficLocation = new TableColumn<>("Location");
+        tblTrafficTime = new TableColumn<>("Time");
+        tblTrafficAverageVeh = new TableColumn<>("Average Per Lane");
+        tblTrafficAverageVeh = new TableColumn<>("Average Velocity");
+
+        tblTrafficLocation.setCellValueFactory(
+                new PropertyValueFactory<>("location"));
+        tblTrafficTime.setCellValueFactory(
+                new PropertyValueFactory<>("time"));
+        tblTrafficAverageVeh.setCellValueFactory(
+                new PropertyValueFactory<>("averagePerLane"));
+        tblTrafficAverageVel.setCellValueFactory(
+                new PropertyValueFactory<>("averageVelocity"));
+
+        tblView.getItems().add(new Traffic());
+    }
 
 }

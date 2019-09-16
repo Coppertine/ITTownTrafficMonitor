@@ -24,9 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
 import java.time.LocalDateTime;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 
 
 /**
@@ -36,74 +33,94 @@ import javafx.beans.property.SimpleObjectProperty;
 public class Traffic {
 
     /** **/
-    private ObjectProperty<LocalDateTime> time =
-            new SimpleObjectProperty<>(this, "time");
+    private LocalDateTime time;
     /** **/
-    private ObjectProperty<Location> location =
-            new SimpleObjectProperty<>(this, "location");
+    private Location location;
     /** **/
-    private IntegerProperty numLanes;
+    private int numLanes;
     /** **/
-    private IntegerProperty totalVehicle;
+    private int totalVehicle;
     /** **/
-    private IntegerProperty averagePerLane;
+    private int averagePerLane;
     /** **/
-    private IntegerProperty averageVelocity;
-
-    /**
-     *
-     * @return LocalDateTime
-     */
-    public final LocalDateTime getTime() {
-        return time.get();
-    }
+    private int averageVelocity;
 
     /**
      *
      * @param time
+     * @param location
+     * @param numLanes
+     * @param totalVehicle
+     * @param averagePerLane
+     * @param averageVelocity
      */
-    public final void setTime(final LocalDateTime time) {
-        this.time.set(time);
+    public Traffic(LocalDateTime time, Location location, int numLanes, int totalVehicle, int averagePerLane, int averageVelocity) {
+        this.time = time;
+        this.location = location;
+        this.numLanes = numLanes;
+        this.totalVehicle = totalVehicle;
+        this.averagePerLane = averagePerLane;
+        this.averageVelocity = averageVelocity;
     }
 
-    public final Location getLocation() {
-        return location.get();
+    public Traffic() {
+        this.time = LocalDateTime.now();
+        this.location = new Location(1,"");
+        this.numLanes = 5;
+        this.totalVehicle = 100;
+        this.averageVelocity = 20;
+        this.averagePerLane = 10;
     }
 
-    public final void setLocation(final Location location) {
-        this.location.set(location);
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public final int getNumLanes() {
-        return numLanes.get();
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
-    public final void setNumLanes(final int numLanes) {
-        this.numLanes.set(numLanes);
+    public Location getLocation() {
+        return location;
     }
 
-    public final int getTotalVehicle() {
-        return totalVehicle.get();
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public final void setTotalVehicle(int totalVehicle) {
-        this.totalVehicle.set(totalVehicle);
+    public int getNumLanes() {
+        return numLanes;
+    }
+
+    public void setNumLanes(int numLanes) {
+        this.numLanes = numLanes;
+    }
+
+    public int getTotalVehicle() {
+        return totalVehicle;
+    }
+
+    public void setTotalVehicle(int totalVehicle) {
+        this.totalVehicle = totalVehicle;
     }
 
     public int getAveragePerLane() {
-        return averagePerLane.get();
+        return averagePerLane;
     }
 
     public void setAveragePerLane(int averagePerLane) {
-        this.averagePerLane.set(averagePerLane);
+        this.averagePerLane = averagePerLane;
     }
 
     public int getAverageVelocity() {
-        return averageVelocity.get();
+        return averageVelocity;
     }
 
     public void setAverageVelocity(int averageVelocity) {
-        this.averageVelocity.set(averageVelocity);
+        this.averageVelocity = averageVelocity;
     }
+
+
+
     
 }

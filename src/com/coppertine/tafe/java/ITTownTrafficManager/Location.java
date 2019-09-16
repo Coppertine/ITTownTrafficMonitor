@@ -32,6 +32,12 @@ public class Location
     private int stationNum;
     private String name;
 
+    public Location(int stationNum, String name) {
+        this.stationNum = stationNum;
+        this.name = name;
+    }
+
+    
     public int getStationNum() {
         return stationNum;
     }
