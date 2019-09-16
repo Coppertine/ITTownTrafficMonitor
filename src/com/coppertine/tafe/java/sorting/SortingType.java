@@ -24,11 +24,21 @@
 package com.coppertine.tafe.java.sorting;
 
 /**
- *
+ * Enumerator types for {@link SortingTools}.
  * @author Coppertine
  */
 public enum SortingType {
+
+    /**
+     * Bubble Sort Algorithm.
+     */
     BubbleSort,
+    /**
+     * Insertion Algorithm.
+     */
     Insertion,
+    /**
+     * Quick Sort Algorithm.
+     */
     QuickSort
 }
