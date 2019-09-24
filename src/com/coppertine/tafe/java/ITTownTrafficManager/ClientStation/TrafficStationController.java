@@ -47,6 +47,6 @@ public class TrafficStationController implements Initializable {
     
     @FXML
     public void closeWindow() {
-        
+        System.exit(0);
     }
 }
