@@ -47,6 +47,8 @@ public class TrafficStationController implements Initializable {
     
     @FXML
     public void closeWindow() {
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.close();
         System.exit(0);
     }
 }
