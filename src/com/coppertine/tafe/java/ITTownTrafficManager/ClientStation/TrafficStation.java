@@ -48,8 +48,8 @@ public class TrafficStation extends Application {
     /**
      * @param args the command line arguments
      */
-    public static final void main(String[] args) {
+    public static final void main(final String[] args) {
         launch(args);
     }
-    
+
 }
