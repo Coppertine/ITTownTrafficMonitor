@@ -32,7 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author nick_
  */
@@ -86,11 +86,11 @@ public class TrafficStationController implements Initializable {
         x = event.getSceneX();
         y = event.getSceneY();
     }
-    
-    
+
+
     @FXML
-    public void closeWindow() {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    public final void closeWindow(final MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         System.exit(0);
     }
