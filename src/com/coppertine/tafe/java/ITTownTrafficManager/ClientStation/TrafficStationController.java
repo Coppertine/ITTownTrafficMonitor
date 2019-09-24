@@ -25,6 +25,7 @@ package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -42,4 +43,10 @@ public class TrafficStationController implements Initializable {
         // TODO
     }    
     
+    
+    
+    @FXML
+    public void closeWindow() {
+        
+    }
 }
