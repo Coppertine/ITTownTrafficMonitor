@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="455.0" stylesheets="@style/trafficstation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.TrafficStationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="455.0" styleClass="content" stylesheets="@style/trafficstation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.TrafficStationController">
    <top>
       <HBox onMouseDragged="#dragWindow" onMousePressed="#press" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -48,7 +48,7 @@
    <center>
       <VBox prefHeight="368.0" prefWidth="639.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="21.0" prefWidth="616.0" text="Traffic Station">
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="616.0" styleClass="orderLabel" text="Traffic Station">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>

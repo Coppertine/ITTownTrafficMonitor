@@ -1,7 +1,45 @@
 /*
- * Empty Stylesheet file.
- */
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18/07/2019, 12:05:03 PM
+    Author     : nick_
+*/
 
-.mainFxmlClass {
 
+
+.menuBar{
+    -fx-background-color: #3f3f3f;
+    
+}
+
+.menu .label{
+    -fx-text-fill: #fff;
+}
+
+.menu:hover .label{    
+    -fx-text-fill: #000000;
+}
+
+.menu:hover{
+    -fx-background-color: #fff;
+}
+
+.content{
+    -fx-background-color: #3c3c3c
+}
+
+.tableContent{
+    -fx-background-color: #3c3c3c
+}
+
+.orderLabel {
+    -fx-background-color: #006600;
+    -fx-text-fill: #fff
+}
+
+.label {
+    -fx-text-fill: #fff
 }
