@@ -21,18 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.coppertine.tafe.java.ITTownTrafficManager.Connection;
+package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
+
+import com.coppertine.tafe.java.Debug;
 
 /**
  *
  * @author Coppertine
  */
-public abstract class ServerBase implements Runnable {
+public abstract class OfficeServer implements Runnable {
     /**
      * Exited boolean to prevent thread exceptions when shutting down a server.
      */
     private volatile boolean exited = false;
-    private Thread currentThread;
+    
     
     public final void stop() {
         
@@ -43,6 +45,6 @@ public abstract class ServerBase implements Runnable {
         while (!exited) {
             
         }
-        Output.log("Server is stopped.");
+        Debug.log("Server is stopped.");
     }
 }
