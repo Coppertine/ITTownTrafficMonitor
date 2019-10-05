@@ -65,6 +65,17 @@ public class TrafficStationController implements Initializable {
 
     }
 
+    @FXML
+    public void startServer(final MouseEvent event) {
+        
+    }
+    
+    @FXML
+    public void stopServer(final MouseEvent event) {
+        
+    }
+    
+
     /**
      * Drags the Window to Cursor position.
      * @param event The current Mouse Event when holding down on menubar.
@@ -76,7 +87,7 @@ public class TrafficStationController implements Initializable {
         stage.setX(event.getScreenX() - x);
         stage.setY(event.getScreenY() - y);
     }
-    
+
     /**
      * Gets cursor position on mouse press.
      * @param event The current Mouse Event when holding down on menubar.
@@ -94,4 +105,5 @@ public class TrafficStationController implements Initializable {
         stage.close();
         System.exit(0);
     }
+
 }
