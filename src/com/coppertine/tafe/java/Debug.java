@@ -29,7 +29,7 @@ package com.coppertine.tafe.java;
  */
 public class Debug {
     
-    public final void log(String msg) {
+    public static final void log(String msg) {
         
     }
 }
