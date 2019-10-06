@@ -10,6 +10,9 @@ import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.SocketException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -88,6 +91,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     private TableColumn<Integer, Traffic> tblTrafficAverageVel;
     
+    private OfficeServer server;
     
     /**
      * Drags window on mouse held.
@@ -161,6 +165,18 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     public void sortByVelocity(MouseEvent event) {
         
+    }
+    
+    @FXML
+    public void startServer() {
+        server = new OfficeServer();
+        Thread thread = new Thread(server, "thread");
+        thread.start();
+    }
+    
+    @FXML
+    public void stopServer() {
+        server.stop();
     }
 
     //<editor-fold defaultstate="collasped" desc="Getters and Setters">
@@ -303,5 +319,6 @@ public class ITTownMonitorOfficeController implements Initializable {
 
         tblView.getItems().add(new Traffic());
     }
-
+    
+    
 }

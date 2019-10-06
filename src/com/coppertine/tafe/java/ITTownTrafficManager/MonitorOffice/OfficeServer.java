@@ -24,26 +24,59 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
+import com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.ClientThread;
+import com.coppertine.tafe.java.ITTownTrafficManager
+            .ClientStation.TrafficClient;
+import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
  * @author Coppertine
  */
-public abstract class OfficeServer implements Runnable {
+public class OfficeServer implements Runnable {
     /**
      * Exited boolean to prevent thread exceptions when shutting down a server.
      */
     private volatile boolean exited = false;
+    private ArrayList<ClientThread> clients = new ArrayList<>();
+    private ConnectionConfig config;
+    private ServerSocket server;
     
+    public OfficeServer() {
+        super();
+    }
     
+    /**
+     * Attempts to stop the Office Server.
+     */
     public final void stop() {
-        
+        exited = true;
+    }
+    
+    public void addThread(Socket socket) {
+        Debug.log("Client Accepted: " + socket);
+        ClientThread client = new ClientThread(this, socket);
+        clients.add(client);
+        try {
+            client.open();
+            client.start();
+        } catch (IOException e) {
+            Debug.log(e.toString());
+        }
     }
 
     @Override
     public void run() {
         while (!exited) {
-            
+            try {
+                addThread(server.accept());
+            } catch (IOException e) {
+                
+            } 
         }
         Debug.log("Server is stopped.");
     }
