@@ -59,7 +59,8 @@ public class OfficeServer implements Runnable {
     
     public void addThread(Socket socket) {
         Debug.log("Client Accepted: " + socket);
-        ClientThread client = new ClientThread(this, socket);
+        ClientThread client =
+                new ClientThread(this, socket, clients.size() + 1);
         clients.add(client);
         try {
             client.open();
@@ -79,5 +80,29 @@ public class OfficeServer implements Runnable {
             } 
         }
         Debug.log("Server is stopped.");
+    }
+    
+    public synchronized void handle(int ID, String input)
+    {
+        if (input.equals("exit"))
+        {
+            findClient(ID).send("exit");
+            remove(ID);
+        } else {
+            clients.forEach((client) -> {
+                client.send(ID + ": " + input);
+            });
+        }
+    }
+    
+    public ClientThread findClient(int ID) {
+        return clients.stream()
+                .filter(c -> c.getClientID() == ID)
+                .findFirst()
+                .get();
+    }
+    
+    public void remove(int clientID) {
+    
     }
 }
