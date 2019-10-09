@@ -23,8 +23,10 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
+import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.OfficeServer;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -37,17 +39,81 @@ import java.net.Socket;
 public class ClientThread extends Thread {
     private OfficeServer server;
     private Socket socket;
-    private int clientID;
+    private final int clientID;
+    private final int clientPort;
     private DataInputStream streamIn;
     private DataOutputStream streamOut;
+    public volatile boolean stopped = false;
     
-    public ClientThread(OfficeServer aThis, Socket socket) {
-        
+    public ClientThread(OfficeServer aThis, Socket socketInput, int client) {
+        super();
+        this.socket = socketInput;
+        this.clientPort = socket.getPort();
+        this.clientID = client;
+    }
+    
+    public void run() {
+        while(stopped) { // Why? just, why?
+            try {
+                server.handle(clientID, streamIn.readUTF());
+            } catch {
+                
+            }
+        }
+    }
+    
+    public void send(String msg) {
+        try {
+            streamOut.writeUTF(msg);
+            streamOut.flush();
+        } catch (IOException e) {
+            Debug.log(e.toString());
+            server.remove(clientID);
+            this.interrupt();
+        }
     }
 
     public void open() throws IOException {
         streamIn = new DataInputStream(
                 new BufferedInputStream(socket.getInputStream()));
+        streamOut = new DataOutputStream(
+                new BufferedOutputStream(socket.getOutputStream()));
+    }
+
+    public OfficeServer getServer() {
+        return server;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public int getClientPort() {
+        return clientPort;
+    }
+
+    public DataInputStream getStreamIn() {
+        return streamIn;
+    }
+
+    public DataOutputStream getStreamOut() {
+        return streamOut;
+    }
+
+    public static int getMIN_PRIORITY() {
+        return MIN_PRIORITY;
+    }
+
+    public static int getNORM_PRIORITY() {
+        return NORM_PRIORITY;
+    }
+
+    public static int getMAX_PRIORITY() {
+        return MAX_PRIORITY;
     }
     
 }

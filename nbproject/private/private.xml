@@ -4,19 +4,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Java/I.TTownTrafficMonitor/build.xml</file>
-            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/TrafficStation.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/VersionSelectorController.java</file>
+            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/Connection/ConnectionConfig.java</file>
+            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/ClientThread.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/MonitorOffice/ITTownMonitorOfficeController.java</file>
-            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/style/trafficstation.css</file>
+            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/MonitorOffice/OfficeServer.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/versionselector.css</file>
+            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/Debug.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/MonitorOffice/ITTownMonitorOffice.fxml</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/VersionSelector.fxml</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/build/built-jar.properties</file>
-            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/TrafficStation.fxml</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/MonitorOffice/ITTownTrafficMonitor.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/TrafficStationController.java</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/MonitorOffice/style/MonitorOffice.css</file>
             <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/sorting/SortingTools.java</file>
+            <file>file:/C:/Java/I.TTownTrafficMonitor/src/com/coppertine/tafe/java/ITTownTrafficManager/ClientStation/TrafficClient.java</file>
         </group>
     </open-files>
 </project-private>
