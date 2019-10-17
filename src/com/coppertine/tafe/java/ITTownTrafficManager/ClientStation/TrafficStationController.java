@@ -23,11 +23,14 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
+import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -46,6 +49,8 @@ public class TrafficStationController implements Initializable {
      * Window Position Y.
      */
     private double y = 0;
+    
+    private ConnectionConfig config;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -59,10 +64,9 @@ public class TrafficStationController implements Initializable {
      * The resources used to localize the root object, or <tt>null</tt> if
      * the root object was not localized.
      */
-
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-
+        config = new ConnectionConfig("localhost", 4444);
     }
 
     @FXML
@@ -104,6 +108,28 @@ public class TrafficStationController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         System.exit(0);
+    }
+    
+    /**
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public final void performAction(ActionEvent actionEvent) {
+        MenuItem target  = (MenuItem) actionEvent.getSource();
+        
+        if (target.getId().equals("settingsMenuItem")) {
+            editServer();
+        }
+    }
+    
+    /**
+     * 
+     * @param event 
+     */
+    @FXML    
+    private void editServer() {
+        config = new Settings().open(config);
     }
 
 }
