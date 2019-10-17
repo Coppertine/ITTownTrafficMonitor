@@ -51,6 +51,12 @@ public class ConnectionConfig {
         return hostURL;
     }
 
+    public ConnectionConfig(String hostURL, int hostPort) {
+        this.hostURL = hostURL;
+        this.hostPort = hostPort;
+    }
+
+    
     /**
      * Sets the host URL for the current connection.
      * @param URL String of the connection's host URL.
