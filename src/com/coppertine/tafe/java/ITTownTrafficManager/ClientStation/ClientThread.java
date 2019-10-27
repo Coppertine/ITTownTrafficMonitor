@@ -24,7 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
 import com.coppertine.tafe.java.Debug;
-import com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.OfficeServer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -37,7 +36,7 @@ import java.net.Socket;
  * @author Coppertine
  */
 public class ClientThread extends Thread {
-    private OfficeServer server;
+    private TrafficClient client;
     private Socket socket;
     private final int clientID;
     private final int clientPort;
@@ -45,19 +44,20 @@ public class ClientThread extends Thread {
     private DataOutputStream streamOut;
     public volatile boolean stopped = false;
     
-    public ClientThread(OfficeServer aThis, Socket socketInput, int client) {
+    public ClientThread(TrafficClient aThis, Socket socketInput, int client) {
         super();
         this.socket = socketInput;
         this.clientPort = socket.getPort();
         this.clientID = client;
     }
     
+    @Override
     public void run() {
-        while(stopped) { // Why? just, why?
+        while (stopped) { // Why? just, why?
             try {
-                server.handle(clientID, streamIn.readUTF());
-            } catch {
-                
+                client.handle(streamIn.readUTF());
+            } catch (Exception e) {
+                Debug.log(e.getMessage());
             }
         }
     }
@@ -68,11 +68,15 @@ public class ClientThread extends Thread {
             streamOut.flush();
         } catch (IOException e) {
             Debug.log(e.toString());
-            server.remove(clientID);
+            client.remove(clientID);
             this.interrupt();
         }
     }
 
+    /**
+     * Opens the thread with streams loaded.
+     * @throws IOException if DataInputStreams can not be created.
+     */
     public void open() throws IOException {
         streamIn = new DataInputStream(
                 new BufferedInputStream(socket.getInputStream()));
@@ -80,8 +84,8 @@ public class ClientThread extends Thread {
                 new BufferedOutputStream(socket.getOutputStream()));
     }
 
-    public OfficeServer getServer() {
-        return server;
+    public TrafficClient getClient() {
+        return client;
     }
 
     public Socket getSocket() {
