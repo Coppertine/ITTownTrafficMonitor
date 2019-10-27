@@ -7,12 +7,12 @@ package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
+import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
+import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.SocketException;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -34,8 +34,8 @@ import javafx.stage.Stage;
  * @author nick_
  */
 public class ITTownMonitorOfficeController implements Initializable {    
-    double x;
-    double y;
+    double windowX;
+    double windowY;
     
     /**
      * Interactable and changable Objects used into the FXML.
@@ -75,6 +75,8 @@ public class ITTownMonitorOfficeController implements Initializable {
     /** Server Options */
     @FXML
     private MenuItem mItemServerOptions;
+    
+    private ConnectionConfig serverConfig;
 
     /* Table */
     /** Table view. */
@@ -100,8 +102,8 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     final void dragWindow(final MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - windowX);
+        stage.setY(event.getScreenY() - windowY);
     }
 
     /**
@@ -111,8 +113,8 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     void press(MouseEvent event)
     {
-        x = event.getSceneX();
-        y = event.getSceneY();
+        windowX = event.getSceneX();
+        windowY = event.getSceneY();
     }
     
     @FXML
@@ -169,9 +171,9 @@ public class ITTownMonitorOfficeController implements Initializable {
     
     @FXML
     public void startServer() {
-        server = new OfficeServer();
-        Thread thread = new Thread(server, "thread");
-        thread.start();
+       server = new OfficeServer(serverConfig);
+       Thread thread = new Thread(server, "thread");
+       thread.start();
     }
     
     @FXML
@@ -276,7 +278,8 @@ public class ITTownMonitorOfficeController implements Initializable {
         return tblTrafficLocation;
     }
 
-    public void setTblTrafficLocation(TableColumn<Location, Traffic> tblTrafficLocation) {
+    public void setTblTrafficLocation(
+            TableColumn<Location, Traffic> tblTrafficLocation) {
         this.tblTrafficLocation = tblTrafficLocation;
     }
 
@@ -284,7 +287,8 @@ public class ITTownMonitorOfficeController implements Initializable {
         return tblTrafficAverageVeh;
     }
 
-    public void setTblTrafficAverageVeh(TableColumn<Integer, Traffic> tblTrafficAverageVeh) {
+    public void setTblTrafficAverageVeh(
+            TableColumn<Integer, Traffic> tblTrafficAverageVeh) {
         this.tblTrafficAverageVeh = tblTrafficAverageVeh;
     }
 
@@ -292,7 +296,8 @@ public class ITTownMonitorOfficeController implements Initializable {
         return tblTrafficAverageVel;
     }
 
-    public void setTblTrafficAverageVel(TableColumn<Integer, Traffic> tblTrafficAverageVel) {
+    public void setTblTrafficAverageVel(
+            TableColumn<Integer, Traffic> tblTrafficAverageVel) {
         this.tblTrafficAverageVel = tblTrafficAverageVel;
     }
 
@@ -300,7 +305,7 @@ public class ITTownMonitorOfficeController implements Initializable {
 //</editor-fold>
 
     /**
-     * Instantiates the Table Columns. 
+     * Instantiates the Table Columns.
      */
     private void setupTable() {
         tblTrafficLocation = new TableColumn<>("Location");
@@ -320,5 +325,17 @@ public class ITTownMonitorOfficeController implements Initializable {
         tblView.getItems().add(new Traffic());
     }
     
+    @FXML
+    public void performAction(ActionEvent actionEvent) {
+        MenuItem target  = (MenuItem) actionEvent.getSource();
+        
+        if (target.getId().equals("mItemServerOptions")) {
+            editServer();
+        }
+    }
     
+    private void editServer() {
+        serverConfig = new Settings().open(serverConfig);
+
+    }
 }
