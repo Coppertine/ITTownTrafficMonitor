@@ -55,6 +55,11 @@ public class ConnectionConfig {
         this.hostURL = hostURL;
         this.hostPort = hostPort;
     }
+    
+    public ConnectionConfig() {
+        this.hostURL = "localhost";
+        this.hostPort = 4444;
+    }
 
     
     /**

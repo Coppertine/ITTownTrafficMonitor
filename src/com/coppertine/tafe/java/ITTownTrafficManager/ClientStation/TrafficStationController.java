@@ -23,6 +23,8 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
+import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
+import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import java.awt.event.ActionEvent;
 import java.net.URL;
@@ -51,18 +53,10 @@ public class TrafficStationController implements Initializable {
     private double y = 0;
     
     private ConnectionConfig config;
+    private TrafficClient client;
 
     /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param url
-     * The location used to resolve relative paths for the root object, or
-     * <tt>null</tt> if the location is not known.
-     *
-     * @param rb
-     * The resources used to localize the root object, or <tt>null</tt> if
-     * the root object was not localized.
+     * {@inheritDoc }.
      */
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
@@ -71,13 +65,17 @@ public class TrafficStationController implements Initializable {
 
     @FXML
     public void startServer(final MouseEvent event) {
-        
+        Debug.log("Establishing connection.");
+        client = new TrafficClient();
+        client.run(config);
     }
     
     @FXML
     public void stopServer(final MouseEvent event) {
         
     }
+    
+    
     
 
     /**
@@ -115,7 +113,7 @@ public class TrafficStationController implements Initializable {
      * @param actionEvent
      */
     @FXML
-    public final void performAction(ActionEvent actionEvent) {
+    public void performAction(ActionEvent actionEvent) {
         MenuItem target  = (MenuItem) actionEvent.getSource();
         
         if (target.getId().equals("settingsMenuItem")) {
@@ -128,7 +126,7 @@ public class TrafficStationController implements Initializable {
      * @param event 
      */
     @FXML    
-    private void editServer() {
+    public void editServer() {
         config = new Settings().open(config);
     }
 
