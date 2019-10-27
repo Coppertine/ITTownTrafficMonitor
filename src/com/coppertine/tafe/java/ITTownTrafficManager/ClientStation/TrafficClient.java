@@ -23,7 +23,11 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
+import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -34,9 +38,42 @@ public class TrafficClient implements Runnable {
     private int clientID;
     private ConnectionConfig config;
 
+    public void run(final ConnectionConfig inputConfig) {
+        try {
+            config.setSocket(
+                    new Socket(config.getHostURL(), config.getHostPort()));
+        } catch (UnknownHostException uhe) {
+            Debug.log("Host unknown: " + uhe.getMessage());
+        } catch (IOException ioe) {
+            Debug.log("Unexpected exception: " + ioe.getMessage());
+        }
+
+    }
+
     @Override
-    public void run() {
+    public final void run() {
+        config = new ConnectionConfig();
+        run(config);
+    }
+
+    public void handle(String msg) {
+        if (msg.startsWith("id: ")) {
+            clientID = Integer.parseInt(msg.substring("id: ".length() + 1));
+        }
+        if (msg.startsWith("exit")) {
+            
+        }
+        if(msg.startsWith("status")) {
+            sendMessage("status ready");
+        }
+    }
+    
+    private void sendMessage(String msg) {
         
+    }
+
+    void remove(int clientID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
