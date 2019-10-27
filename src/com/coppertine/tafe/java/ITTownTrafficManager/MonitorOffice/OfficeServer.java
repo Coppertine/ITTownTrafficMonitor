@@ -24,10 +24,8 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
-import com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.ClientThread;
-import com.coppertine.tafe.java.ITTownTrafficManager
-            .ClientStation.TrafficClient;
-import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import com.coppertine.tafe.java.ITTownTrafficManager.
+        Connection.ConnectionConfig;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -42,25 +40,37 @@ public class OfficeServer implements Runnable {
      * Exited boolean to prevent thread exceptions when shutting down a server.
      */
     private volatile boolean exited = false;
-    private ArrayList<ClientThread> clients = new ArrayList<>();
+    private ArrayList<OfficeThread> clients = new ArrayList<>();
     private ConnectionConfig config;
     private ServerSocket server;
     
-    public OfficeServer() {
-        super();
+    /**
+     * 
+     * @param inputConfig 
+     */
+    public OfficeServer(ConnectionConfig inputConfig) {
+        try {
+            System.out.println("Starting server at: " + config.getHostPort());
+            this.config = inputConfig;
+            server = new ServerSocket(config.getHostPort());
+        } catch (IOException e) {
+            Debug.log(e.toString());
+            
+        }
     }
     
     /**
      * Attempts to stop the Office Server.
      */
     public final void stop() {
+        
         exited = true;
     }
     
     public void addThread(Socket socket) {
         Debug.log("Client Accepted: " + socket);
-        ClientThread client =
-                new ClientThread(this, socket, clients.size() + 1);
+        OfficeThread client =
+                new OfficeThread(this, socket, clients.size() + 1);
         clients.add(client);
         try {
             client.open();
@@ -70,6 +80,9 @@ public class OfficeServer implements Runnable {
         }
     }
 
+    /**
+     * {@inheritDoc }.
+     */
     @Override
     public void run() {
         while (!exited) {
@@ -95,7 +108,7 @@ public class OfficeServer implements Runnable {
         }
     }
     
-    public ClientThread findClient(int ID) {
+    public OfficeThread findClient(int ID) {
         return clients.stream()
                 .filter(c -> c.getClientID() == ID)
                 .findFirst()
