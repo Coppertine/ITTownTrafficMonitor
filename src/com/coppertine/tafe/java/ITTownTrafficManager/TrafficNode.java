@@ -39,11 +39,11 @@ public class TrafficNode {
      *
      * @param key
      */
-    public TrafficNode(Object key) {
+    public TrafficNode(final Object key) {
         if (key instanceof LocalDateTime) {
             this.time = (LocalDateTime) key;
-        }else if (key instanceof Integer) {
-            this.intKey = (Integer) key;        
+        } else if (key instanceof Integer) {
+            this.intKey = (Integer) key;
         }
     }
 }

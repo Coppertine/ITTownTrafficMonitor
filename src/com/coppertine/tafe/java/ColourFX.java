@@ -27,9 +27,22 @@ package com.coppertine.tafe.java;
  *
  * @author Coppertine
  */
-public class Debug {
-    
-    public static final void log(String msg) {
-        System.out.println(msg);
+public class ColourFX {
+    /**
+     * Gets the JavaFX color's brightness.
+     * @param c using JavaFX scene paint.
+     * @return double brightness value from 0-255
+     * @see javafx.scene.paint.Color
+     */
+    public static double getBrightness(final javafx.scene.paint.Color c) {
+        final double redDivision = 0.241;
+        final double greenDivision = 0.691;
+        final double blueDivision = 0.68;
+        final double rgbMax = 255;
+        return Math.sqrt(
+            c.getRed() * c.getRed() * redDivision
+            + c.getGreen() * c.getGreen() * greenDivision
+            + c.getBlue() * c.getBlue() * blueDivision
+        ) * rgbMax;
     }
 }
