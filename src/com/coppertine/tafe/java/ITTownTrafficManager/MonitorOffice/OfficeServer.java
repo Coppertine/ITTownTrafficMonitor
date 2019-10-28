@@ -42,7 +42,7 @@ public class OfficeServer implements Runnable {
     private volatile boolean exited = false;
     private ArrayList<OfficeThread> clients = new ArrayList<>();
     private ConnectionConfig config;
-    private ServerSocket server;
+    private ServerSocket server = null;
     
     /**
      * 
@@ -50,7 +50,7 @@ public class OfficeServer implements Runnable {
      */
     public OfficeServer(ConnectionConfig inputConfig) {
         try {
-            System.out.println("Starting server at: " + config.getHostPort());
+            System.out.println("Starting server at: " + inputConfig.getHostPort());
             this.config = inputConfig;
             server = new ServerSocket(config.getHostPort());
         } catch (IOException e) {
