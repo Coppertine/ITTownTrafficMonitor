@@ -159,8 +159,8 @@
                       </Menu>
                   <Menu mnemonicParsing="false" text="Server">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Start Server" />
-                        <MenuItem mnemonicParsing="false" text="Preferences" />
+                        <MenuItem fx:id="mItemServerToggle" mnemonicParsing="false" onAction="#performAction" text="Start Server" />
+                        <MenuItem fx:id="mItemServerOptions" mnemonicParsing="false" onAction="#performAction" text="Preferences" />
                      </items>
                   </Menu>
                       <Menu mnemonicParsing="false" text="Help">

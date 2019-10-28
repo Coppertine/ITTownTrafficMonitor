@@ -125,7 +125,7 @@ public class TrafficStationController implements Initializable {
      * 
      * @param event 
      */
-    @FXML    
+    @FXML
     public void editServer() {
         config = new Settings().open(config);
     }
