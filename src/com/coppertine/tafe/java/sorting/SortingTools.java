@@ -87,7 +87,7 @@ public class SortingTools {
     }
 
     /**
-     * 
+     * Uses the Insertion algorithm to sort an ArrayList of objects.
      * @param input
      * @return ArrayList of Objects from the sorted array.
      * Must be accessed using the {@link sortAlgorithm()} method.
@@ -104,7 +104,7 @@ public class SortingTools {
         });
         return sortedArray;
     }
-    
+
     /**
      * Grabs the partition integer from the ArrayList.
      * Must be accessed using the {@link sortAlgorithm()} method with
@@ -112,10 +112,10 @@ public class SortingTools {
      * @param input
      * @param lowValue
      * @param highValue
-     * @return 
+     * @return The partition index.
      */
     private int partitionArray(final ArrayList<Object> input,
-            final Object lowValue, final Object highValue) {
+           final Object lowValue, final Object highValue) {
         ArrayList<Object> sortedArray = input;
         Object pivot = highValue;
         int selectionLow = (int)lowValue - 1;
