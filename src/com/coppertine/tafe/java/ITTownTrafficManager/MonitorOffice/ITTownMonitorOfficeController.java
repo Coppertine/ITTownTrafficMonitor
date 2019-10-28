@@ -12,7 +12,7 @@ import com.coppertine.tafe.java.ITTownTrafficManager.Location;
 import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -33,7 +33,7 @@ import javafx.stage.Stage;
  *
  * @author nick_
  */
-public class ITTownMonitorOfficeController implements Initializable {    
+public class ITTownMonitorOfficeController implements Initializable {
     double windowX;
     double windowY;
     
@@ -57,7 +57,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     private Menu helpMenu;  /** Help Menu. */
 
     /** FontAwesomeIcons. */
-    /** Minimise Icon. */
+    /** minimize Icon. */
     @FXML
     private FontAwesomeIconView minimiseIcon;
     /** Resize Icon. */
@@ -75,6 +75,8 @@ public class ITTownMonitorOfficeController implements Initializable {
     /** Server Options */
     @FXML
     private MenuItem mItemServerOptions;
+    @FXML
+    private MenuItem mItemServerToggle;
     
     private ConnectionConfig serverConfig;
 
@@ -128,6 +130,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
+        serverConfig = new ConnectionConfig();
     }
     
     /**
@@ -143,17 +146,17 @@ public class ITTownMonitorOfficeController implements Initializable {
     public void displayBinaryTree(MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
         
-        tree.addNode(12);
-        tree.addNode(2);
-        tree.addNode(13);
-        tree.addNode(52);
-        tree.addNode(33);
-        tree.addNode(23);
-        tree.addNode(4);
-        tree.addNode(27);
-        tree.addNode(44);
-        tree.addNode(3);
-        tree.addNode(1);
+//        tree.addNode(12);
+//        tree.addNode(2);
+//        tree.addNode(13);
+//        tree.addNode(52);
+//        tree.addNode(33);
+//        tree.addNode(23);
+//        tree.addNode(4);
+//        tree.addNode(27);
+//        tree.addNode(44);
+//        tree.addNode(3);
+//        tree.addNode(1);
         
         tree.include(tree.getRootNode());
         tree.run();
@@ -324,7 +327,7 @@ public class ITTownMonitorOfficeController implements Initializable {
 
         tblView.getItems().add(new Traffic());
     }
-    
+
     @FXML
     public void performAction(ActionEvent actionEvent) {
         MenuItem target  = (MenuItem) actionEvent.getSource();
@@ -332,10 +335,26 @@ public class ITTownMonitorOfficeController implements Initializable {
         if (target.getId().equals("mItemServerOptions")) {
             editServer();
         }
+        if (target.getId().equals("mItemServerToggle")) {
+            System.out.println("Server Started");
+            toggleServer();
+        }
     }
-    
+
+    /**
+     * 
+     */
     private void editServer() {
         serverConfig = new Settings().open(serverConfig);
 
+    }
+    
+    private void toggleServer() {
+        if (server == null) {
+            startServer();
+        } else {
+            stopServer();
+            server = null;
+        }
     }
 }
