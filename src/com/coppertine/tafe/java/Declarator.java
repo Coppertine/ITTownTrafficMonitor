@@ -10,6 +10,7 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class Declarator {
+
     /**
      * Object for Declarator.
      */

@@ -24,11 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
 import com.coppertine.tafe.java.Debug;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -36,60 +31,34 @@ import java.net.Socket;
  * @author Coppertine
  */
 public class ClientThread extends Thread {
+
     private TrafficClient client;
-    private Socket socket;
+
     private final int clientID;
     private final int clientPort;
-    private DataInputStream streamIn;
-    private DataOutputStream streamOut;
+
     public volatile boolean stopped = false;
-    
+
     public ClientThread(TrafficClient aThis, Socket socketInput, int client) {
         super();
-        this.socket = socketInput;
-        this.clientPort = socket.getPort();
+
         this.clientID = client;
+        this.clientPort = 0;
     }
-    
+
     @Override
     public void run() {
-        while (stopped) { // Why? just, why?
+        while (!stopped) { // Why? just, why?
             try {
-                client.handle(streamIn.readUTF());
+                //client.handle(streamIn.readUTF());
             } catch (Exception e) {
                 Debug.log(e.getMessage());
             }
         }
     }
-    
-    public void send(String msg) {
-        try {
-            streamOut.writeUTF(msg);
-            streamOut.flush();
-        } catch (IOException e) {
-            Debug.log(e.toString());
-            client.remove(clientID);
-            this.interrupt();
-        }
-    }
-
-    /**
-     * Opens the thread with streams loaded.
-     * @throws IOException if DataInputStreams can not be created.
-     */
-    public void open() throws IOException {
-        streamIn = new DataInputStream(
-                new BufferedInputStream(socket.getInputStream()));
-        streamOut = new DataOutputStream(
-                new BufferedOutputStream(socket.getOutputStream()));
-    }
 
     public TrafficClient getClient() {
         return client;
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     public int getClientID() {
@@ -98,14 +67,6 @@ public class ClientThread extends Thread {
 
     public int getClientPort() {
         return clientPort;
-    }
-
-    public DataInputStream getStreamIn() {
-        return streamIn;
-    }
-
-    public DataOutputStream getStreamOut() {
-        return streamOut;
     }
 
     public static int getMIN_PRIORITY() {
@@ -119,5 +80,5 @@ public class ClientThread extends Thread {
     public static int getMAX_PRIORITY() {
         return MAX_PRIORITY;
     }
-    
+
 }

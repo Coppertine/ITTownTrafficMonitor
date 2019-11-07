@@ -28,8 +28,13 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class Debug {
-    
-    public static final void log(String msg) {
+
+    /**
+     * Logs information, currently as console.
+     *
+     * @param msg
+     */
+    private static final void log(String msg) {
         System.out.println(msg);
     }
 }

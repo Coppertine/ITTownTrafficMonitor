@@ -28,19 +28,21 @@ import javafx.stage.StageStyle;
 public class VersionSelectorController implements Initializable {
 
     /**
-     * 
+     *
      */
-    @FXML private Button btnOpenOffice;
-    
+    @FXML
+    private Button btnOpenOffice;
+
     /**
-     * 
+     *
      */
-    @FXML private Button btnOpenStation;
-    
-    
+    @FXML
+    private Button btnOpenStation;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
+     *
      * @param url
      * @param rb
      */
@@ -48,26 +50,25 @@ public class VersionSelectorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     @FXML
     public void openOffice() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(ITTownTrafficMonitor.class.getResource("ITTownMonitorOffice.fxml"));
-            
+
             Stage stage = new Stage();
             stage.setTitle("Traffic Station");
             stage.setScene(new Scene(fxmlLoader.load()));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
             // Hide this current window (if this is what you want)
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
         }
         Stage stage = (Stage) btnOpenOffice.getScene().getWindow();
         stage.close();
     }
-    
+
     /**
      * Opens the Client Station frame.
      */
@@ -78,17 +79,14 @@ public class VersionSelectorController implements Initializable {
             fxmlLoader.setLocation(TrafficStation.class.getResource("TrafficStation.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Traffic Station");
-            stage.setScene(new Scene(fxmlLoader.load(),450, 450));
+            stage.setScene(new Scene(fxmlLoader.load(), 450, 450));
             stage.show();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
         }
 
         Stage stage = (Stage) btnOpenStation.getScene().getWindow();
         stage.close();
-        
+
     }
-    
-    
-    
+
 }

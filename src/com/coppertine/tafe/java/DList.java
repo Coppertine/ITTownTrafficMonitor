@@ -25,13 +25,16 @@ package com.coppertine.tafe.java;
 
 /**
  * Doubly Linked List to store Nodes of Data.
+ *
  * @author Coppertine
  * @param <K>
  */
 public class DList<K> {
     // Using Generic Type K for Key and V for Value of Key
 
-    /** Head DLNode to store all data placed into list. **/
+    /**
+     * Head DLNode to store all data placed into list. *
+     */
     private DLNode head;
 
     /**
@@ -41,15 +44,15 @@ public class DList<K> {
     public DList(final K inputKey) {
         head = new DLNode(inputKey);
     }
-    
+
     public DLNode findNode(Object inputSearch) {
-       return null; 
+        return null;
     }
-    
+
     public DLNode find(int i) {
         return null;
     }
-    
+
     @Override
     public String toString() {
         return "";

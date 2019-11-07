@@ -27,17 +27,25 @@ import com.coppertine.tafe.java.ITTownTrafficManager.TrafficNode;
 
 /**
  * DLNode to be used for DList.
+ *
  * @author Coppertine
  * @see DList
  * @see TrafficNode
  */
 public class DLNode {
-    /** Previous DLNode in DList. **/
+
+    /**
+     * Previous DLNode in DList. *
+     */
     private DLNode prev;
-    /** Next DLNode in DList. **/
+    /**
+     * Next DLNode in DList. *
+     */
     private DLNode next;
 
-    /** Traffic Data for each DLNode in DList. **/
+    /**
+     * Traffic Data for each DLNode in DList. *
+     */
     private TrafficNode trafficData;
 
     public DLNode() {
@@ -50,22 +58,23 @@ public class DLNode {
         this.next = null;
         this.trafficData = new TrafficNode(value);
     }
-    
+
     /**
-     * Appends <code>DLNode</code> to
-     * either the next or previous <code>DLNode</code> of <code>DList</code>.
+     * Appends <code>DLNode</code> to either the next or previous
+     * <code>DLNode</code> of <code>DList</code>.
+     *
      * @param newNode
      */
     public void appendNode(DLNode newNode) {
-        
+
     }
-    
+
     public void insertNode(DLNode newNode) {
-        
+
     }
-    
+
     public void remove() {
-        
+
     }
 
     /**
@@ -115,6 +124,5 @@ public class DLNode {
     public void setTrafficData(TrafficNode trafficData) {
         this.trafficData = trafficData;
     }
-    
-    
+
 }

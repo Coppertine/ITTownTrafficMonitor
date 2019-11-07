@@ -28,20 +28,27 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class BTNode {
+
     /** <code>Object</code> of value.
+     *
      * @see Object
      */
     private Object values;
-    /** Binary Tree Node for the left side. */
+    /**
+     * Binary Tree Node for the left side.
+     */
     private BTNode left;
-    /** Binary Tree Node for the Right side. */
+    /**
+     * Binary Tree Node for the Right side.
+     */
     private BTNode right;
-    
+
     private int positionX;
     private int positionY;
 
     /**
      * Creates a Binary Tree Node.
+     *
      * @param inputData <code>Object</code> of data.
      * @param inputLeft Binary Tree Node of the left side.
      * @param inputRight Binary Tree Node of the right side.
@@ -52,7 +59,7 @@ public class BTNode {
         this.left = null;
         this.right = null;
     }
-    
+
     public BTNode(final Object inputData) {
         this.values = inputData;
         this.left = null;
@@ -62,6 +69,7 @@ public class BTNode {
 
     /**
      * Creates String value of Node's Value.
+     *
      * @param n <code>BTNode</code> of BinaryTree.
      * @see Object.toString()
      */
@@ -132,6 +140,5 @@ public class BTNode {
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }
-
 
 }

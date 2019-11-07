@@ -30,6 +30,7 @@ import java.net.Socket;
  * @author Coppertine
  */
 public class ConnectionConfig {
+
     /**
      * Connection host URL.
      */
@@ -41,10 +42,11 @@ public class ConnectionConfig {
     /**
      * Connection Socket.
      */
-    private Socket socket;
+    private Socket socket = new Socket();
 
     /**
      * Returns the host URL for the current connection.
+     *
      * @return Host URL without port numbers.
      */
     public final String getHostURL() {
@@ -55,15 +57,15 @@ public class ConnectionConfig {
         this.hostURL = hostURL;
         this.hostPort = hostPort;
     }
-    
+
     public ConnectionConfig() {
         this.hostURL = "localhost";
         this.hostPort = 4444;
     }
 
-    
     /**
      * Sets the host URL for the current connection.
+     *
      * @param URL String of the connection's host URL.
      */
     public final void setHostURL(final String URL) {
@@ -85,5 +87,5 @@ public class ConnectionConfig {
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-    
+
 }

@@ -5,7 +5,6 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
-
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
@@ -34,54 +33,87 @@ import javafx.stage.Stage;
  * @author nick_
  */
 public class ITTownMonitorOfficeController implements Initializable {
+
     double windowX;
     double windowY;
-    
+
     /**
      * Interactable and changable Objects used into the FXML.
      */
-
-    /** Linked List Text Area. */
+    /**
+     * Linked List Text Area.
+     */
     @FXML
-    private TextArea txtLinkedList; // Linked List Text Area
+    private TextArea txtLinkedList;
 
-    /** Window Menubar. */
+    /**
+     * Window Menubar.
+     */
     @FXML
     private MenuBar windowMenuBar;
-    /** Menu objects. */
+    /**
+     * Menu objects.
+     */
+    /**
+     * File Menu.
+     */
     @FXML
-    private Menu fileMenu;  /** File Menu. */
-    @FXML
-    private Menu editMenu;  /** Edit Menu. */
-    @FXML
-    private Menu helpMenu;  /** Help Menu. */
+    private Menu fileMenu;
 
-    /** FontAwesomeIcons. */
-    /** minimize Icon. */
+    /**
+     * Edit Menu.
+     */
+    @FXML
+    private Menu editMenu;
+
+    /**
+     * Help Menu.
+     */
+    @FXML
+    private Menu helpMenu;
+
+    /**
+     * FontAwesomeIcons.
+     */
+    /**
+     * minimize Icon.
+     */
     @FXML
     private FontAwesomeIconView minimiseIcon;
-    /** Resize Icon. */
+    /**
+     * Resize Icon.
+     */
     @FXML
     private FontAwesomeIconView resizeIcon;
-    /** Close Icon */
+    /**
+     * Close Icon
+     */
     @FXML
     private FontAwesomeIconView closeIcon;
 
-    /** Server Buttons. */
-    /** Start Server. */
+    /**
+     * Server Buttons.
+     */
+    /**
+     * Start Server.
+     */
     @FXML
     private MenuItem mItemStartServer;
 
-    /** Server Options */
+    /**
+     * Server Options
+     */
     @FXML
     private MenuItem mItemServerOptions;
     @FXML
     private MenuItem mItemServerToggle;
-    
+
     private ConnectionConfig serverConfig;
 
     /* Table */
-    /** Table view. */
+    /**
+     * Table view.
+     */
     @FXML
     private TableView tblView;
     @FXML
@@ -94,11 +126,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     private TableColumn<Integer, Traffic> tblTrafficAverageVeh;
     @FXML
     private TableColumn<Integer, Traffic> tblTrafficAverageVel;
-    
+
     private OfficeServer server;
-    
+
     /**
      * Drags window on mouse held.
+     *
      * @param event MouseEvent.
      */
     @FXML
@@ -113,39 +146,38 @@ public class ITTownMonitorOfficeController implements Initializable {
      * @param event
      */
     @FXML
-    void press(MouseEvent event)
-    {
+    void press(MouseEvent event) {
         windowX = event.getSceneX();
         windowY = event.getSceneY();
     }
-    
+
     @FXML
-    void programClose(MouseEvent event)
-    {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    void programClose(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         System.exit(0);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
         serverConfig = new ConnectionConfig();
     }
-    
+
     /**
      * Sorts the Table by location using the Bubble sort Method.
+     *
      * @param event
      */
     @FXML
     public void sortByLocation(MouseEvent event) {
         //new SortingTools().sortAlgorithm(SortingType.BubbleSort, );
     }
-    
+
     @FXML
     public void displayBinaryTree(MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
-        
+
 //        tree.addNode(12);
 //        tree.addNode(2);
 //        tree.addNode(13);
@@ -157,28 +189,27 @@ public class ITTownMonitorOfficeController implements Initializable {
 //        tree.addNode(44);
 //        tree.addNode(3);
 //        tree.addNode(1);
-        
         tree.include(tree.getRootNode());
         tree.run();
     }
-    
+
     @FXML
     public void sortByVehicle(MouseEvent event) {
-        
+
     }
-    
+
     @FXML
     public void sortByVelocity(MouseEvent event) {
-        
+
     }
-    
+
     @FXML
     public void startServer() {
-       server = new OfficeServer(serverConfig);
-       Thread thread = new Thread(server, "thread");
-       thread.start();
+        server = new OfficeServer(serverConfig);
+        Thread thread = new Thread(server, "thread");
+        thread.start();
     }
-    
+
     @FXML
     public void stopServer() {
         server.stop();
@@ -304,9 +335,7 @@ public class ITTownMonitorOfficeController implements Initializable {
         this.tblTrafficAverageVel = tblTrafficAverageVel;
     }
 
-    
 //</editor-fold>
-
     /**
      * Instantiates the Table Columns.
      */
@@ -330,8 +359,8 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     @FXML
     public void performAction(ActionEvent actionEvent) {
-        MenuItem target  = (MenuItem) actionEvent.getSource();
-        
+        MenuItem target = (MenuItem) actionEvent.getSource();
+
         if (target.getId().equals("mItemServerOptions")) {
             editServer();
         }
@@ -342,13 +371,13 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     * 
+     *
      */
     private void editServer() {
         serverConfig = new Settings().open(serverConfig);
 
     }
-    
+
     private void toggleServer() {
         if (server == null) {
             startServer();

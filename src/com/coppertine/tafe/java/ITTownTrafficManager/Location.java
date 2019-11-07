@@ -27,8 +27,8 @@ package com.coppertine.tafe.java.ITTownTrafficManager;
  *
  * @author nick_
  */
-public class Location
-{
+public class Location {
+
     private int stationNum;
     private String name;
 
@@ -37,7 +37,10 @@ public class Location
         this.name = name;
     }
 
-    
+    /**
+     *
+     * @return
+     */
     public int getStationNum() {
         return stationNum;
     }
@@ -53,6 +56,5 @@ public class Location
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }

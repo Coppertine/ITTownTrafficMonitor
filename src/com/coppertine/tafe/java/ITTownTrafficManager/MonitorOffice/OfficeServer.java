@@ -24,8 +24,7 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
-import com.coppertine.tafe.java.ITTownTrafficManager.
-        Connection.ConnectionConfig;
+import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -36,6 +35,7 @@ import java.util.ArrayList;
  * @author Coppertine
  */
 public class OfficeServer implements Runnable {
+
     /**
      * Exited boolean to prevent thread exceptions when shutting down a server.
      */
@@ -43,10 +43,10 @@ public class OfficeServer implements Runnable {
     private ArrayList<OfficeThread> clients = new ArrayList<>();
     private ConnectionConfig config;
     private ServerSocket server = null;
-    
+
     /**
-     * 
-     * @param inputConfig 
+     *
+     * @param inputConfig
      */
     public OfficeServer(ConnectionConfig inputConfig) {
         try {
@@ -55,22 +55,22 @@ public class OfficeServer implements Runnable {
             server = new ServerSocket(config.getHostPort());
         } catch (IOException e) {
             Debug.log(e.toString());
-            
+
         }
     }
-    
+
     /**
      * Attempts to stop the Office Server.
      */
     public final void stop() {
-        
+
         exited = true;
     }
-    
+
     public void addThread(Socket socket) {
         Debug.log("Client Accepted: " + socket);
-        OfficeThread client =
-                new OfficeThread(this, socket, clients.size() + 1);
+        OfficeThread client
+                = new OfficeThread(this, socket, clients.size() + 1);
         clients.add(client);
         try {
             client.open();
@@ -89,16 +89,14 @@ public class OfficeServer implements Runnable {
             try {
                 addThread(server.accept());
             } catch (IOException e) {
-                
-            } 
+
+            }
         }
         Debug.log("Server is stopped.");
     }
-    
-    public synchronized void handle(int ID, String input)
-    {
-        if (input.equals("exit"))
-        {
+
+    public synchronized void handle(int ID, String input) {
+        if (input.equals("exit")) {
             findClient(ID).send("exit");
             remove(ID);
         } else {
@@ -107,15 +105,15 @@ public class OfficeServer implements Runnable {
             });
         }
     }
-    
+
     public OfficeThread findClient(int ID) {
         return clients.stream()
                 .filter(c -> c.getClientID() == ID)
                 .findFirst()
                 .get();
     }
-    
+
     public void remove(int clientID) {
-    
+
     }
 }

@@ -44,6 +44,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
+
 /**
  *
  * @author Coppertine
@@ -53,18 +54,18 @@ public class Settings {
     /**
      *
      */
-     /**
+    /**
      *
      * @param parent
      * @param inputConfig input configuration.
      * @return <code>Config</code> from settings screen.
      */
-    public final ConnectionConfig open( final ConnectionConfig inputConfig) {
+    public final ConnectionConfig open(final ConnectionConfig inputConfig) {
         // Set up pannel //
 
         final int PORT_MAX = 65535;
         final int PORT_MIN = 1;
-        
+
         // Create Dialog
         Dialog<Pair<String, String>> dialog;
         dialog = new Dialog<>();
@@ -81,14 +82,12 @@ public class Settings {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setPadding(new Insets(20, 150, 10, 10));
-        
-        
+
         TextField address = new TextField();
         address.setPromptText("Address");
-        
 
         TextField portNumber = new TextField();
-        
+
         //Checks if there is a pattern which includes commas
         Pattern pattern = Pattern.compile("\\d*|\\d+\\,\\d*");
         TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
@@ -97,8 +96,7 @@ public class Settings {
 
         portNumber.setTextFormatter(formatter);
         portNumber.setPromptText("Port Number");
-        
-        
+
         portNumber.textProperty().addListener(new ChangeListener<String>() {
             /**
              * {@inheritDoc }
@@ -132,7 +130,7 @@ public class Settings {
             }
             return null;
         });
-        
+
         Optional<Pair<String, String>> result = dialog.showAndWait();
         ConnectionConfig config = inputConfig;
         if (result.isPresent()) {
@@ -142,7 +140,8 @@ public class Settings {
                             result.get().getValue()));
         }
         return config;
-    }    
+    }
+
     /**
      *
      * @param panel <code>JPanel</code> to place the spinner object to.

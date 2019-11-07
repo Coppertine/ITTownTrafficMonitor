@@ -28,8 +28,10 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class ColourFX {
+
     /**
      * Gets the JavaFX color's brightness.
+     *
      * @param c using JavaFX scene paint.
      * @return double brightness value from 0-255
      * @see javafx.scene.paint.Color
@@ -40,9 +42,9 @@ public class ColourFX {
         final double blueDivision = 0.68;
         final double rgbMax = 255;
         return Math.sqrt(
-            c.getRed() * c.getRed() * redDivision
-            + c.getGreen() * c.getGreen() * greenDivision
-            + c.getBlue() * c.getBlue() * blueDivision
+                c.getRed() * c.getRed() * redDivision
+                + c.getGreen() * c.getGreen() * greenDivision
+                + c.getBlue() * c.getBlue() * blueDivision
         ) * rgbMax;
     }
 }

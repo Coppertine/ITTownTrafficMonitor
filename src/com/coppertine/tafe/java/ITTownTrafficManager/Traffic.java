@@ -23,8 +23,9 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
+import com.coppertine.tafe.java.FileIO;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -32,18 +33,56 @@ import java.time.LocalDateTime;
  */
 public class Traffic {
 
-    /** **/
+    /**
+     * *
+     */
     private LocalDateTime time;
-    /** **/
+    /**
+     * *
+     */
     private Location location;
-    /** **/
+    /**
+     * *
+     */
     private int numLanes;
-    /** **/
+    /**
+     * *
+     */
     private int totalVehicle;
-    /** **/
+    /**
+     * *
+     */
     private int averagePerLane;
-    /** **/
+    /**
+     * *
+     */
     private int averageVelocity;
+
+    /**
+     * Default value of lanes per report.
+     */
+    private static final int DEFAULT_LANES = 5;
+
+    /**
+     * Default value of total vehicles.
+     */
+    private static final int DEFAULT_VEHICLE = 100;
+
+    /**
+     * Default value of average vehicles per lane.
+     */
+    private static final int DEFAULT_VEHICLE_PER_LANE = 20;
+
+    /**
+     * Default value of average vehicle velocity.
+     */
+    private static final int DEFAULT_VEHICLE_VELOCITY = 10;
+
+    private static final int TIME_STRING_INDEX = 1;
+    private static final int LOCATION_STRING_INDEX = 2;
+    private static final int LANES_STRING_INDEX = 3;
+    private static final int TOTAL_VEHICLE_STRING_INDEX = 4;
+    private static final int AVERAGE_LANE_STRING_INDEX = 5;
 
     /**
      *
@@ -54,7 +93,9 @@ public class Traffic {
      * @param averagePerLane
      * @param averageVelocity
      */
-    public Traffic(LocalDateTime time, Location location, int numLanes, int totalVehicle, int averagePerLane, int averageVelocity) {
+    public Traffic(LocalDateTime time, Location location,
+            int numLanes, int totalVehicle, int averagePerLane,
+            int averageVelocity) {
         this.time = time;
         this.location = location;
         this.numLanes = numLanes;
@@ -63,19 +104,27 @@ public class Traffic {
         this.averageVelocity = averageVelocity;
     }
 
+    /**
+     *
+     */
     public Traffic() {
         this.time = LocalDateTime.now();
-        this.location = new Location(1,"");
-        this.numLanes = 5;
-        this.totalVehicle = 100;
-        this.averageVelocity = 20;
-        this.averagePerLane = 10;
+        this.location = new Location(1, "");
+        this.numLanes = DEFAULT_LANES;
+        this.totalVehicle = DEFAULT_VEHICLE;
+        this.averageVelocity = DEFAULT_VEHICLE_PER_LANE;
+        this.averagePerLane = DEFAULT_VEHICLE_VELOCITY;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getTime() {
         return time;
     }
 
+    
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
@@ -120,7 +169,55 @@ public class Traffic {
         this.averageVelocity = averageVelocity;
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String toString() {
+        return FileIO.formatCSV(new String[]{
+            time.toString(),
+            location.toString(),
+            String.valueOf(numLanes),
+            String.valueOf(totalVehicle),
+            String.valueOf(averagePerLane),
+            String.valueOf(averageVelocity)
+        });
+    }
 
+    /**
+     *
+     * @param lineInput
+     * @return
+     */
+    public Traffic parseTrafficLine(String lineInput) {
+        String[] line = lineInput.split(",");
+        Traffic temp = new Traffic();
 
-    
+        temp.setTime(LocalDateTime.parse(line[TIME_STRING_INDEX]));
+        temp.setLocation(
+                new Location(Integer.parseInt(line[LOCATION_STRING_INDEX]), "")
+        );
+        temp.setNumLanes(Integer.parseInt(line[LANES_STRING_INDEX]));
+        temp.setTotalVehicle(
+                Integer.parseInt(line[TOTAL_VEHICLE_STRING_INDEX])
+        );
+        temp.setAverageVelocity(
+                Integer.parseInt(line[AVERAGE_LANE_STRING_INDEX])
+        );
+        return temp;
+    }
+
+    /**
+     *
+     * @param lineInput
+     * @return
+     */
+    public ArrayList<Traffic> parseTrafficLines(ArrayList<String> lineInput) {
+        ArrayList<Traffic> temp = new ArrayList<>();
+
+        lineInput.forEach((line) -> {
+            temp.add(parseTrafficLine(line));
+        });
+        return temp;
+    }
 }

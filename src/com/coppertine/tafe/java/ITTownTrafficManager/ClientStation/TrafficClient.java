@@ -25,6 +25,10 @@ package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
 import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -34,12 +38,16 @@ import java.net.UnknownHostException;
  * @author Coppertine
  */
 public class TrafficClient implements Runnable {
-    
+
     private int clientID;
-    private ConnectionConfig config;
+    private ConnectionConfig config = new ConnectionConfig();
+    private DataInputStream streamIn;
+    private DataOutputStream streamOut;
+    private Socket socket;
 
     public void run(final ConnectionConfig inputConfig) {
         try {
+            config = inputConfig;
             config.setSocket(
                     new Socket(config.getHostURL(), config.getHostPort()));
         } catch (UnknownHostException uhe) {
@@ -61,19 +69,35 @@ public class TrafficClient implements Runnable {
             clientID = Integer.parseInt(msg.substring("id: ".length() + 1));
         }
         if (msg.startsWith("exit")) {
-            
+
         }
-        if(msg.startsWith("status")) {
-            sendMessage("status ready");
+        if (msg.startsWith("status")) {
+            send("status ready");
         }
     }
-    
-    private void sendMessage(String msg) {
-        
+
+    public void send(String msg) {
+        try {
+            streamOut.writeUTF(msg);
+            streamOut.flush();
+        } catch (IOException e) {
+            Debug.log(e.toString());
+        }
+    }
+
+    /**
+     * Opens the thread with streams loaded.
+     *
+     * @throws IOException if DataInputStreams can not be created.
+     */
+    public void open() throws IOException {
+        streamIn = new DataInputStream(
+                new BufferedInputStream(socket.getInputStream()));
+        streamOut = new DataOutputStream(
+                new BufferedOutputStream(socket.getOutputStream()));
     }
 
     void remove(int clientID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

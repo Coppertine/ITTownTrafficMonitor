@@ -28,7 +28,10 @@ package com.coppertine.tafe.java;
  * @author Coppertine
  */
 public class BinaryTree {
-    /** Root {@link BTNode} of the binary tree. */
+
+    /**
+     * Root {@link BTNode} of the binary tree.
+     */
     private BTNode rootNode;
     private BTNode tempNode;
     private static int nodeAmmount = 0;
@@ -37,7 +40,6 @@ public class BinaryTree {
     private static final int ROOT_POSITION_Y = 10;
     private static final int NODE_OFFSET_Y = 80;
     private static final int WIDTH_EXPAND_5 = 5;
-    
 
     public BinaryTree(BTNode rootNode) {
         this.rootNode = rootNode;
@@ -46,18 +48,20 @@ public class BinaryTree {
     public BinaryTree() {
         this.rootNode = null;
     }
+
     /**
-     * Inserts the {@link BTNode} into the tree strcture. 
-     * @param data 
+     * Inserts the {@link BTNode} into the tree strcture.
+     *
+     * @param data
      */
     public void addNode(Integer data) {
         BTNode node = new BTNode(data);
-        
+
         if (rootNode == null) {
             this.rootNode = node;
             this.rootNode.setPositionX(ROOT_POSITION_X);
             this.rootNode.setPositionY(ROOT_POSITION_Y);
-            nodeAmmount++;            
+            nodeAmmount++;
         } else {
             boolean continueLoop = true;
             tempNode = rootNode;
@@ -79,9 +83,9 @@ public class BinaryTree {
                     if (tempNode.getRight() == null) {
                         tempNode.setRight(node);
                         tempNode.getRight().setPositionX(
-                            tempNode.getPositionX() + treeWidth);
+                                tempNode.getPositionX() + treeWidth);
                         tempNode.getRight().setPositionY(
-                            tempNode.getPositionY() + NODE_OFFSET_Y);
+                                tempNode.getPositionY() + NODE_OFFSET_Y);
                         nodeAmmount++;
                         treeWidth -= WIDTH_EXPAND_5;
                         continueLoop = false;

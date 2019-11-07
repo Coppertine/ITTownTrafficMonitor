@@ -41,6 +41,7 @@ import java.net.Socket;
  * @author Coppertine
  */
 public class OfficeThread extends Thread {
+
     private OfficeServer client;
     private Socket socket;
     private int clientID;
@@ -48,14 +49,14 @@ public class OfficeThread extends Thread {
     private DataInputStream streamIn;
     private DataOutputStream streamOut;
     public volatile boolean stopped = false;
-    
+
     public OfficeThread(OfficeServer aThis, Socket socketInput, int client) {
         super();
         this.socket = socketInput;
         this.clientPort = socket.getPort();
         this.clientID = client;
     }
-    
+
     public void run() {
         while (stopped) { // Why? just, why?
             try {
@@ -65,7 +66,7 @@ public class OfficeThread extends Thread {
             }
         }
     }
-    
+
     public void send(String msg) {
         try {
             streamOut.writeUTF(msg);
@@ -79,6 +80,7 @@ public class OfficeThread extends Thread {
 
     /**
      * Opens the thread with streams loaded.
+     *
      * @throws IOException if DataInputStreams can not be created.
      */
     public void open() throws IOException {
@@ -123,5 +125,5 @@ public class OfficeThread extends Thread {
     public static int getMAX_PRIORITY() {
         return MAX_PRIORITY;
     }
-    
+
 }

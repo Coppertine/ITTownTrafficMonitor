@@ -30,9 +30,14 @@ import java.time.LocalDateTime;
  * @author Coppertine
  */
 public class TrafficNode {
-    /** */
+
+    /**
+     *
+     */
     private LocalDateTime time;
-    /** */
+    /**
+     *
+     */
     private int intKey;
 
     /**
