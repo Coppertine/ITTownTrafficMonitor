@@ -34,7 +34,7 @@ public class Debug {
      *
      * @param msg
      */
-    private static final void log(String msg) {
+    public static final void log(String msg) {
         System.out.println(msg);
     }
 }

@@ -5,16 +5,22 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
+import com.coppertine.tafe.java.FileIO;
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
 import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.awt.Dialog;
+import java.awt.FileDialog;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -65,6 +71,18 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     private Menu editMenu;
+
+    /**
+     * Import Menu.
+     */
+    @FXML
+    private Menu importMenu;
+
+    /**
+     * Export Menu.
+     */
+    @FXML
+    private Menu exportMenu;
 
     /**
      * Help Menu.
@@ -354,7 +372,6 @@ public class ITTownMonitorOfficeController implements Initializable {
         tblTrafficAverageVel.setCellValueFactory(
                 new PropertyValueFactory<>("averageVelocity"));
 
-        tblView.getItems().add(new Traffic());
     }
 
     @FXML
@@ -368,6 +385,12 @@ public class ITTownMonitorOfficeController implements Initializable {
             System.out.println("Server Started");
             toggleServer();
         }
+        if (target.getId().equals("importMenu")) {
+            importTraffic();
+        }
+        if (target.getId().equals("exportMenu")) {
+            exportTraffic();
+        }
     }
 
     /**
@@ -378,12 +401,49 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     }
 
+    /**
+     * Toggles the Server on or off depending if the server exists.
+     */
     private void toggleServer() {
         if (server == null) {
             startServer();
         } else {
             stopServer();
             server = null;
+        }
+    }
+
+    private void importTraffic() {
+        String filePath = openFileDialog();
+
+        try {
+            for (Traffic traffic
+                    : new Traffic()
+                            .parseTrafficLines(FileIO.readFile(filePath))) {
+                tblView.getItems().add(traffic);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ITTownMonitorOfficeController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void exportTraffic() {
+        
+    }
+
+    private String openFileDialog() {
+        FileDialog fc;
+        fc = new FileDialog((Dialog) null, "Open CSV File", FileDialog.LOAD);
+        fc.setDirectory("C:\\");
+        fc.setVisible(true);
+
+        String file = fc.getDirectory() + fc.getFile();
+
+        if (!file.isEmpty() && file.endsWith(".csv")) {
+            return file;
+        } else {
+            return "";
         }
     }
 }
