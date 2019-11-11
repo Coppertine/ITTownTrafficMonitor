@@ -371,6 +371,7 @@ public class ITTownMonitorOfficeController implements Initializable {
                 new PropertyValueFactory<>("averagePerLane"));
         tblTrafficAverageVel.setCellValueFactory(
                 new PropertyValueFactory<>("averageVelocity"));
+        tblView.getItems().add(new Traffic());
 
     }
 
@@ -388,9 +389,9 @@ public class ITTownMonitorOfficeController implements Initializable {
         if (target.getId().equals("importMenu")) {
             importTraffic();
         }
-        if (target.getId().equals("exportMenu")) {
-            exportTraffic();
-        }
+//        if (target.getId().equals("exportMenu")) {
+//            exportTraffic();
+//        }
     }
 
     /**
@@ -415,7 +416,7 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     private void importTraffic() {
         String filePath = openFileDialog();
-
+        tblView.getItems().clear();
         try {
             for (Traffic traffic
                     : new Traffic()
