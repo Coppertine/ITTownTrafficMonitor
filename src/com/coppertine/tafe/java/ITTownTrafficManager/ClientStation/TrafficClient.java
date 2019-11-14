@@ -100,4 +100,12 @@ public class TrafficClient implements Runnable {
     void remove(int clientID) {
     }
 
+    public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
 }
