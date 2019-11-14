@@ -26,8 +26,11 @@ package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import com.coppertine.tafe.java.ITTownTrafficManager.Location;
+import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -154,7 +157,7 @@ public class TrafficStationController implements Initializable {
             toggleServer();
         }
         if (target.getId().equals("sendTrafficInformationBtn")) {
-            sendInformation();
+           // sendInformation();
         }
     }
 
@@ -174,8 +177,23 @@ public class TrafficStationController implements Initializable {
         }
     }
 
-    private void sendInformation() {
-
-    }
+    /**
+     * 
+     */
+//    private void sendInformation() {
+//        Traffic sendTraffic = new Traffic(
+//                LocalDateTime.parse(txtTime.getText()),
+//                new Location(
+//                        client.getClientID(),
+//                        String.valueOf(client.getClientID())),
+//                Integer.parseInt(txtLanes.getText()),
+//                Integer.parseInt(txtVehicles.getText()),
+//                Integer.parseInt(txtAverageVeh.getText()),
+//                Integer.parseInt(txtAverageVel.getText())
+//        );
+//        
+//        String traficString = sendTraffic.toString();
+//        client.send("Traffic: " + traficString);
+//    }
 
 }
