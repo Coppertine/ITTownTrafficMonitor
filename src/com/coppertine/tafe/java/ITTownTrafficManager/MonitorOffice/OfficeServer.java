@@ -100,6 +100,7 @@ public class OfficeServer implements Runnable {
             findClient(ID).send("exit");
             remove(ID);
         } else {
+            System.out.println(ID + ": " + input);
             clients.forEach((client) -> {
                 client.send(ID + ": " + input);
             });
