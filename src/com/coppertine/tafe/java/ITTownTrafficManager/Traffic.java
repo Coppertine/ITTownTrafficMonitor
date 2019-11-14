@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 nick_.
+ * Copyright 2019 Coppertine.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,17 @@ package com.coppertine.tafe.java.ITTownTrafficManager;
 
 import com.coppertine.tafe.java.FileIO;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 /**
  *
@@ -33,30 +43,160 @@ import java.util.ArrayList;
  */
 public class Traffic {
 
+    private final ObjectProperty<LocalDateTime> time = new SimpleObjectProperty<>();
+
     /**
-     * *
+     *
+     * @return
      */
-    private LocalDateTime time;
+    public String getTime() {
+        return time.get().format(DateTimeFormatter.ISO_LOCAL_TIME);
+    }
+
     /**
-     * *
+     *
+     * @param value
      */
-    private Location location;
+    public void setTime(LocalDateTime value) {
+        time.set(value);
+    }
+
     /**
-     * *
+     *
+     * @return
      */
-    private int numLanes;
+    public ObjectProperty timeProperty() {
+        return time;
+    }
+    private ObjectProperty<Location> location = new SimpleObjectProperty<>();
+
     /**
-     * *
+     *
+     * @return
      */
-    private int totalVehicle;
+    public String getLocation() {
+        return location.get().getName();
+    }
+
     /**
-     * *
+     *
+     * @param value
      */
-    private int averagePerLane;
+    public void setLocation(Location value) {
+        location.set(value);
+    }
+
     /**
-     * *
+     *
+     * @return
      */
-    private int averageVelocity;
+    public ObjectProperty locationProperty() {
+        return location;
+    }
+    private final IntegerProperty numLanes = new SimpleIntegerProperty();
+
+    /**
+     *
+     * @return
+     */
+    public int getNumLanes() {
+        return numLanes.get();
+    }
+
+    /**
+     *
+     * @param value
+     */
+    public void setNumLanes(int value) {
+        numLanes.set(value);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IntegerProperty numLanesProperty() {
+        return numLanes;
+    }
+    private final IntegerProperty totalVehicle = new SimpleIntegerProperty();
+
+    /**
+     *
+     * @return
+     */
+    public int getTotalVehicle() {
+        return totalVehicle.get();
+    }
+
+    /**
+     *
+     * @param value
+     */
+    public void setTotalVehicle(int value) {
+        totalVehicle.set(value);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IntegerProperty totalVehicleProperty() {
+        return totalVehicle;
+    }
+    private final IntegerProperty averagePerLane = new SimpleIntegerProperty();
+
+    /**
+     *
+     * @return
+     */
+    public int getAveragePerLane() {
+        return averagePerLane.get();
+    }
+
+    /**
+     *
+     * @param value
+     */
+    public void setAveragePerLane(int value) {
+        averagePerLane.set(value);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IntegerProperty averagePerLaneProperty() {
+        return averagePerLane;
+    }
+
+    /**
+     *
+     */
+    private final IntegerProperty averageVelocity = new SimpleIntegerProperty();
+
+    /**
+     *
+     * @return
+     */
+    public Integer getAverageVelocity() {
+        return averageVelocity.get();
+    }
+
+    /**
+     *
+     * @param value
+     */
+    public void setAverageVelocity(Integer value) {
+        averageVelocity.set(value);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IntegerProperty averageVelocityProperty() {
+        return averageVelocity;
+    }
 
     /**
      * Default value of lanes per report.
@@ -79,7 +219,13 @@ public class Traffic {
     private static final int DEFAULT_VEHICLE_VELOCITY = 10;
 
     private static final int TIME_STRING_INDEX = 1;
+    /**
+     *
+     */
     private static final int LOCATION_STRING_INDEX = 2;
+    /**
+     *
+     */
     private static final int LANES_STRING_INDEX = 3;
     private static final int TOTAL_VEHICLE_STRING_INDEX = 4;
     private static final int AVERAGE_LANE_STRING_INDEX = 5;
@@ -96,90 +242,40 @@ public class Traffic {
     public Traffic(LocalDateTime time, Location location,
             int numLanes, int totalVehicle, int averagePerLane,
             int averageVelocity) {
-        this.time = time;
-        this.location = location;
-        this.numLanes = numLanes;
-        this.totalVehicle = totalVehicle;
-        this.averagePerLane = averagePerLane;
-        this.averageVelocity = averageVelocity;
+        setTime(time);
+        setLocation(location);
+        setNumLanes(numLanes);
+        setTotalVehicle(totalVehicle);
+        setAveragePerLane(averagePerLane);
+        setAverageVelocity(averageVelocity);
     }
 
     /**
      *
      */
     public Traffic() {
-        this.time = LocalDateTime.now();
-        this.location = new Location(1, "");
-        this.numLanes = DEFAULT_LANES;
-        this.totalVehicle = DEFAULT_VEHICLE;
-        this.averageVelocity = DEFAULT_VEHICLE_PER_LANE;
-        this.averagePerLane = DEFAULT_VEHICLE_VELOCITY;
+        this.setTime(LocalDateTime.now());
+        this.setLocation(new Location(1, ""));
+        this.setNumLanes(DEFAULT_LANES);
+        this.setTotalVehicle(DEFAULT_VEHICLE);
+        this.setAverageVelocity(DEFAULT_VEHICLE_PER_LANE);
+        this.setAveragePerLane(DEFAULT_VEHICLE_VELOCITY);
     }
 
     /**
+     * {@inheritDoc. }
      *
      * @return
-     */
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public int getNumLanes() {
-        return numLanes;
-    }
-
-    public void setNumLanes(int numLanes) {
-        this.numLanes = numLanes;
-    }
-
-    public int getTotalVehicle() {
-        return totalVehicle;
-    }
-
-    public void setTotalVehicle(int totalVehicle) {
-        this.totalVehicle = totalVehicle;
-    }
-
-    public int getAveragePerLane() {
-        return averagePerLane;
-    }
-
-    public void setAveragePerLane(int averagePerLane) {
-        this.averagePerLane = averagePerLane;
-    }
-
-    public int getAverageVelocity() {
-        return averageVelocity;
-    }
-
-    public void setAverageVelocity(int averageVelocity) {
-        this.averageVelocity = averageVelocity;
-    }
-
-    /**
-     * {@inheritDoc }
      */
     @Override
     public String toString() {
         return FileIO.formatCSV(new String[]{
-            time.toString(),
-            location.toString(),
-            String.valueOf(numLanes),
-            String.valueOf(totalVehicle),
-            String.valueOf(averagePerLane),
-            String.valueOf(averageVelocity)
+            getTime().toString(),
+            getLocation(),
+            String.valueOf(getNumLanes()),
+            String.valueOf(getTotalVehicle()),
+            String.valueOf(getAveragePerLane()),
+            String.valueOf(getAverageVelocity())
         });
     }
 
@@ -193,8 +289,10 @@ public class Traffic {
         Traffic temp = new Traffic();
 
         temp.setTime(LocalDateTime.parse(line[TIME_STRING_INDEX]));
+        // 06:00:00 AM
         temp.setLocation(
-                new Location(Integer.parseInt(line[LOCATION_STRING_INDEX]), "")
+                new Location(Integer.parseInt(line[LOCATION_STRING_INDEX]),
+                        line[LOCATION_STRING_INDEX])
         );
         temp.setNumLanes(Integer.parseInt(line[LANES_STRING_INDEX]));
         temp.setTotalVehicle(
@@ -203,6 +301,13 @@ public class Traffic {
         temp.setAverageVelocity(
                 Integer.parseInt(line[AVERAGE_LANE_STRING_INDEX])
         );
+
+        System.out.println("Time: " + temp.getTime()
+                + "\nLocation: " + temp.getLocation()
+                + "\nNumber Lanes: " + String.valueOf(temp.getNumLanes())
+                + "\nTotal Vechicles: " + String.valueOf(temp.getTotalVehicle())
+                + "\nAverage Velocity: "
+                + String.valueOf(temp.getAverageVelocity()));
         return temp;
     }
 
@@ -214,7 +319,8 @@ public class Traffic {
     public ArrayList<Traffic> parseTrafficLines(ArrayList<String> lineInput) {
         ArrayList<Traffic> temp = new ArrayList<>();
 
-        lineInput.forEach((line) -> {
+        lineInput.subList(1, lineInput.size()).forEach((line) -> {
+            System.out.println(line);
             temp.add(parseTrafficLine(line));
         });
         return temp;

@@ -12,8 +12,7 @@ import com.coppertine.tafe.java.ITTownTrafficManager.Location;
 import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.awt.Dialog;
-import java.awt.FileDialog;
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -21,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -32,6 +32,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -75,15 +77,6 @@ public class ITTownMonitorOfficeController implements Initializable {
     /**
      * Import Menu.
      */
-    @FXML
-    private Menu importMenu;
-
-    /**
-     * Export Menu.
-     */
-    @FXML
-    private Menu exportMenu;
-
     /**
      * Help Menu.
      */
@@ -123,27 +116,32 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     private MenuItem mItemServerOptions;
+
     @FXML
     private MenuItem mItemServerToggle;
 
     private ConnectionConfig serverConfig;
+
+    @FXML
+    private MenuItem importMenuItem;
+
+    @FXML
+    private MenuItem exportMenu;
 
     /* Table */
     /**
      * Table view.
      */
     @FXML
-    private TableView tblView;
+    private TableView<Traffic> tblView;
     @FXML
-    private TableColumn<?, ?> tblHeadder;
+    private TableColumn<Traffic, LocalDateTime> tblTrafficTime;
     @FXML
-    private TableColumn<LocalDateTime, Traffic> tblTrafficTime;
+    private TableColumn<Traffic, String> tblTrafficLocation;
     @FXML
-    private TableColumn<Location, Traffic> tblTrafficLocation;
+    private TableColumn<Traffic, Integer> tblTrafficAverageVeh;
     @FXML
-    private TableColumn<Integer, Traffic> tblTrafficAverageVeh;
-    @FXML
-    private TableColumn<Integer, Traffic> tblTrafficAverageVel;
+    private TableColumn<Traffic, Integer> tblTrafficAverageVel;
 
     private OfficeServer server;
 
@@ -170,7 +168,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     @FXML
-    void programClose(MouseEvent event) {
+    public final void programClose(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         System.exit(0);
@@ -314,65 +312,30 @@ public class ITTownMonitorOfficeController implements Initializable {
         this.mItemServerOptions = mItemServerOptions;
     }
 
-    public TableColumn<?, ?> getTableHeader() {
-        return tblHeadder;
-    }
-
-    public TableColumn<LocalDateTime, Traffic> getTblTrafficTime() {
-        return tblTrafficTime;
-    }
-
-    public void setTblTrafficTime(TableColumn<LocalDateTime, Traffic> tblTrafficTime) {
-        this.tblTrafficTime = tblTrafficTime;
-    }
-
-    public TableColumn<Location, Traffic> getTblTrafficLocation() {
-        return tblTrafficLocation;
-    }
-
-    public void setTblTrafficLocation(
-            TableColumn<Location, Traffic> tblTrafficLocation) {
-        this.tblTrafficLocation = tblTrafficLocation;
-    }
-
-    public TableColumn<Integer, Traffic> getTblTrafficAverageVeh() {
-        return tblTrafficAverageVeh;
-    }
-
-    public void setTblTrafficAverageVeh(
-            TableColumn<Integer, Traffic> tblTrafficAverageVeh) {
-        this.tblTrafficAverageVeh = tblTrafficAverageVeh;
-    }
-
-    public TableColumn<Integer, Traffic> getTblTrafficAverageVel() {
-        return tblTrafficAverageVel;
-    }
-
-    public void setTblTrafficAverageVel(
-            TableColumn<Integer, Traffic> tblTrafficAverageVel) {
-        this.tblTrafficAverageVel = tblTrafficAverageVel;
-    }
-
 //</editor-fold>
     /**
      * Instantiates the Table Columns.
      */
     private void setupTable() {
-        tblTrafficLocation = new TableColumn<>("Location");
-        tblTrafficTime = new TableColumn<>("Time");
-        tblTrafficAverageVeh = new TableColumn<>("Average Per Lane");
-        tblTrafficAverageVeh = new TableColumn<>("Average Velocity");
+        tblTrafficLocation.setCellValueFactory(cellData
+                -> cellData.getValue().locationProperty().asString());
+        tblTrafficTime.setCellValueFactory(cellData
+                -> cellData.getValue().timeProperty());
+        tblTrafficAverageVeh.setCellValueFactory(cellData
+                -> cellData.getValue().averagePerLaneProperty().asObject());
+        tblTrafficAverageVel.setCellValueFactory(cellData
+                -> cellData.getValue().averageVelocityProperty().asObject());
 
-        tblTrafficLocation.setCellValueFactory(
-                new PropertyValueFactory<>("location"));
-        tblTrafficTime.setCellValueFactory(
-                new PropertyValueFactory<>("time"));
-        tblTrafficAverageVeh.setCellValueFactory(
-                new PropertyValueFactory<>("averagePerLane"));
-        tblTrafficAverageVel.setCellValueFactory(
-                new PropertyValueFactory<>("averageVelocity"));
-        tblView.getItems().add(new Traffic());
-
+        ObservableList<Traffic> list = tblView.getItems();
+        list.add(new Traffic(
+                LocalDateTime.now(),
+                new Location(2, "Test"),
+                1,
+                1,
+                1,
+                1)
+        );
+        tblView.setItems(list);
     }
 
     @FXML
@@ -386,8 +349,9 @@ public class ITTownMonitorOfficeController implements Initializable {
             System.out.println("Server Started");
             toggleServer();
         }
-        if (target.getId().equals("importMenu")) {
-            importTraffic();
+        if (target.getId().equals("importMenuItem")) {
+            System.out.println("Button Pressed");
+            importTraffic(actionEvent);
         }
 //        if (target.getId().equals("exportMenu")) {
 //            exportTraffic();
@@ -414,35 +378,68 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
-    private void importTraffic() {
-        String filePath = openFileDialog();
+    /**
+     *
+     * @param event
+     */
+    private void importTraffic(ActionEvent event) {
+        System.out.println("Importing File");
+        String filePath = openFileDialog(event);
         tblView.getItems().clear();
         try {
             for (Traffic traffic
                     : new Traffic()
-                            .parseTrafficLines(FileIO.readFile(filePath))) {
+                            .parseTrafficLines(
+                                    FileIO.readFile(filePath))) {
                 tblView.getItems().add(traffic);
             }
+
+            for (Object obj : tblView.getItems().toArray()) {
+                System.out.println(obj.toString());
+            }
         } catch (IOException ex) {
-            Logger.getLogger(ITTownMonitorOfficeController.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            Logger.getLogger(
+                    ITTownMonitorOfficeController.class.getName()
+            ).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void exportTraffic() {
-        
+    private void exportTraffic(ActionEvent event) {
+        String exportFilePath = saveFileDialog(event);
+
     }
 
-    private String openFileDialog() {
-        FileDialog fc;
-        fc = new FileDialog((Dialog) null, "Open CSV File", FileDialog.LOAD);
-        fc.setDirectory("C:\\");
-        fc.setVisible(true);
+    private String openFileDialog(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        System.out.println("Open Dialog");
+        fc.setTitle("Open CSV File");
+        fc.getExtensionFilters().add(
+                new ExtensionFilter(
+                        "Comma Seperated Values", "*.csv"));
 
-        String file = fc.getDirectory() + fc.getFile();
+        File file = fc.showOpenDialog(
+                ((MenuItem) event.getSource())
+                        .getParentPopup()
+                        .getScene()
+                        .getWindow());
+        if (file != null) {
+            return file.getAbsolutePath();
+        } else {
+            return "";
+        }
+    }
 
-        if (!file.isEmpty() && file.endsWith(".csv")) {
-            return file;
+    private String saveFileDialog(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save CSV File");
+        fc.getExtensionFilters().add(
+                new ExtensionFilter(
+                        "Comma Seperated Values", "*.csv"));
+        File file = fc.showSaveDialog(((MenuItem) event.getSource())
+                .getParentPopup().getScene()
+                .getWindow());
+        if (file != null) {
+            return file.getAbsolutePath();
         } else {
             return "";
         }

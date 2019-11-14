@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="634.0" prefWidth="869.0" stylesheets="@style/MonitorOffice.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.ITTownOfficeController">
+<BorderPane prefHeight="634.0" prefWidth="869.0" stylesheets="@style/MonitorOffice.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.ITTownMonitorOfficeController">
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="content" stylesheets="@style/MonitorOffice.css" BorderPane.alignment="CENTER">
             <children>
@@ -35,14 +35,10 @@
                             <children>
                                 <TableView fx:id="tblView" editable="true" prefHeight="217.0" prefWidth="438.0" styleClass="tableContent">
                                     <columns>
-                                        <TableColumn fx:id="tblHeadder" prefWidth="75.0" text="Traffic Monitoring Data">
-                                            <columns>
-                                                <TableColumn fx:id="tblTrafficTime" prefWidth="75.0" text="Time" />
-                                                <TableColumn fx:id="tblTrafficLocation" prefWidth="79.0" text="Location" />
-                                                <TableColumn fx:id="tblTrafficAverageVeh" prefWidth="107.0" text="Av. Vehicle#" />
-                                                <TableColumn fx:id="tblTrafficAverageVel" prefWidth="86.0" text="Av. Velocity" />
-                                            </columns>
-                                        </TableColumn>
+                                          <TableColumn fx:id="tblTrafficTime" prefWidth="75.0" text="Time" />
+                                          <TableColumn fx:id="tblTrafficLocation" prefWidth="79.0" text="Location" />
+                                          <TableColumn fx:id="tblTrafficAverageVeh" prefWidth="107.0" text="Av. Vehicle#" />
+                                          <TableColumn fx:id="tblTrafficAverageVel" prefWidth="86.0" text="Av. Velocity" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -50,9 +46,10 @@
                                 </TableView>
                                 <ButtonBar prefHeight="31.0" prefWidth="463.0">
                                     <buttons>
+                              <Label alignment="CENTER_RIGHT" text="Sort:" textFill="WHITE" />
                                         <Button fx:id="btnSortLocation" mnemonicParsing="false" text="Location" />
-                                        <Button fx:id="btnSortVehicle" mnemonicParsing="false" text="Button" />
-                                        <Button mnemonicParsing="false" text="Button" />
+                                        <Button fx:id="btnSortVehicle" mnemonicParsing="false" text="Vehicle #" />
+                                        <Button mnemonicParsing="false" text="Velocity" />
                                     </buttons>
                                 </ButtonBar>
                             </children>
@@ -150,8 +147,8 @@
                     <menus>
                         <Menu mnemonicParsing="false" style="-fx-text-fill: #fff;" text="File">
                             <items>
-                                <MenuItem fx:id="exportMenu" mnemonicParsing="false" text="Save" />
-                        <MenuItem fx:id="importMenu" mnemonicParsing="false" text="Open" />
+                                <MenuItem fx:id="exportMenu" mnemonicParsing="false" onAction="#performAction" text="Save" />
+                                <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#performAction" text="Open" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
