@@ -53,11 +53,19 @@ public class ConnectionConfig {
         return hostURL;
     }
 
+    /**
+     *
+     * @param hostURL
+     * @param hostPort
+     */
     public ConnectionConfig(String hostURL, int hostPort) {
         this.hostURL = hostURL;
         this.hostPort = hostPort;
     }
 
+    /**
+     *
+     */
     public ConnectionConfig() {
         this.hostURL = "localhost";
         this.hostPort = 4444;
@@ -72,18 +80,34 @@ public class ConnectionConfig {
         this.hostURL = URL;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHostPort() {
         return hostPort;
     }
 
+    /**
+     *
+     * @param hostPort
+     */
     public void setHostPort(int hostPort) {
         this.hostPort = hostPort;
     }
 
+    /**
+     *
+     * @return
+     */
     public Socket getSocket() {
         return socket;
     }
 
+    /**
+     *
+     * @param socket
+     */
     public void setSocket(Socket socket) {
         this.socket = socket;
     }

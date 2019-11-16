@@ -24,7 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
-import com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.TrafficClient;
 import com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.OfficeServer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -48,8 +47,18 @@ public class OfficeThread extends Thread {
     private int clientPort;
     private DataInputStream streamIn;
     private DataOutputStream streamOut;
+
+    /**
+     *
+     */
     public volatile boolean stopped = false;
 
+    /**
+     *
+     * @param aThis
+     * @param socketInput
+     * @param client
+     */
     public OfficeThread(OfficeServer aThis, Socket socketInput, int client) {
         super();
         this.socket = socketInput;
@@ -67,6 +76,10 @@ public class OfficeThread extends Thread {
         }
     }
 
+    /**
+     *
+     * @param msg
+     */
     public void send(String msg) {
         try {
             streamOut.writeUTF(msg);
@@ -90,38 +103,74 @@ public class OfficeThread extends Thread {
                 new BufferedOutputStream(socket.getOutputStream()));
     }
 
+    /**
+     *
+     * @return
+     */
     public OfficeServer getServer() {
         return client;
     }
 
+    /**
+     *
+     * @return
+     */
     public Socket getSocket() {
         return socket;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClientID() {
         return clientID;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClientPort() {
         return clientPort;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataInputStream getStreamIn() {
         return streamIn;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataOutputStream getStreamOut() {
         return streamOut;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMIN_PRIORITY() {
         return MIN_PRIORITY;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getNORM_PRIORITY() {
         return NORM_PRIORITY;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMAX_PRIORITY() {
         return MAX_PRIORITY;
     }

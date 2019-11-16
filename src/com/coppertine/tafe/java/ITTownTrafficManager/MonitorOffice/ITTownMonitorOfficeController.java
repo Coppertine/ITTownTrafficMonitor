@@ -17,6 +17,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -167,6 +169,10 @@ public class ITTownMonitorOfficeController implements Initializable {
         windowY = event.getSceneY();
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public final void programClose(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -190,6 +196,10 @@ public class ITTownMonitorOfficeController implements Initializable {
         //new SortingTools().sortAlgorithm(SortingType.BubbleSort, );
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void displayBinaryTree(MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
@@ -209,105 +219,199 @@ public class ITTownMonitorOfficeController implements Initializable {
         tree.run();
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void sortByVehicle(MouseEvent event) {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void sortByVelocity(MouseEvent event) {
 
     }
 
+    /**
+     *
+     */
     @FXML
     public void startServer() {
-        server = new OfficeServer(serverConfig);
+        server = new OfficeServer(serverConfig, this);
         Thread thread = new Thread(server, "thread");
         thread.start();
     }
 
+    /**
+     *
+     */
     @FXML
     public void stopServer() {
         server.stop();
     }
 
     //<editor-fold defaultstate="collasped" desc="Getters and Setters">
+    /**
+     *
+     * @return
+     */
     public TextArea getTxtLinkedList() {
         return txtLinkedList;
     }
 
+    /**
+     *
+     * @param txtLinkedList
+     */
     public void setTxtLinkedList(TextArea txtLinkedList) {
         this.txtLinkedList = txtLinkedList;
     }
 
+    /**
+     *
+     * @return
+     */
     public MenuBar getWindowMenuBar() {
         return windowMenuBar;
     }
 
+    /**
+     *
+     * @param windowMenuBar
+     */
     public void setWindowMenuBar(MenuBar windowMenuBar) {
         this.windowMenuBar = windowMenuBar;
     }
 
+    /**
+     *
+     * @return
+     */
     public Menu getFileMenu() {
         return fileMenu;
     }
 
+    /**
+     *
+     * @param fileMenu
+     */
     public void setFileMenu(Menu fileMenu) {
         this.fileMenu = fileMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public Menu getEditMenu() {
         return editMenu;
     }
 
+    /**
+     *
+     * @param editMenu
+     */
     public void setEditMenu(Menu editMenu) {
         this.editMenu = editMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public Menu getHelpMenu() {
         return helpMenu;
     }
 
+    /**
+     *
+     * @param helpMenu
+     */
     public void setHelpMenu(Menu helpMenu) {
         this.helpMenu = helpMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public FontAwesomeIconView getMinimiseIcon() {
         return minimiseIcon;
     }
 
+    /**
+     *
+     * @param minimiseIcon
+     */
     public void setMinimiseIcon(FontAwesomeIconView minimiseIcon) {
         this.minimiseIcon = minimiseIcon;
     }
 
+    /**
+     *
+     * @return
+     */
     public FontAwesomeIconView getResizeIcon() {
         return resizeIcon;
     }
 
+    /**
+     *
+     * @param resizeIcon
+     */
     public void setResizeIcon(FontAwesomeIconView resizeIcon) {
         this.resizeIcon = resizeIcon;
     }
 
+    /**
+     *
+     * @return
+     */
     public FontAwesomeIconView getCloseIcon() {
         return closeIcon;
     }
 
+    /**
+     *
+     * @param closeIcon
+     */
     public void setCloseIcon(FontAwesomeIconView closeIcon) {
         this.closeIcon = closeIcon;
     }
 
+    /**
+     *
+     * @return
+     */
     public MenuItem getmItemStartServer() {
         return mItemStartServer;
     }
 
+    /**
+     *
+     * @param mItemStartServer
+     */
     public void setmItemStartServer(MenuItem mItemStartServer) {
         this.mItemStartServer = mItemStartServer;
     }
 
+    /**
+     *
+     * @return
+     */
     public MenuItem getmItemServerOptions() {
         return mItemServerOptions;
     }
 
+    /**
+     *
+     * @param mItemServerOptions
+     */
     public void setmItemServerOptions(MenuItem mItemServerOptions) {
         this.mItemServerOptions = mItemServerOptions;
     }
@@ -338,8 +442,12 @@ public class ITTownMonitorOfficeController implements Initializable {
         tblView.setItems(list);
     }
 
+    /**
+     *
+     * @param actionEvent
+     */
     @FXML
-    public void performAction(ActionEvent actionEvent) {
+    public final void performAction(ActionEvent actionEvent) {
         MenuItem target = (MenuItem) actionEvent.getSource();
 
         if (target.getId().equals("mItemServerOptions")) {
@@ -353,9 +461,9 @@ public class ITTownMonitorOfficeController implements Initializable {
             System.out.println("Button Pressed");
             importTraffic(actionEvent);
         }
-//        if (target.getId().equals("exportMenu")) {
-//            exportTraffic();
-//        }
+        if (target.getId().equals("exportMenu")) {
+            exportTraffic(actionEvent);
+        }
     }
 
     /**
@@ -404,9 +512,21 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
-    private void exportTraffic(ActionEvent event) {
+    /**
+     *
+     * @param event
+     */
+    public void exportTraffic(ActionEvent event) {
         String exportFilePath = saveFileDialog(event);
-
+        ArrayList<String> exportList = new ArrayList<String>();
+        tblView.getItems().forEach((traffic) -> {
+            exportList.add(traffic.toString());
+        });
+        try {
+            FileIO.writeFile(exportFilePath, true, exportList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private String openFileDialog(ActionEvent event) {
@@ -443,5 +563,13 @@ public class ITTownMonitorOfficeController implements Initializable {
         } else {
             return "";
         }
+    }
+
+    /**
+     *
+     * @param importTraffic
+     */
+    public void trafficImport(Traffic importTraffic) {
+        tblView.getItems().add(importTraffic);
     }
 }

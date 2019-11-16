@@ -56,6 +56,10 @@ public class DrawBinaryTree extends JPanel {
     private static final int LEFT_LINE_END_OFFSET_X = -50;
     private static final int LINE_END_OFFSET_Y = 100;
 
+    /**
+     *
+     * @param nodeListInput
+     */
     public DrawBinaryTree(ArrayList<BTNode> nodeListInput) {
         nodeList = nodeListInput;
     }

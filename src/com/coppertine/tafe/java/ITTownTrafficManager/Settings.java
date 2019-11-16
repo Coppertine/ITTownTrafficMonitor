@@ -56,7 +56,6 @@ public class Settings {
      */
     /**
      *
-     * @param parent
      * @param inputConfig input configuration.
      * @return <code>Config</code> from settings screen.
      */

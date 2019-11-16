@@ -32,6 +32,11 @@ public class Location {
     private int stationNum;
     private String name;
 
+    /**
+     *
+     * @param stationNum
+     * @param name
+     */
     public Location(int stationNum, String name) {
         this.stationNum = stationNum;
         this.name = name;
@@ -45,14 +50,26 @@ public class Location {
         return stationNum;
     }
 
+    /**
+     *
+     * @param stationNum
+     */
     public void setStationNum(int stationNum) {
         this.stationNum = stationNum;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -71,6 +71,9 @@ public class BinaryTreeView extends BinaryTree {
         }
     }
 
+    /**
+     *
+     */
     public final void run() {
         frame.setContentPane(new DrawBinaryTree(nodeList));
         frame.setVisible(true);

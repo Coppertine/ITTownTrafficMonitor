@@ -37,8 +37,17 @@ public class ClientThread extends Thread {
     private final int clientID;
     private final int clientPort;
 
+    /**
+     *
+     */
     public volatile boolean stopped = false;
 
+    /**
+     *
+     * @param aThis
+     * @param socketInput
+     * @param client
+     */
     public ClientThread(TrafficClient aThis, Socket socketInput, int client) {
         super();
 
@@ -57,26 +66,50 @@ public class ClientThread extends Thread {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public TrafficClient getClient() {
         return client;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClientID() {
         return clientID;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClientPort() {
         return clientPort;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMIN_PRIORITY() {
         return MIN_PRIORITY;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getNORM_PRIORITY() {
         return NORM_PRIORITY;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMAX_PRIORITY() {
         return MAX_PRIORITY;
     }

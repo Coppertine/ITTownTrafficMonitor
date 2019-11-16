@@ -51,6 +51,9 @@ public class VersionSelectorController implements Initializable {
         // TODO
     }
 
+    /**
+     *
+     */
     @FXML
     public void openOffice() {
         try {

@@ -45,6 +45,10 @@ public class TrafficClient implements Runnable {
     private DataOutputStream streamOut;
     private Socket socket;
 
+    /**
+     *
+     * @param inputConfig
+     */
     public void run(final ConnectionConfig inputConfig) {
         try {
             config = inputConfig;
@@ -64,8 +68,13 @@ public class TrafficClient implements Runnable {
         run(config);
     }
 
-    public void handle(String msg) {
+    /**
+     * 
+     * @param msg 
+     */
+    public final void handle(String msg) {
         if (msg.startsWith("id: ")) {
+            System.out.println(msg);
             clientID = Integer.parseInt(msg.substring("id: ".length() + 1));
         }
         if (msg.startsWith("exit")) {
@@ -76,6 +85,10 @@ public class TrafficClient implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param msg
+     */
     public void send(String msg) {
         try {
             streamOut.writeUTF(msg);
@@ -100,10 +113,18 @@ public class TrafficClient implements Runnable {
     void remove(int clientID) {
     }
 
+    /**
+     *
+     * @return
+     */
     public int getClientID() {
         return clientID;
     }
 
+    /**
+     *
+     * @param clientID
+     */
     public void setClientID(int clientID) {
         this.clientID = clientID;
     }

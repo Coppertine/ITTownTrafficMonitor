@@ -47,6 +47,22 @@ public class Traffic {
 
     /**
      *
+     * @param input
+     */
+    public Traffic(String input) {
+        String[] list = input.split(",");
+
+        setTime(LocalDateTime.parse(list[2]));
+        setLocation(new Location(Integer.parseInt(list[1]),
+                list[1]));
+        setNumLanes(Integer.parseInt(list[LANES_STRING_INDEX]));
+        setTotalVehicle(Integer.parseInt(list[TOTAL_VEHICLE_STRING_INDEX]));
+        setAveragePerLane(Integer.parseInt(list[AVERAGE_LANE_STRING_INDEX]));
+        setAverageVelocity(Integer.parseInt(list[7]));
+    }
+
+    /**
+     *
      * @return
      */
     public String getTime() {

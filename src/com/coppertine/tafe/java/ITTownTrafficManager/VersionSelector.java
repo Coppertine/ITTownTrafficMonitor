@@ -20,6 +20,8 @@ public class VersionSelector extends Application {
 
     /**
      * {@inheritDoc. }
+     * @param stage
+     * @throws java.lang.Exception
      */
     @Override
     public final void start(final Stage stage) throws Exception {

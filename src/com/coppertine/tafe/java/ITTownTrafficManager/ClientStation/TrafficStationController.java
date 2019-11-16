@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -78,7 +79,9 @@ public class TrafficStationController implements Initializable {
 
     @FXML
     private TextField txtAverageVel;
-
+    
+    @FXML
+    private Button btnSubmit;
     private ConnectionConfig config;
     private TrafficClient client = new TrafficClient();
 
@@ -104,7 +107,7 @@ public class TrafficStationController implements Initializable {
      *
      */
     public final void stopServer() {
-        //client.sendMessage("exit");
+        client.send("exit");
     }
 
     /**
@@ -145,6 +148,7 @@ public class TrafficStationController implements Initializable {
     /**
      *
      *
+     * @param actionEvent
      */
     @FXML
     public final void performAction(final ActionEvent actionEvent) {
@@ -156,8 +160,8 @@ public class TrafficStationController implements Initializable {
         if (target.getId().equals("startMenuItem")) {
             toggleServer();
         }
-        if (target.getId().equals("sendTrafficInformationBtn")) {
-           // sendInformation();
+        if (target.getId().equals("btnSubmit")) {
+           sendInformation();
         }
     }
 
@@ -180,20 +184,20 @@ public class TrafficStationController implements Initializable {
     /**
      * 
      */
-//    private void sendInformation() {
-//        Traffic sendTraffic = new Traffic(
-//                LocalDateTime.parse(txtTime.getText()),
-//                new Location(
-//                        client.getClientID(),
-//                        String.valueOf(client.getClientID())),
-//                Integer.parseInt(txtLanes.getText()),
-//                Integer.parseInt(txtVehicles.getText()),
-//                Integer.parseInt(txtAverageVeh.getText()),
-//                Integer.parseInt(txtAverageVel.getText())
-//        );
-//        
-//        String traficString = sendTraffic.toString();
-//        client.send("Traffic: " + traficString);
-//    }
+    private void sendInformation() {
+        Traffic sendTraffic = new Traffic(
+                LocalDateTime.parse(txtTime.getText()),
+                new Location(
+                        client.getClientID(),
+                        String.valueOf(client.getClientID())),
+                Integer.parseInt(txtLanes.getText()),
+                Integer.parseInt(txtVehicles.getText()),
+                Integer.parseInt(txtAverageVeh.getText()),
+                Integer.parseInt(txtAverageVel.getText())
+        );
+        
+        String traficString = sendTraffic.toString();
+        client.send("Traffic: " + traficString);
+    }
 
 }

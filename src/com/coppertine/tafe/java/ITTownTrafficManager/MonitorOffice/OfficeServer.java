@@ -25,10 +25,12 @@ package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -43,15 +45,18 @@ public class OfficeServer implements Runnable {
     private ArrayList<OfficeThread> clients = new ArrayList<>();
     private ConnectionConfig config;
     private ServerSocket server = null;
+    private ITTownMonitorOfficeController controller;
 
     /**
      *
      * @param inputConfig
+     * @param _controller
      */
-    public OfficeServer(ConnectionConfig inputConfig) {
+    public OfficeServer(ConnectionConfig inputConfig, ITTownMonitorOfficeController _controller) {
         try {
             System.out.println("Starting server at: " + inputConfig.getHostPort());
             this.config = inputConfig;
+            this.controller = _controller;
             server = new ServerSocket(config.getHostPort());
         } catch (IOException e) {
             Debug.log(e.toString());
@@ -67,6 +72,10 @@ public class OfficeServer implements Runnable {
         exited = true;
     }
 
+    /**
+     *
+     * @param socket
+     */
     public void addThread(Socket socket) {
         Debug.log("Client Accepted: " + socket);
         OfficeThread client
@@ -75,6 +84,7 @@ public class OfficeServer implements Runnable {
         try {
             client.open();
             client.start();
+            client.send("id: " + clients.indexOf(client));
         } catch (IOException e) {
             Debug.log(e.toString());
         }
@@ -94,7 +104,12 @@ public class OfficeServer implements Runnable {
         }
         Debug.log("Server is stopped.");
     }
-
+    
+    /**
+     *
+     * @param ID
+     * @param input
+     */
     public synchronized void handle(int ID, String input) {
         if (input.equals("exit")) {
             findClient(ID).send("exit");
@@ -104,17 +119,50 @@ public class OfficeServer implements Runnable {
             clients.forEach((client) -> {
                 client.send(ID + ": " + input);
             });
+            handleCommands(ID, input);
         }
     }
 
-    public OfficeThread findClient(int ID) {
+    private final void handleCommands(int ID, String input) {
+        try {
+            OfficeThread client = findClient(ID);
+            if (input.startsWith("Traffic: ")) {
+                Traffic importTraffic
+                        = new Traffic(
+                                input.substring("Traffic: ".length() + 1));
+                controller.trafficImport(importTraffic);
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the client with the same port as the ID.
+     *
+     * @param clientID Integer of the Port Number of the client to find.
+     * @return The OfficeThread of the Client, if present.
+     * @throws NoSuchElementException When no element is found of the same ID.
+     */
+    public final OfficeThread findClient(final int clientID)
+            throws NoSuchElementException {
         return clients.stream()
-                .filter(c -> c.getClientID() == ID)
+                .filter(c -> c.getClientPort() == clientID)
                 .findFirst()
                 .get();
     }
 
+    /**
+     *
+     * @param clientID
+     */
     public void remove(int clientID) {
-
+        OfficeThread toRemove;
+        try {
+            toRemove = findClient(clientID);
+            clients.remove(toRemove);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.toString());
+        }
     }
 }
