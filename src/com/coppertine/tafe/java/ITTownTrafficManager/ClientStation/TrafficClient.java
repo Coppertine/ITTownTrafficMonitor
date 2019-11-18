@@ -54,6 +54,9 @@ public class TrafficClient implements Runnable {
             config = inputConfig;
             config.setSocket(
                     new Socket(config.getHostURL(), config.getHostPort()));
+            socket = config.getSocket();
+            System.out.println("Connected: " + config.getSocket());
+            open();
         } catch (UnknownHostException uhe) {
             Debug.log("Host unknown: " + uhe.getMessage());
         } catch (IOException ioe) {
