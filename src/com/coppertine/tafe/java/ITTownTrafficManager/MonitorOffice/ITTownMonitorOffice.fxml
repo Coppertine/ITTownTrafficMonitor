@@ -47,7 +47,7 @@
                                 <ButtonBar prefHeight="31.0" prefWidth="463.0">
                                     <buttons>
                               <Label alignment="CENTER_RIGHT" text="Sort:" textFill="WHITE" />
-                                        <Button fx:id="btnSortLocation" mnemonicParsing="false" text="Location" />
+                                        <Button fx:id="btnSortLocation" mnemonicParsing="false" onAction="#sortByLocation" text="Location" />
                                         <Button fx:id="btnSortVehicle" mnemonicParsing="false" text="Vehicle #" />
                                         <Button mnemonicParsing="false" text="Velocity" />
                                     </buttons>
@@ -63,6 +63,7 @@
                                                 <Font size="21.0" />
                                             </font>
                                         </Label>
+                              <Button fx:id="btnStatusCheck" mnemonicParsing="false" onAction="#checkClientStatus" text="Status Check" />
                                     </children>
                                 </HBox>
                             </children>

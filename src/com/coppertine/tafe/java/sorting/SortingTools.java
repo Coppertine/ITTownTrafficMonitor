@@ -37,7 +37,7 @@ public class SortingTools {
      * @param input
      * @return
      */
-    public final ArrayList<Object> sortAlgorithm(SortingType type,
+    public ArrayList<Object> sortAlgorithm(SortingType type,
             ArrayList<Object> input) {
         switch (type) {
             case BubbleSort:

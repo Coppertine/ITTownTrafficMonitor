@@ -160,9 +160,7 @@ public class TrafficStationController implements Initializable {
         if (target.getId().equals("startMenuItem")) {
             toggleServer();
         }
-        if (target.getId().equals("btnSubmit")) {
-           sendInformation();
-        }
+        
     }
 
     /**
@@ -184,7 +182,9 @@ public class TrafficStationController implements Initializable {
     /**
      * 
      */
+    @FXML
     private void sendInformation() {
+        System.out.println("Sending Traffic Information to Server.");
         Traffic sendTraffic = new Traffic(
                 LocalDateTime.parse(txtTime.getText()),
                 new Location(
@@ -198,6 +198,7 @@ public class TrafficStationController implements Initializable {
         
         String traficString = sendTraffic.toString();
         client.send("Traffic: " + traficString);
+        System.out.println("Traffic: " + traficString);
     }
 
 }

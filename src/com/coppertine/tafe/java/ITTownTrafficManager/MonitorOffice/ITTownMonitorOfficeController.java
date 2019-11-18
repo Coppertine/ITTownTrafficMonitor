@@ -11,6 +11,8 @@ import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
 import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
 import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
+import com.coppertine.tafe.java.sorting.SortingTools;
+import com.coppertine.tafe.java.sorting.SortingType;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -129,6 +132,9 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     @FXML
     private MenuItem exportMenu;
+    
+    @FXML
+    private Button btnStatusCheck;
 
     /* Table */
     /**
@@ -193,7 +199,13 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     public void sortByLocation(MouseEvent event) {
-        //new SortingTools().sortAlgorithm(SortingType.BubbleSort, );
+//        ArrayList<Object> tableList = new ArrayList<>(tblView.getItems());
+//        ArrayList<Object> sortedList =
+//              SortingTools.sortAlgorithm(
+//                       SortingType.BubbleSort,
+//                       tableList);
+//       tblView.getItems().clear();
+       
     }
 
     /**
@@ -518,7 +530,7 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     public void exportTraffic(ActionEvent event) {
         String exportFilePath = saveFileDialog(event);
-        ArrayList<String> exportList = new ArrayList<String>();
+        ArrayList<String> exportList = new ArrayList<>();
         tblView.getItems().forEach((traffic) -> {
             exportList.add(traffic.toString());
         });
@@ -571,5 +583,10 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     public void trafficImport(Traffic importTraffic) {
         tblView.getItems().add(importTraffic);
+    }
+    
+    @FXML
+    public void checkClientStatus(MouseEvent event) {
+        
     }
 }

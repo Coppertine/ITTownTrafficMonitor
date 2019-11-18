@@ -66,15 +66,37 @@ public class DLNode {
      * @param newNode
      */
     public void appendNode(DLNode newNode) {
+        newNode.prev = this;
+        newNode.next = next;
 
+        if (next != null) {
+            next.prev = newNode;
+        }
+        next = newNode;
+        System.out.println("Node with data " + newNode.trafficData.toString()
+                + " appended after Node with data " + trafficData.toString());
     }
 
     public void insertNode(DLNode newNode) {
-
+        newNode.prev = prev;
+        newNode.next = this;
+        prev.next = newNode;
+        prev = newNode;
+        System.out.println("Node with data " + newNode.trafficData.toString()
+                + " inserted before Node with data " + trafficData.toString());
     }
 
     public void remove() {
-
+        next.prev = prev;
+        prev.next = next;
+        System.out.println("Node with data " + trafficData.toString()
+                + " removed");
+    }
+    
+    @Override
+    /** {@inheritDoc} */
+    public final String toString() {
+        return this.trafficData.toString();
     }
 
     /**

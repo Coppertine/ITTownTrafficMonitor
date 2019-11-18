@@ -41,7 +41,7 @@ import javafx.beans.value.ObservableValue;
  *
  * @author Coppertine
  */
-public class Traffic {
+public final class Traffic {
 
     private final ObjectProperty<LocalDateTime> time = new SimpleObjectProperty<>();
 
@@ -50,6 +50,7 @@ public class Traffic {
      * @param input
      */
     public Traffic(String input) {
+        this.location = new SimpleObjectProperty<>();
         String[] list = input.split(",");
 
         setTime(LocalDateTime.parse(list[2]));
@@ -66,7 +67,7 @@ public class Traffic {
      * @return
      */
     public String getTime() {
-        return time.get().format(DateTimeFormatter.ISO_LOCAL_TIME);
+        return time.get().format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     /**
@@ -84,7 +85,7 @@ public class Traffic {
     public ObjectProperty timeProperty() {
         return time;
     }
-    private ObjectProperty<Location> location = new SimpleObjectProperty<>();
+    private ObjectProperty<Location> location;
 
     /**
      *
@@ -248,16 +249,17 @@ public class Traffic {
 
     /**
      *
-     * @param time
+     * @param time The situated time for Traffic Recording.
      * @param location
      * @param numLanes
      * @param totalVehicle
      * @param averagePerLane
      * @param averageVelocity
      */
-    public Traffic(LocalDateTime time, Location location,
-            int numLanes, int totalVehicle, int averagePerLane,
-            int averageVelocity) {
+    public Traffic(final LocalDateTime time, final Location location,
+            final int numLanes, final int totalVehicle, final int averagePerLane,
+            final int averageVelocity) {
+        this.location = new SimpleObjectProperty<>();
         setTime(time);
         setLocation(location);
         setNumLanes(numLanes);
@@ -270,6 +272,7 @@ public class Traffic {
      *
      */
     public Traffic() {
+        this.location = new SimpleObjectProperty<>();
         this.setTime(LocalDateTime.now());
         this.setLocation(new Location(1, ""));
         this.setNumLanes(DEFAULT_LANES);
@@ -286,7 +289,7 @@ public class Traffic {
     @Override
     public String toString() {
         return FileIO.formatCSV(new String[]{
-            getTime().toString(),
+            getTime(),
             getLocation(),
             String.valueOf(getNumLanes()),
             String.valueOf(getTotalVehicle()),

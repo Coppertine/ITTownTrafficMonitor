@@ -67,7 +67,7 @@ public class OfficeThread extends Thread {
     }
 
     public void run() {
-        while (stopped) { // Why? just, why?
+        while (!stopped) { // Why? just, why?
             try {
                 client.handle(clientID, streamIn.readUTF());
             } catch (Exception e) {
