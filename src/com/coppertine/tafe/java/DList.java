@@ -45,10 +45,20 @@ public class DList<K> {
         head = new DLNode(inputKey);
     }
 
+    /**
+     *
+     * @param inputSearch
+     * @return
+     */
     public DLNode findNode(Object inputSearch) {
         return null;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public DLNode find(int i) {
         return null;
     }

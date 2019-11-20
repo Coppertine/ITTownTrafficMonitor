@@ -60,6 +60,10 @@ public class BTNode {
         this.right = null;
     }
 
+    /**
+     *
+     * @param inputData
+     */
     public BTNode(final Object inputData) {
         this.values = inputData;
         this.left = null;
@@ -81,7 +85,7 @@ public class BTNode {
      *
      * @return
      */
-    public Object getValues() {
+    public final Object getValues() {
         return values;
     }
 
@@ -89,7 +93,7 @@ public class BTNode {
      *
      * @param values
      */
-    public void setValues(Object values) {
+    public final void setValues(Object values) {
         this.values = values;
     }
 
@@ -125,18 +129,34 @@ public class BTNode {
         this.right = right;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPositionX() {
         return positionX;
     }
 
+    /**
+     *
+     * @param positionX
+     */
     public void setPositionX(int positionX) {
         this.positionX = positionX;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPositionY() {
         return positionY;
     }
 
+    /**
+     *
+     * @param positionY
+     */
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }

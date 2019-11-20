@@ -41,10 +41,17 @@ public class BinaryTree {
     private static final int NODE_OFFSET_Y = 80;
     private static final int WIDTH_EXPAND_5 = 5;
 
+    /**
+     *
+     * @param rootNode
+     */
     public BinaryTree(BTNode rootNode) {
         this.rootNode = rootNode;
     }
 
+    /**
+     *
+     */
     public BinaryTree() {
         this.rootNode = null;
     }
@@ -97,18 +104,34 @@ public class BinaryTree {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getNodeAmmount() {
         return nodeAmmount;
     }
 
+    /**
+     *
+     * @param nodeAmmount
+     */
     public static void setNodeAmmount(int nodeAmmount) {
         BinaryTree.nodeAmmount = nodeAmmount;
     }
 
+    /**
+     *
+     * @return
+     */
     public BTNode getRootNode() {
         return this.rootNode;
     }
 
+    /**
+     *
+     * @param rootNode
+     */
     public void setRootNode(BTNode rootNode) {
         this.rootNode = rootNode;
     }

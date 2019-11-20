@@ -48,11 +48,18 @@ public class DLNode {
      */
     private TrafficNode trafficData;
 
+    /**
+     *
+     */
     public DLNode() {
         this.prev = this;
         this.next = this;
     }
 
+    /**
+     *
+     * @param value
+     */
     public DLNode(Object value) {
         this.prev = null;
         this.next = null;
@@ -77,6 +84,10 @@ public class DLNode {
                 + " appended after Node with data " + trafficData.toString());
     }
 
+    /**
+     *
+     * @param newNode
+     */
     public void insertNode(DLNode newNode) {
         newNode.prev = prev;
         newNode.next = this;
@@ -86,6 +97,9 @@ public class DLNode {
                 + " inserted before Node with data " + trafficData.toString());
     }
 
+    /**
+     *
+     */
     public void remove() {
         next.prev = prev;
         prev.next = next;

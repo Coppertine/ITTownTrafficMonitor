@@ -20,6 +20,7 @@ public class VersionSelector extends Application {
 
     /**
      * {@inheritDoc. }
+     *
      * @param stage
      * @throws java.lang.Exception
      */

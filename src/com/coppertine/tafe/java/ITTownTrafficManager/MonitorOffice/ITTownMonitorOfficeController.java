@@ -585,6 +585,10 @@ public class ITTownMonitorOfficeController implements Initializable {
         tblView.getItems().add(importTraffic);
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void checkClientStatus(MouseEvent event) {
         
