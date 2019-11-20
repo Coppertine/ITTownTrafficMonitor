@@ -21,6 +21,8 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,8 +49,8 @@ import javafx.stage.Stage;
  */
 public class ITTownMonitorOfficeController implements Initializable {
 
-    double windowX;
-    double windowY;
+    private double windowX;
+    private double windowY;
 
     /**
      * Interactable and changable Objects used into the FXML.
@@ -132,7 +134,7 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     @FXML
     private MenuItem exportMenu;
-    
+
     @FXML
     private Button btnStatusCheck;
 
@@ -199,13 +201,17 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     public void sortByLocation(MouseEvent event) {
-//        ArrayList<Object> tableList = new ArrayList<>(tblView.getItems());
-//        ArrayList<Object> sortedList =
-//              SortingTools.sortAlgorithm(
-//                       SortingType.BubbleSort,
-//                       tableList);
-//       tblView.getItems().clear();
-       
+        ArrayList<Object> tableList = new ArrayList<>(tblView.getItems());
+        ArrayList<Object> sortedList;
+        sortedList = new SortingTools().sortAlgorithm(SortingType.BubbleSort, tableList);
+        tblView.getItems().clear();
+
+        sortedList.stream()
+                .filter(
+                        (traffic) -> (traffic instanceof Traffic))
+                .forEachOrdered((traffic) -> {
+                    tblView.getItems().add((Traffic) traffic);
+                });
     }
 
     /**
@@ -471,7 +477,7 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
         if (target.getId().equals("importMenuItem")) {
             System.out.println("Button Pressed");
-            importTraffic(actionEvent);
+            importTraffic(actionEvent, true);
         }
         if (target.getId().equals("exportMenu")) {
             exportTraffic(actionEvent);
@@ -502,10 +508,12 @@ public class ITTownMonitorOfficeController implements Initializable {
      *
      * @param event
      */
-    private void importTraffic(ActionEvent event) {
+    private void importTraffic(ActionEvent event, boolean clearTable) {
         System.out.println("Importing File");
         String filePath = openFileDialog(event);
-        tblView.getItems().clear();
+        if (clearTable) {
+            tblView.getItems().clear();
+        }
         try {
             for (Traffic traffic
                     : new Traffic()
@@ -584,13 +592,13 @@ public class ITTownMonitorOfficeController implements Initializable {
     public void trafficImport(Traffic importTraffic) {
         tblView.getItems().add(importTraffic);
     }
-    
+
     /**
      *
      * @param event
      */
     @FXML
     public void checkClientStatus(MouseEvent event) {
-        
+
     }
 }
