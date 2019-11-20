@@ -32,12 +32,12 @@ import java.util.ArrayList;
 public class SortingTools {
 
     /**
-     * 
+     *
      * @param type
      * @param input
-     * @return 
+     * @return
      */
-    public final ArrayList<Object> sortAlgorithm(SortingType type,
+    public ArrayList<Object> sortAlgorithm(SortingType type,
             ArrayList<Object> input) {
         switch (type) {
             case BubbleSort:
@@ -50,10 +50,11 @@ public class SortingTools {
                 return new ArrayList();
         }
     }
-    
+
     /**
-     * Bubble Sort of the ArrayList of Objects.
-     * Must be accessed using the {@link sortAlgorithm()} method.
+     * Bubble Sort of the ArrayList of Objects. Must be accessed using the
+     * {@link sortAlgorithm()} method.
+     *
      * @param input
      * @return ArrayList
      */
@@ -65,13 +66,13 @@ public class SortingTools {
                 swapped = false;
                 for (Object innerItem : swapedArray.subList(0,
                         swapedArray.size()
-                                - swapedArray.indexOf(indexItem) - 1)) {
+                        - swapedArray.indexOf(indexItem) - 1)) {
                     if ((double) indexItem > (double) swapedArray.get(
                             swapedArray.indexOf(indexItem) + 1)) {
                         swapedArray = swapValues(swapedArray,
-                                                swapedArray.indexOf(innerItem),
-                                                swapedArray.indexOf(indexItem)
-                                                        + 1);
+                                swapedArray.indexOf(innerItem),
+                                swapedArray.indexOf(indexItem)
+                                + 1);
                         swapped = true;
                     }
                 }
@@ -87,38 +88,39 @@ public class SortingTools {
     }
 
     /**
-     * 
+     * Uses the Insertion algorithm to sort an ArrayList of objects.
+     *
      * @param input
-     * @return ArrayList of Objects from the sorted array.
-     * Must be accessed using the {@link sortAlgorithm()} method.
+     * @return ArrayList of Objects from the sorted array. Must be accessed
+     * using the {@link sortAlgorithm()} method.
      */
     private ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
         ArrayList<Object> sortedArray = input;
         sortedArray.subList(1, sortedArray.size())
                 .forEach((tempValue) -> {
-            for (int i = sortedArray.indexOf((int) tempValue) - 1;
-                    (i >= 0) && ((int) sortedArray.get(i) < (int) tempValue);
-                    i--) {
-                sortedArray.set(i + 1, sortedArray.get(i));
-            }
-        });
+                    for (int i = sortedArray.indexOf((int) tempValue) - 1;
+                            (i >= 0) && ((int) sortedArray.get(i) < (int) tempValue);
+                            i--) {
+                        sortedArray.set(i + 1, sortedArray.get(i));
+                    }
+                });
         return sortedArray;
     }
-    
+
     /**
-     * Grabs the partition integer from the ArrayList.
-     * Must be accessed using the {@link sortAlgorithm()} method with
-     * type = QuickSort
+     * Grabs the partition integer from the ArrayList. Must be accessed using
+     * the {@link sortAlgorithm()} method with type = QuickSort
+     *
      * @param input
      * @param lowValue
      * @param highValue
-     * @return 
+     * @return The partition index.
      */
     private int partitionArray(final ArrayList<Object> input,
             final Object lowValue, final Object highValue) {
         ArrayList<Object> sortedArray = input;
         Object pivot = highValue;
-        int selectionLow = (int)lowValue - 1;
+        int selectionLow = (int) lowValue - 1;
         for (Object value : sortedArray.subList(
                 (int) lowValue,
                 (int) highValue)) {
@@ -133,14 +135,15 @@ public class SortingTools {
         swapValues(sortedArray, selectionLow + 1, (int) highValue);
         return selectionLow + 1;
     }
-    
+
     /**
-     * Quick Sort method utilising the recursion of the function.
-     * Must be accessed using the {@link sortAlgorithm()} method.
+     * Quick Sort method utilising the recursion of the function. Must be
+     * accessed using the {@link sortAlgorithm()} method.
+     *
      * @param input
      * @param indexLow
      * @param indexHigh
-     * @return 
+     * @return
      */
     private ArrayList<Object> sortQuick(ArrayList<Object> input,
             int indexLow, int indexHigh) {
@@ -153,10 +156,11 @@ public class SortingTools {
         }
         return null;
     }
+
     /**
-     * Swaps two selected values from ArrayList.
-     * The returned array is the exact same as the input array with only
-     * the index values swapped.
+     * Swaps two selected values from ArrayList. The returned array is the exact
+     * same as the input array with only the index values swapped.
+     *
      * @param input <code>ArrayList</code>
      * @param indexOne index one to swap.
      * @param indexTwo index two to swap.

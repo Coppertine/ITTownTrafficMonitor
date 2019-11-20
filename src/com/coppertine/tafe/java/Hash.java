@@ -21,34 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.coppertine.tafe.java.ITTownTrafficManager;
+package com.coppertine.tafe.java;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author Coppertine
  */
-public class TrafficNode {
+public class Hash {
 
     /**
      *
+     * @param list
+     * @return
      */
-    private LocalDateTime time;
-    /**
-     *
-     */
-    private int intKey;
+    public HashMap<Integer, Integer> toHashMap(final ArrayList<Integer> list) {
+        HashMap<Integer, Integer> hmap = new HashMap<>();
+        list.forEach((integer) -> {
+            Integer element = hmap.get(integer);
+            if (element == null) {
+                hmap.put(integer, 1);
+            } else {
+                hmap.put(integer, ++element);
+            }
+        });
 
-    /**
-     *
-     * @param key
-     */
-    public TrafficNode(final Object key) {
-        if (key instanceof LocalDateTime) {
-            this.time = (LocalDateTime) key;
-        } else if (key instanceof Integer) {
-            this.intKey = (Integer) key;
-        }
+        return hmap;
     }
 }

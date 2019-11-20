@@ -21,34 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.coppertine.tafe.java.ITTownTrafficManager;
-
-import java.time.LocalDateTime;
+package com.coppertine.tafe.java;
 
 /**
  *
  * @author Coppertine
  */
-public class TrafficNode {
+public class Debug {
 
     /**
+     * Logs information, currently as console.
      *
+     * @param msg
      */
-    private LocalDateTime time;
-    /**
-     *
-     */
-    private int intKey;
-
-    /**
-     *
-     * @param key
-     */
-    public TrafficNode(final Object key) {
-        if (key instanceof LocalDateTime) {
-            this.time = (LocalDateTime) key;
-        } else if (key instanceof Integer) {
-            this.intKey = (Integer) key;
-        }
+    public static final void log(String msg) {
+        System.out.println(msg);
     }
 }

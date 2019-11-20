@@ -34,25 +34,36 @@ import javax.swing.JPanel;
  * @author Coppertine
  */
 public class DrawBinaryTree extends JPanel {
-    /** ArrayList of Nodes to be displayed into the tree. */
+
+    /**
+     * ArrayList of Nodes to be displayed into the tree.
+     */
     private static ArrayList<BTNode> nodeList = new ArrayList<BTNode>();
-    /** The Oval  */
+    /**
+     * The Oval
+     */
     private static final int OVAL_HEIGHT = 40;
     private static final int OVAL_WIDTH = 40;
     private static final int DATA_STRING_OFFSET_X = 10;
     private static final int DATA_STRING_OFFSET_Y = 25;
 
-    /** Offsets for the Line of the Node. */
+    /**
+     * Offsets for the Line of the Node.
+     */
     private static final int LINE_START_OFFSET_X = 15;
     private static final int LINE_START_OFFSET_Y = 40;
     private static final int RIGHT_LINE_END_OFFSET_X = 100;
     private static final int LEFT_LINE_END_OFFSET_X = -50;
     private static final int LINE_END_OFFSET_Y = 100;
 
+    /**
+     *
+     * @param nodeListInput
+     */
     public DrawBinaryTree(ArrayList<BTNode> nodeListInput) {
         nodeList = nodeListInput;
     }
-    
+
     @Override
     public final void paintComponent(final Graphics graphics) {
         for (BTNode node : nodeList) {

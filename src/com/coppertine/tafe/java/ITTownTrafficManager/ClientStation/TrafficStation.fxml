@@ -13,151 +13,152 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="455.0" styleClass="content" stylesheets="@style/trafficstation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coppertine.tafe.java.ITTownTrafficManager.ClientStation.TrafficStationController">
-   <top>
-      <HBox onMouseDragged="#dragWindow" onMousePressed="#press" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar onMouseDragged="#dragWindow" onMousePressed="#press" prefHeight="32.0" prefWidth="383.0" styleClass="menuBar" stylesheets="@style/trafficstation.css">
-              <menus>
-                <Menu mnemonicParsing="false" styleClass="menuDropDown" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" styleClass="menuDropDown" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <HBox prefHeight="48.0" prefWidth="142.0">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <HBox onMouseClicked="#closeWindow" prefHeight="100.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <VBox prefHeight="368.0" prefWidth="639.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" prefHeight="21.0" prefWidth="616.0" styleClass="orderLabel" text="Traffic Station">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
-               <children>
-                  <Label text="Time: ">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding>
-                  </Label>
-                  <TextField />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
-               <children>
-                  <Label contentDisplay="CENTER" text="# Lanes:">
-                     <HBox.margin>
-                        <Insets left="-20.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="25.0" />
-                     </padding>
-                  </Label>
-                  <TextField>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
-               <children>
-                  <Label contentDisplay="CENTER" text="Total # Vehicles:">
-                     <HBox.margin>
-                        <Insets left="-74.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="25.0" />
-                     </padding>
-                  </Label>
-                  <TextField>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
-               <children>
-                  <Label contentDisplay="CENTER" text="Average # Vehicles:">
-                     <HBox.margin>
-                        <Insets left="-95.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="25.0" />
-                     </padding>
-                  </Label>
-                  <TextField>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
-               <children>
-                  <Label contentDisplay="CENTER" text="Average Velocity:">
-                     <HBox.margin>
-                        <Insets left="-80.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="25.0" />
-                     </padding>
-                  </Label>
-                  <TextField>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="455.0">
-               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Submit" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
+    <top>
+        <HBox onMouseDragged="#dragWindow" onMousePressed="#press" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar onMouseDragged="#dragWindow" onMousePressed="#press" prefHeight="32.0" prefWidth="383.0" styleClass="menuBar" stylesheets="@style/trafficstation.css">
+                    <menus>
+                        <Menu mnemonicParsing="false" styleClass="menuDropDown" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" styleClass="menuDropDown" text="Server">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#startServer" text="Connect" />
+                                <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#editServer" text="Settings" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <HBox prefHeight="48.0" prefWidth="142.0">
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox onMouseClicked="#closeWindow" prefHeight="100.0" prefWidth="200.0" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox prefHeight="368.0" prefWidth="639.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER" prefHeight="21.0" prefWidth="616.0" styleClass="orderLabel" text="Traffic Station">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
+                    <children>
+                        <Label text="Time: ">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="20.0" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="txtTime" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
+                    <children>
+                        <Label contentDisplay="CENTER" text="# Lanes:">
+                            <HBox.margin>
+                                <Insets left="-20.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="25.0" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="txtLanes">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
+                    <children>
+                        <Label contentDisplay="CENTER" text="Total # Vehicles:">
+                            <HBox.margin>
+                                <Insets left="-74.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="25.0" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="txtVehicles">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
+                    <children>
+                        <Label contentDisplay="CENTER" text="Average # Vehicles:">
+                            <HBox.margin>
+                                <Insets left="-95.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="25.0" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="txtAverageVeh">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="537.0">
+                    <children>
+                        <Label contentDisplay="CENTER" text="Average Velocity:">
+                            <HBox.margin>
+                                <Insets left="-80.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="25.0" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="txtAverageVel">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="455.0">
+                    <children>
+                        <Button fx:id="btnSubmit" alignment="CENTER" mnemonicParsing="false" onAction="#sendInformation" text="Submit" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

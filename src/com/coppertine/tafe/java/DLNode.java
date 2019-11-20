@@ -27,45 +27,90 @@ import com.coppertine.tafe.java.ITTownTrafficManager.TrafficNode;
 
 /**
  * DLNode to be used for DList.
+ *
  * @author Coppertine
  * @see DList
  * @see TrafficNode
  */
 public class DLNode {
-    /** Previous DLNode in DList. **/
+
+    /**
+     * Previous DLNode in DList. *
+     */
     private DLNode prev;
-    /** Next DLNode in DList. **/
+    /**
+     * Next DLNode in DList. *
+     */
     private DLNode next;
 
-    /** Traffic Data for each DLNode in DList. **/
+    /**
+     * Traffic Data for each DLNode in DList. *
+     */
     private TrafficNode trafficData;
 
+    /**
+     *
+     */
     public DLNode() {
         this.prev = this;
         this.next = this;
     }
 
+    /**
+     *
+     * @param value
+     */
     public DLNode(Object value) {
         this.prev = null;
         this.next = null;
         this.trafficData = new TrafficNode(value);
     }
-    
+
     /**
-     * Appends <code>DLNode</code> to
-     * either the next or previous <code>DLNode</code> of <code>DList</code>.
+     * Appends <code>DLNode</code> to either the next or previous
+     * <code>DLNode</code> of <code>DList</code>.
+     *
      * @param newNode
      */
     public void appendNode(DLNode newNode) {
-        
+        newNode.prev = this;
+        newNode.next = next;
+
+        if (next != null) {
+            next.prev = newNode;
+        }
+        next = newNode;
+        System.out.println("Node with data " + newNode.trafficData.toString()
+                + " appended after Node with data " + trafficData.toString());
     }
-    
+
+    /**
+     *
+     * @param newNode
+     */
     public void insertNode(DLNode newNode) {
-        
+        newNode.prev = prev;
+        newNode.next = this;
+        prev.next = newNode;
+        prev = newNode;
+        System.out.println("Node with data " + newNode.trafficData.toString()
+                + " inserted before Node with data " + trafficData.toString());
+    }
+
+    /**
+     *
+     */
+    public void remove() {
+        next.prev = prev;
+        prev.next = next;
+        System.out.println("Node with data " + trafficData.toString()
+                + " removed");
     }
     
-    public void remove() {
-        
+    @Override
+    /** {@inheritDoc} */
+    public final String toString() {
+        return this.trafficData.toString();
     }
 
     /**
@@ -115,6 +160,5 @@ public class DLNode {
     public void setTrafficData(TrafficNode trafficData) {
         this.trafficData = trafficData;
     }
-    
-    
+
 }

@@ -29,11 +29,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
- * Creates <code>SpringPannel</code> of Binary Tree
- * extending the <code>BinaryTree</code>.
+ * Creates <code>SpringPannel</code> of Binary Tree extending the
+ * <code>BinaryTree</code>.
+ *
  * @author Coppertine
  */
 public class BinaryTreeView extends BinaryTree {
+
     private JFrame frame;
     private static final int FRAME_WIDTH = 1500;
     private static final int FRAME_HEIGHT = 600;
@@ -49,24 +51,29 @@ public class BinaryTreeView extends BinaryTree {
         frame.setResizable(false);
         nodeList = new ArrayList<BTNode>();
     }
+
     /**
      * Includes the <code>BTNode</code> into the tree.
+     *
      * @param node The BTNode to be added.
      */
     public final void include(final BTNode node) {
         nodeList.add(node);
-        System.out.println((int)node.getValues());
+        System.out.println((int) node.getValues());
         if (node.getLeft() != null) {
-            System.out.println((int)node.getLeft().getValues());
+            System.out.println((int) node.getLeft().getValues());
             include(node.getLeft());
         }
         if (node.getRight() != null) {
-            System.out.println((int)node.getRight().getValues());
+            System.out.println((int) node.getRight().getValues());
 
             include(node.getRight());
         }
     }
-    
+
+    /**
+     *
+     */
     public final void run() {
         frame.setContentPane(new DrawBinaryTree(nodeList));
         frame.setVisible(true);

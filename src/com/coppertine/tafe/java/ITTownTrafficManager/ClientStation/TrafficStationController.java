@@ -23,11 +23,21 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
+import com.coppertine.tafe.java.ITTownTrafficManager.Settings;
+import com.coppertine.tafe.java.Debug;
+import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
+import com.coppertine.tafe.java.ITTownTrafficManager.Location;
+import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
+import javafx.event.ActionEvent;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -48,36 +58,61 @@ public class TrafficStationController implements Initializable {
     private double y = 0;
 
     /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param url
-     * The location used to resolve relative paths for the root object, or
-     * <tt>null</tt> if the location is not known.
-     *
-     * @param rb
-     * The resources used to localize the root object, or <tt>null</tt> if
-     * the root object was not localized.
+     * Default value for server port numbers.
      */
+    private static final int DEFAULT_SERVER_PORT = 4444;
 
+    /**
+     *
+     */
+    @FXML
+    private TextField txtTime;
+
+    @FXML
+    private TextField txtLanes;
+
+    @FXML
+    private TextField txtVehicles;
+
+    @FXML
+    private TextField txtAverageVeh;
+
+    @FXML
+    private TextField txtAverageVel;
+    
+    @FXML
+    private Button btnSubmit;
+    private ConnectionConfig config;
+    private TrafficClient client = new TrafficClient();
+
+    /**
+     * {@inheritDoc }.
+     */
     @Override
-    public void initialize(final URL url, final ResourceBundle rb) {
-
+    public final void initialize(final URL url, final ResourceBundle rb) {
+        config = new ConnectionConfig("localhost", DEFAULT_SERVER_PORT);
     }
 
+    /**
+     * Attempts to connect to the specified server from the
+     * {@link ConnectionConfig}.
+     */
     @FXML
-    public void startServer(final MouseEvent event) {
-        
+    public final void startServer() {
+        Debug.log("Establishing connection.");
+        client.run(config);
     }
-    
-    @FXML
-    public void stopServer(final MouseEvent event) {
-        
+
+    /**
+     *
+     */
+    public final void stopServer() {
+        client.send("exit");
     }
-    
 
     /**
      * Drags the Window to Cursor position.
+     *
      * @param event The current Mouse Event when holding down on menubar.
      */
     @FXML
@@ -90,6 +125,7 @@ public class TrafficStationController implements Initializable {
 
     /**
      * Gets cursor position on mouse press.
+     *
      * @param event The current Mouse Event when holding down on menubar.
      */
     @FXML
@@ -98,12 +134,71 @@ public class TrafficStationController implements Initializable {
         y = event.getSceneY();
     }
 
-
+    /**
+     *
+     * @param event
+     */
     @FXML
     public final void closeWindow(final MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         System.exit(0);
+    }
+
+    /**
+     *
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public final void performAction(final ActionEvent actionEvent) {
+        MenuItem target = (MenuItem) actionEvent.getSource();
+
+        if (target.getId().equals("settingsMenuItem")) {
+            editServer();
+        }
+        if (target.getId().equals("startMenuItem")) {
+            toggleServer();
+        }
+        
+    }
+
+    /**
+     *
+     */
+    @FXML
+    public final void editServer() {
+        config = new Settings().open(config);
+    }
+
+    private void toggleServer() {
+        if (client == null) {
+            startServer();
+        } else {
+            stopServer();
+        }
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    private void sendInformation() {
+        System.out.println("Sending Traffic Information to Server.");
+        Traffic sendTraffic = new Traffic(
+                LocalDateTime.parse(txtTime.getText()),
+                new Location(
+                        client.getClientID(),
+                        String.valueOf(client.getClientID())),
+                Integer.parseInt(txtLanes.getText()),
+                Integer.parseInt(txtVehicles.getText()),
+                Integer.parseInt(txtAverageVeh.getText()),
+                Integer.parseInt(txtAverageVel.getText())
+        );
+        
+        String traficString = sendTraffic.toString();
+        client.send("Traffic: " + traficString);
+        System.out.println("Traffic: " + traficString);
     }
 
 }

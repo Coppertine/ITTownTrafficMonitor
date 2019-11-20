@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
+package com.coppertine.tafe.java.ITTownTrafficManager;
 
-import com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,15 +16,17 @@ import javafx.stage.StageStyle;
  *
  * @author nick_
  */
-public class TrafficStation extends Application {
+public class VersionSelector extends Application {
 
     /**
-     * {@inheritDoc }.
+     * {@inheritDoc. }
+     *
+     * @param stage
+     * @throws java.lang.Exception
      */
     @Override
     public final void start(final Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("TrafficStation.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("VersionSelector.fxml"));
         stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -21,34 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.coppertine.tafe.java.ITTownTrafficManager;
-
-import java.time.LocalDateTime;
+package com.coppertine.tafe.java;
 
 /**
  *
  * @author Coppertine
  */
-public class TrafficNode {
+public class ColourFX {
 
     /**
+     * Gets the JavaFX color's brightness.
      *
+     * @param c using JavaFX scene paint.
+     * @return double brightness value from 0-255
+     * @see javafx.scene.paint.Color
      */
-    private LocalDateTime time;
-    /**
-     *
-     */
-    private int intKey;
-
-    /**
-     *
-     * @param key
-     */
-    public TrafficNode(final Object key) {
-        if (key instanceof LocalDateTime) {
-            this.time = (LocalDateTime) key;
-        } else if (key instanceof Integer) {
-            this.intKey = (Integer) key;
-        }
+    public static double getBrightness(final javafx.scene.paint.Color c) {
+        final double redDivision = 0.241;
+        final double greenDivision = 0.691;
+        final double blueDivision = 0.68;
+        final double rgbMax = 255;
+        return Math.sqrt(
+                c.getRed() * c.getRed() * redDivision
+                + c.getGreen() * c.getGreen() * greenDivision
+                + c.getBlue() * c.getBlue() * blueDivision
+        ) * rgbMax;
     }
 }
