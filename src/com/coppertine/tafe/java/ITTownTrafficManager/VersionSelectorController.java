@@ -13,10 +13,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -40,14 +38,11 @@ public class VersionSelectorController implements Initializable {
     private Button btnOpenStation;
 
     /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
+     * {@inheritDoc }.
      *
-     * @param url
-     * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(final URL url, final ResourceBundle rb) {
         // TODO
     }
 
@@ -65,7 +60,7 @@ public class VersionSelectorController implements Initializable {
             stage.setScene(new Scene(fxmlLoader.load()));
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
-            // Hide this current window (if this is what you want)
+
         } catch (IOException e) {
         }
         Stage stage = (Stage) btnOpenOffice.getScene().getWindow();
@@ -79,7 +74,8 @@ public class VersionSelectorController implements Initializable {
     public void openStation() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(TrafficStation.class.getResource("TrafficStation.fxml"));
+            fxmlLoader.setLocation(
+                    TrafficStation.class.getResource("TrafficStation.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Traffic Station");
             stage.setScene(new Scene(fxmlLoader.load(), 450, 450));

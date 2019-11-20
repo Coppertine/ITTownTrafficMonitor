@@ -104,7 +104,7 @@ public class OfficeServer implements Runnable {
         }
         Debug.log("Server is stopped.");
     }
-    
+
     /**
      *
      * @param ID
@@ -123,13 +123,13 @@ public class OfficeServer implements Runnable {
         }
     }
 
-    private final void handleCommands(int ID, String input) {
+    private void handleCommands(int ID, String input) {
         try {
-            OfficeThread client = findClient(ID);
+
             if (input.startsWith("Traffic: ")) {
+
                 Traffic importTraffic
-                        = new Traffic(
-                                input.substring("Traffic: ".length() + 1));
+                        = new Traffic(input.substring("Traffic: ".length()));
                 controller.trafficImport(importTraffic);
             }
         } catch (NoSuchElementException e) {

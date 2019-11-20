@@ -43,7 +43,9 @@ import javafx.beans.value.ObservableValue;
  */
 public final class Traffic {
 
-    private final ObjectProperty<LocalDateTime> time = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> time = 
+            new SimpleObjectProperty<>();
+    private final int AVERAGE_VELOCITY_STRING_INDEX = 6;
 
     /**
      *
@@ -59,7 +61,7 @@ public final class Traffic {
         setNumLanes(Integer.parseInt(list[LANES_STRING_INDEX]));
         setTotalVehicle(Integer.parseInt(list[TOTAL_VEHICLE_STRING_INDEX]));
         setAveragePerLane(Integer.parseInt(list[AVERAGE_LANE_STRING_INDEX]));
-        setAverageVelocity(Integer.parseInt(list[7]));
+        setAverageVelocity(Integer.parseInt(list[AVERAGE_VELOCITY_STRING_INDEX]));
     }
 
     /**
@@ -289,8 +291,9 @@ public final class Traffic {
     @Override
     public String toString() {
         return FileIO.formatCSV(new String[]{
-            getTime(),
+            "0",
             getLocation(),
+            getTime(),
             String.valueOf(getNumLanes()),
             String.valueOf(getTotalVehicle()),
             String.valueOf(getAveragePerLane()),

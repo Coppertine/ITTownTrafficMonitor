@@ -24,7 +24,6 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
 import com.coppertine.tafe.java.Debug;
-import com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice.OfficeServer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -61,6 +60,7 @@ public class OfficeThread extends Thread {
      */
     public OfficeThread(OfficeServer aThis, Socket socketInput, int client) {
         super();
+        this.client = aThis;
         this.socket = socketInput;
         this.clientPort = socket.getPort();
         this.clientID = client;
@@ -70,7 +70,8 @@ public class OfficeThread extends Thread {
         while (!stopped) { // Why? just, why?
             try {
                 client.handle(clientID, streamIn.readUTF());
-            } catch (Exception e) {
+                System.out.println(streamIn.readUTF());
+            } catch (IOException e) {
                 Debug.log(e.getMessage());
             }
         }
