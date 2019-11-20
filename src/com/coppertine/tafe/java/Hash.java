@@ -23,10 +23,31 @@
  */
 package com.coppertine.tafe.java;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author Coppertine
  */
 public class Hash {
-    // TODO: Hasing Algorythm, 
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+    public HashMap<Integer, Integer> toHashMap(final ArrayList<Integer> list) {
+        HashMap<Integer, Integer> hmap = new HashMap<>();
+        list.forEach((integer) -> {
+            Integer element = hmap.get(integer);
+            if (element == null) {
+                hmap.put(integer, 1);
+            } else {
+                hmap.put(integer, ++element);
+            }
+        });
+
+        return hmap;
+    }
 }
