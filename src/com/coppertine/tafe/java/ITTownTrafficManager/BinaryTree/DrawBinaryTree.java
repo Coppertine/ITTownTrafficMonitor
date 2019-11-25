@@ -39,10 +39,15 @@ public class DrawBinaryTree extends JPanel {
      * ArrayList of Nodes to be displayed into the tree.
      */
     private static ArrayList<BTNode> nodeList = new ArrayList<BTNode>();
+
     /**
-     * The Oval
+     * The Oval height in pixels.
      */
     private static final int OVAL_HEIGHT = 40;
+
+    /**
+     * The oval width in pixels.
+     */
     private static final int OVAL_WIDTH = 40;
     private static final int DATA_STRING_OFFSET_X = 10;
     private static final int DATA_STRING_OFFSET_Y = 25;
