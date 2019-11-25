@@ -111,15 +111,22 @@ public class OfficeServer implements Runnable {
      * @param input
      */
     public synchronized void handle(int ID, String input) {
-        if (input.equals("exit")) {
-            findClient(ID).send("exit");
-            remove(ID);
-        } else {
-            System.out.println(ID + ": " + input);
-            clients.forEach((client) -> {
-                client.send(ID + ": " + input);
-            });
-            handleCommands(ID, input);
+        switch (input) {
+            case "exit":
+                findClient(ID).send("exit");
+                remove(ID);
+                break;
+            case "status ready":
+                controller.printToMessageScreen("Client "
+                        + findClient(ID).getClientID() + "Ready");
+                break;
+            default:
+                System.out.println(ID + ": " + input);
+                clients.forEach((client) -> {
+                    client.send(ID + ": " + input);
+                });
+                handleCommands(ID, input);
+                break;
         }
     }
 
@@ -164,5 +171,14 @@ public class OfficeServer implements Runnable {
         } catch (NoSuchElementException e) {
             System.out.println(e.toString());
         }
+    }
+
+    /**
+     * Sends a status check to all clients of the server.
+     */
+    public final void statusCheck() {
+        clients.forEach((thread) -> {
+            thread.send("status check");
+        });
     }
 }
