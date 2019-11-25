@@ -39,6 +39,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -153,6 +154,9 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     private TableColumn<Traffic, Integer> tblTrafficAverageVel;
 
+    @FXML
+    private Text txtMesssages;
+
     private OfficeServer server;
 
     /**
@@ -222,17 +226,6 @@ public class ITTownMonitorOfficeController implements Initializable {
     public void displayBinaryTree(MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
 
-//        tree.addNode(12);
-//        tree.addNode(2);
-//        tree.addNode(13);
-//        tree.addNode(52);
-//        tree.addNode(33);
-//        tree.addNode(23);
-//        tree.addNode(4);
-//        tree.addNode(27);
-//        tree.addNode(44);
-//        tree.addNode(3);
-//        tree.addNode(1);
         tree.include(tree.getRootNode());
         tree.run();
     }
@@ -521,10 +514,7 @@ public class ITTownMonitorOfficeController implements Initializable {
                                     FileIO.readFile(filePath))) {
                 tblView.getItems().add(traffic);
             }
-
-            for (Object obj : tblView.getItems().toArray()) {
-                System.out.println(obj.toString());
-            }
+            printToMessageScreen("Imported Files from " + filePath);
         } catch (IOException ex) {
             Logger.getLogger(
                     ITTownMonitorOfficeController.class.getName()
@@ -599,6 +589,10 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     public void checkClientStatus(MouseEvent event) {
+        server.statusCheck();
+    }
 
+    public void printToMessageScreen(String string) {
+        txtMesssages.setText(string);
     }
 }
