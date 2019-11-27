@@ -42,21 +42,37 @@ public class OfficeServer implements Runnable {
      * Exited boolean to prevent thread exceptions when shutting down a server.
      */
     private volatile boolean exited = false;
+    /**
+     * The list of client threads for the server.
+     */
     private ArrayList<OfficeThread> clients = new ArrayList<>();
+    /**
+     * The server configuration.
+     */
     private ConnectionConfig config;
+    /**
+     * The server socket, initially null to check if the server is running.
+     */
     private ServerSocket server = null;
+    /**
+     * The FXML Controller.
+     */
     private ITTownMonitorOfficeController controller;
 
     /**
+     * The Constructor of the Office Server.
      *
-     * @param inputConfig
-     * @param _controller
+     * @param inputConfig The server configuration.
+     * @param controllerInput The FXML controller.
      */
-    public OfficeServer(ConnectionConfig inputConfig, ITTownMonitorOfficeController _controller) {
+    public OfficeServer(
+            final ConnectionConfig inputConfig,
+            final ITTownMonitorOfficeController controllerInput) {
         try {
-            System.out.println("Starting server at: " + inputConfig.getHostPort());
+            System.out.println(
+                    "Starting server at: " + inputConfig.getHostPort());
             this.config = inputConfig;
-            this.controller = _controller;
+            this.controller = controllerInput;
             server = new ServerSocket(config.getHostPort());
         } catch (IOException e) {
             Debug.log(e.toString());
@@ -68,15 +84,15 @@ public class OfficeServer implements Runnable {
      * Attempts to stop the Office Server.
      */
     public final void stop() {
-
         exited = true;
     }
 
     /**
+     * Creates a new Client thread from the socket that connects through.
      *
-     * @param socket
+     * @param socket The client socket that connects to the server.
      */
-    public void addThread(Socket socket) {
+    public final void addThread(final Socket socket) {
         Debug.log("Client Accepted: " + socket);
         OfficeThread client
                 = new OfficeThread(this, socket, clients.size() + 1);
@@ -90,11 +106,8 @@ public class OfficeServer implements Runnable {
         }
     }
 
-    /**
-     * {@inheritDoc }.
-     */
     @Override
-    public void run() {
+    public final void run() {
         while (!exited) {
             try {
                 addThread(server.accept());
@@ -106,31 +119,37 @@ public class OfficeServer implements Runnable {
     }
 
     /**
-     *
-     * @param ID
-     * @param input
+     * Handles the message coming from the client thread.
+     * @param Id The location ID of the client.
+     * @param input The message from the client.
      */
-    public synchronized void handle(int ID, String input) {
+    public final synchronized void handle(final int Id, final String input) {
         switch (input) {
             case "exit":
-                findClient(ID).send("exit");
-                remove(ID);
+                findClient(Id).send("exit");
+                remove(Id);
                 break;
             case "status ready":
                 controller.printToMessageScreen("Client "
-                        + ID + "Ready");
+                        + Id + "Ready");
                 break;
             default:
-                System.out.println(ID + ": " + input);
+                System.out.println(Id + ": " + input);
                 clients.forEach((client) -> {
-                    client.send(ID + ": " + input);
+                    client.send(Id + ": " + input);
                 });
-                handleCommands(ID, input);
+                handleCommands(Id, input);
                 break;
         }
     }
 
-    private void handleCommands(int ID, String input) {
+    /**
+     * Parses the traffic information to the controller.
+     * @param ID The location number of the client.
+     * @param input  The string input in CSV format starting with
+     * {@code Traffic: }
+     */
+    private void handleCommands(final int ID, final String input) {
         try {
 
             if (input.startsWith("Traffic: ")) {
@@ -160,10 +179,10 @@ public class OfficeServer implements Runnable {
     }
 
     /**
-     *
-     * @param clientID
+     * Attempts to remove the client thread from the server.
+     * @param clientID The client location id.
      */
-    public void remove(int clientID) {
+    public final void remove(final int clientID) {
         OfficeThread toRemove;
         try {
             toRemove = findClient(clientID);
