@@ -63,31 +63,50 @@ public class TrafficStationController implements Initializable {
     private static final int DEFAULT_SERVER_PORT = 4444;
 
     /**
-     *
+     * Text field for time.
      */
     @FXML
     private TextField txtTime;
 
+    /**
+     * Text field for number of lanes.
+     */
     @FXML
     private TextField txtLanes;
 
+    /**
+     * Text field for number of vehicles.
+     */
     @FXML
     private TextField txtVehicles;
 
+    /**
+     * Text field for number of average vehicles per lane.
+     */
     @FXML
     private TextField txtAverageVeh;
 
+    /**
+     * Text field for average velocity of traffic.
+     */
     @FXML
     private TextField txtAverageVel;
-    
-    @FXML
-    private Button btnSubmit;
-    private ConnectionConfig config;
-    private TrafficClient client = new TrafficClient();
 
     /**
-     * {@inheritDoc }.
+     * Submission button to server.
      */
+    @FXML
+    private Button btnSubmit;
+
+    /**
+     * Client to server connection configuration.
+     */
+    private ConnectionConfig config;
+    /**
+     * The traffic client thread.
+     */
+    private final TrafficClient client = new TrafficClient();
+
     @Override
     public final void initialize(final URL url, final ResourceBundle rb) {
         config = new ConnectionConfig("localhost", DEFAULT_SERVER_PORT);
@@ -104,7 +123,7 @@ public class TrafficStationController implements Initializable {
     }
 
     /**
-     *
+     * Attempts to stop the server connection.
      */
     public final void stopServer() {
         client.send("exit");
@@ -135,8 +154,9 @@ public class TrafficStationController implements Initializable {
     }
 
     /**
+     * Closes the program once the X icon is clicked.
      *
-     * @param event
+     * @param event The mouse information in the form of an event.
      */
     @FXML
     public final void closeWindow(final MouseEvent event) {
@@ -146,9 +166,9 @@ public class TrafficStationController implements Initializable {
     }
 
     /**
+     * The action performed from a click on a Menu Item instance.
      *
-     *
-     * @param actionEvent
+     * @param actionEvent The action event for the menu item.
      */
     @FXML
     public final void performAction(final ActionEvent actionEvent) {
@@ -160,17 +180,20 @@ public class TrafficStationController implements Initializable {
         if (target.getId().equals("startMenuItem")) {
             toggleServer();
         }
-        
+
     }
 
     /**
-     *
+     * Opens the settings dialog to edit the configuration.
      */
     @FXML
     public final void editServer() {
         config = new Settings().open(config);
     }
 
+    /**
+     * Toggles the Server on or off depending if the server exists.
+     */
     private void toggleServer() {
         if (client == null) {
             startServer();
@@ -180,10 +203,10 @@ public class TrafficStationController implements Initializable {
     }
 
     /**
-     * 
+     * Sends all information to the server from the text fields.
      */
     @FXML
-    private void sendInformation() {
+    public final void sendInformation() {
         System.out.println("Sending Traffic Information to Server.");
         Traffic sendTraffic = new Traffic(
                 LocalDateTime.parse(txtTime.getText()),
@@ -195,7 +218,7 @@ public class TrafficStationController implements Initializable {
                 Integer.parseInt(txtAverageVeh.getText()),
                 Integer.parseInt(txtAverageVel.getText())
         );
-        
+
         String traficString = sendTraffic.toString();
         client.send("Traffic: " + traficString);
         System.out.println("Traffic: " + traficString);
