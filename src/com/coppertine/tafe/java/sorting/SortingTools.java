@@ -23,6 +23,7 @@
  */
 package com.coppertine.tafe.java.sorting;
 
+import com.coppertine.tafe.java.ITTownTrafficManager.Traffic;
 import java.util.ArrayList;
 
 /**
@@ -37,8 +38,8 @@ public class SortingTools {
      * @param input
      * @return
      */
-    public ArrayList<Object> sortAlgorithm(SortingType type,
-            ArrayList<Object> input) {
+    public ArrayList<Traffic> sortAlgorithm(SortingType type,
+            ArrayList<Traffic> input) {
         switch (type) {
             case BubbleSort:
                 return sortBubble(input);
@@ -53,22 +54,24 @@ public class SortingTools {
 
     /**
      * Bubble Sort of the ArrayList of Objects. Must be accessed using the
-     * {@link sortAlgorithm()} method.
+     * {@link sortAlgorithm()} method. Relies on the structure of
+     * {@link Traffic}
      *
      * @param input
      * @return ArrayList
      */
-    private ArrayList<Object> sortBubble(final ArrayList<Object> input) {
+    private ArrayList<Traffic> sortBubble(final ArrayList<Traffic> input) {
         try {
+
             boolean swapped = false;
-            ArrayList<Object> swapedArray = input;
-            for (Object indexItem : swapedArray) {
+            ArrayList<Traffic> swapedArray = (ArrayList<Traffic>) input;
+            for (Traffic indexItem : swapedArray) {
                 swapped = false;
-                for (Object innerItem : swapedArray.subList(0,
+                for (Traffic innerItem : swapedArray.subList(0,
                         swapedArray.size()
                         - swapedArray.indexOf(indexItem) - 1)) {
-                    if ((double) indexItem > (double) swapedArray.get(
-                            swapedArray.indexOf(indexItem) + 1)) {
+                    if (indexItem.getLocation() > (double) swapedArray.get(
+                            swapedArray.indexOf(indexItem) + 1).getLocation()) {
                         swapedArray = swapValues(swapedArray,
                                 swapedArray.indexOf(innerItem),
                                 swapedArray.indexOf(indexItem)
@@ -94,12 +97,15 @@ public class SortingTools {
      * @return ArrayList of Objects from the sorted array. Must be accessed
      * using the {@link sortAlgorithm()} method.
      */
-    private ArrayList<Object> sortInsertion(final ArrayList<Object> input) {
-        ArrayList<Object> sortedArray = input;
+    private ArrayList<Traffic> sortInsertion(final ArrayList<Traffic> input) {
+        ArrayList<Traffic> sortedArray = input;
         sortedArray.subList(1, sortedArray.size())
                 .forEach((tempValue) -> {
-                    for (int i = sortedArray.indexOf((int) tempValue) - 1;
-                            (i >= 0) && ((int) sortedArray.get(i) < (int) tempValue);
+                    for (int i = sortedArray.indexOf(
+                            (int) tempValue.getTotalVehicle()) - 1;
+                            (i >= 0) && ((int) sortedArray.get(i)
+                                    .getTotalVehicle()
+                            < (int) tempValue.getTotalVehicle());
                             i--) {
                         sortedArray.set(i + 1, sortedArray.get(i));
                     }
@@ -116,20 +122,21 @@ public class SortingTools {
      * @param highValue
      * @return The partition index.
      */
-    private int partitionArray(final ArrayList<Object> input,
-            final Object lowValue, final Object highValue) {
-        ArrayList<Object> sortedArray = input;
-        Object pivot = highValue;
+    private int partitionArray(final ArrayList<Traffic> input,
+            final Integer lowValue, final Integer highValue) {
+        ArrayList<Traffic> sortedArray = input;
+        int pivot = sortedArray.get(highValue).getAverageVelocity();
         int selectionLow = (int) lowValue - 1;
-        for (Object value : sortedArray.subList(
+        for (Traffic value : sortedArray.subList(
                 (int) lowValue,
                 (int) highValue)) {
-            if ((int) value < (int) pivot) {
+            if ((int) value.getAverageVelocity()
+                    < (int) pivot) {
                 selectionLow++;
                 sortedArray = swapValues(
                         sortedArray,
                         selectionLow,
-                        (int) value);
+                        (int) value.getAverageVelocity());
             }
         }
         swapValues(sortedArray, selectionLow + 1, (int) highValue);
@@ -145,31 +152,31 @@ public class SortingTools {
      * @param indexHigh
      * @return
      */
-    private ArrayList<Object> sortQuick(ArrayList<Object> input,
+    private ArrayList<Traffic> sortQuick(ArrayList<Traffic> input,
             int indexLow, int indexHigh) {
         if (indexLow < indexHigh) {
             int partitionIndex = partitionArray(input, indexLow, indexHigh);
             sortQuick(input, indexLow, partitionIndex - 1);
-            sortQuick(input, partitionIndex - 1, indexHigh);
+            sortQuick(input, partitionIndex + 1, indexHigh);
         } else {
             return input;
         }
-        return null;
+        return input;
     }
 
     /**
      * Swaps two selected values from ArrayList. The returned array is the exact
      * same as the input array with only the index values swapped.
      *
-     * @param input <code>ArrayList</code>
+     * @param input Traffic list
      * @param indexOne index one to swap.
      * @param indexTwo index two to swap.
      * @return ArrayList
      */
-    public final ArrayList<Object> swapValues(final ArrayList<Object> input,
+    public final ArrayList<Traffic> swapValues(final ArrayList<Traffic> input,
             final int indexOne, final int indexTwo) {
         try {
-            Object tmp = input.get(indexOne);
+            Traffic tmp = input.get(indexOne);
             input.set(indexOne, input.get(indexTwo));
             input.set(indexTwo, tmp);
         } catch (Exception e) {
@@ -177,4 +184,5 @@ public class SortingTools {
         }
         return input;
     }
+
 }
