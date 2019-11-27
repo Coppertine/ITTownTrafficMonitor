@@ -44,23 +44,25 @@ public class ClientThread extends Thread {
     public volatile boolean stopped = false;
 
     /**
+     * The constructor for the Client Thread.
      *
-     * @param aThis
-     * @param socketInput
-     * @param client
+     * @param aThis The traffic client instance.
+     * @param socketInput The socket for the client.
+     * @param clientInput The client location id.
      */
-    public ClientThread(TrafficClient aThis, Socket socketInput, int client) {
+    public ClientThread(final TrafficClient aThis, final Socket socketInput,
+            final int clientInput) {
         super();
 
-        this.clientID = client;
+        this.clientID = clientInput;
         this.clientPort = 0;
         this.client = aThis;
-        
+
         this.start();
     }
 
     @Override
-    public void run() {
+    public final void run() {
         System.out.println("Start Running");
         while (!stopped) { // Why? just, why?
             try {
@@ -75,51 +77,29 @@ public class ClientThread extends Thread {
     }
 
     /**
-     *
-     * @return
+     * Returns the Traffic Client
+     * @return The traffic client instance.
      */
     public TrafficClient getClient() {
         return client;
     }
 
     /**
+     * Returns the client location.
      *
-     * @return
+     * @return The integer representation of the location id.
      */
-    public int getClientID() {
+    public final int getClientID() {
         return clientID;
     }
 
     /**
+     * Returns the client port number.
      *
-     * @return
+     * @return The integer representation of the port number.
      */
-    public int getClientPort() {
+    public final int getClientPort() {
         return clientPort;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getMIN_PRIORITY() {
-        return MIN_PRIORITY;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getNORM_PRIORITY() {
-        return NORM_PRIORITY;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getMAX_PRIORITY() {
-        return MAX_PRIORITY;
     }
 
 }
