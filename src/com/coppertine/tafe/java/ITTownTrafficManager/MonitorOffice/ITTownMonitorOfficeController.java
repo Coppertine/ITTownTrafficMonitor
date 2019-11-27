@@ -50,11 +50,17 @@ import javafx.stage.Stage;
  */
 public class ITTownMonitorOfficeController implements Initializable {
 
+    /**
+     * The window's X position.
+     */
     private double windowX;
+    /**
+     * The window's Y position.
+     */
     private double windowY;
 
     /**
-     * Interactable and changable Objects used into the FXML.
+     * Injectable Objects used into the FXML.
      */
     /**
      * Linked List Text Area.
@@ -105,7 +111,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     @FXML
     private FontAwesomeIconView resizeIcon;
     /**
-     * Close Icon
+     * Close Icon.
      */
     @FXML
     private FontAwesomeIconView closeIcon;
@@ -120,22 +126,35 @@ public class ITTownMonitorOfficeController implements Initializable {
     private MenuItem mItemStartServer;
 
     /**
-     * Server Options
+     * Server Options.
      */
     @FXML
     private MenuItem mItemServerOptions;
 
+    /**
+     * Server toggle menu item.
+     */
     @FXML
     private MenuItem mItemServerToggle;
 
+    /**
+     * The server configuration.
+     */
     private ConnectionConfig serverConfig;
 
+    /**
+     * Import CSV file menu item.
+     */
     @FXML
     private MenuItem importMenuItem;
-
+    /**
+     * Export to CSV file menu item.
+     */
     @FXML
     private MenuItem exportMenu;
-
+    /**
+     * Status check button, used for checking the status of all locations.
+     */
     @FXML
     private Button btnStatusCheck;
 
@@ -145,35 +164,75 @@ public class ITTownMonitorOfficeController implements Initializable {
      */
     @FXML
     private TableView<Traffic> tblView;
+    /**
+     * Traffic time column in the table view.
+     */
     @FXML
     private TableColumn<Traffic, LocalDateTime> tblTrafficTime;
+    /**
+     * Traffic location column in the table view.
+     */
     @FXML
     private TableColumn<Traffic, String> tblTrafficLocation;
+    /**
+     * Traffic average number of vehicles per lane column in the table view.
+     */
     @FXML
     private TableColumn<Traffic, Integer> tblTrafficAverageVeh;
+    /**
+     * Table average velocity column in the table view.
+     */
     @FXML
     private TableColumn<Traffic, Integer> tblTrafficAverageVel;
-
+    /**
+     * The info message text area.
+     */
     @FXML
     private Text txtMesssages;
+    /**
+     * The binary tree text area.
+     */
     @FXML
     private TextArea txtBinaryTree;
 
+    /**
+     * The office server used for establishing a socket to clients.
+     */
     private OfficeServer server;
 
+    /**
+     * Display binary tree and text representation button.
+     */
     @FXML
     private Button btnPreOrderDisplay;
 
+    /**
+     * Save binary tree hash map into TXT file button.
+     */
     @FXML
     private Button btnPreOrderSave;
 
+    /**
+     * Display binary tree and text representation button.
+     */
     @FXML
     private Button btnInOrderDisplay;
 
+    /**
+     * Save binary tree hash map into TXT file button.
+     */
     @FXML
     private Button btnInOrderSave;
+
+    /**
+     * Display binary tree and text representation button.
+     */
     @FXML
     private Button btnPostOrderDisplay;
+
+    /**
+     * Save binary tree hash map into TXT file button.
+     */
     @FXML
     private Button btnPostOrderSave;
 
@@ -190,18 +249,20 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
+     * Grabs the current window position when mouse button is pressed.
      *
-     * @param event
+     * @param event The mouse information in the form of an event.
      */
     @FXML
-    void press(MouseEvent event) {
+    public final void press(final MouseEvent event) {
         windowX = event.getSceneX();
         windowY = event.getSceneY();
     }
 
     /**
+     * Closes the program once the X icon is clicked.
      *
-     * @param event
+     * @param event The mouse information in the form of an event.
      */
     @FXML
     public final void programClose(MouseEvent event) {
@@ -211,17 +272,18 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public final void initialize(final URL url, final ResourceBundle rb) {
         setupTable();
         serverConfig = new ConnectionConfig();
     }
 
     /**
+     * Displays the binary tree as a new GUI frame.
      *
-     * @param event
+     * @param event The mouse information in the form of an event.
      */
     @FXML
-    public void displayBinaryTree(MouseEvent event) {
+    public final void displayBinaryTree(final MouseEvent event) {
         BinaryTreeView tree = new BinaryTreeView();
 
         tree.include(tree.getRootNode());
@@ -232,10 +294,10 @@ public class ITTownMonitorOfficeController implements Initializable {
     /**
      * Sorts the Table by location using the Bubble sort Method.
      *
-     * @param event
+     * @param event The button information in the form of an event.
      */
     @FXML
-    public void sortByLocation(ActionEvent event) {
+    public final void sortByLocation(final ActionEvent event) {
         ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
         ArrayList<Traffic> sortedList;
         sortedList = new SortingTools().sortAlgorithm(
@@ -259,11 +321,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
+     * Sorts the table by the amount of vehicles using the Insertion method.
      *
-     * @param event
+     * @param event The button information in the form of an event.
      */
     @FXML
-    public void sortByVehicle(ActionEvent event) {
+    public final void sortByVehicle(final ActionEvent event) {
         ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
         ArrayList<Traffic> sortedList;
         sortedList = new SortingTools().sortAlgorithm(
@@ -288,11 +351,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
+     * Sorts the table by the average velocity using the Quick Sort method.
      *
-     * @param event
+     * @param event The button information in the form of an event.
      */
     @FXML
-    public void sortByVelocity(ActionEvent event) {
+    public final void sortByVelocity(final ActionEvent event) {
         ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
         ArrayList<Traffic> sortedList;
         sortedList = new SortingTools().sortAlgorithm(
@@ -318,187 +382,210 @@ public class ITTownMonitorOfficeController implements Initializable {
 //</editor-fold>
 
     /**
-     *
+     * Initalises the server using the Connection Configuration.
      */
     @FXML
-    public void startServer() {
+    public final void startServer() {
         server = new OfficeServer(serverConfig, this);
         Thread thread = new Thread(server, "thread");
         thread.start();
     }
 
     /**
-     *
+     * Stops the instance of the server thread.
      */
     @FXML
-    public void stopServer() {
+    public final void stopServer() {
         server.stop();
     }
 
-    //<editor-fold defaultstate="collasped" desc="Getters and Setters">
+//<editor-fold defaultstate="collasped" desc="Getters and Setters">
     /**
+     * Returns the Text input component of the linked list.
      *
-     * @return
+     * @return The TextArea for the linked list display.
      */
-    public TextArea getTxtLinkedList() {
+    public final TextArea getTxtLinkedList() {
         return txtLinkedList;
     }
 
     /**
+     * Sets the text input component of the linked list.
      *
-     * @param txtLinkedList
+     * @param txtLinkedListInput The TextArea for the linked list display.
      */
-    public void setTxtLinkedList(TextArea txtLinkedList) {
-        this.txtLinkedList = txtLinkedList;
+    public final void setTxtLinkedList(final TextArea txtLinkedListInput) {
+        this.txtLinkedList = txtLinkedListInput;
     }
 
     /**
+     * Returns the menu bar instance.
      *
-     * @return
+     * @return The top bar of the screen.
      */
-    public MenuBar getWindowMenuBar() {
+    public final MenuBar getWindowMenuBar() {
         return windowMenuBar;
     }
 
     /**
+     * Sets the menu bar instance.
      *
-     * @param windowMenuBar
+     * @param windowMenuBarInput The top bar of the screen.
      */
-    public void setWindowMenuBar(MenuBar windowMenuBar) {
-        this.windowMenuBar = windowMenuBar;
+    public final void setWindowMenuBar(final MenuBar windowMenuBarInput) {
+        this.windowMenuBar = windowMenuBarInput;
     }
 
     /**
+     * Returns the File menu found on the MenuBar.
      *
-     * @return
+     * @return The File menu.
      */
-    public Menu getFileMenu() {
+    public final Menu getFileMenu() {
         return fileMenu;
     }
 
     /**
+     * Sets the file menu instance.
      *
-     * @param fileMenu
+     * @param fileMenuInput The Menu item for the file section of the menu bar.
      */
-    public void setFileMenu(Menu fileMenu) {
-        this.fileMenu = fileMenu;
+    public final void setFileMenu(final Menu fileMenuInput) {
+        this.fileMenu = fileMenuInput;
     }
 
     /**
+     * Returns the Edit menu found on the MenuBar.
      *
-     * @return
+     * @return The Edit menu.
      */
-    public Menu getEditMenu() {
+    public final Menu getEditMenu() {
         return editMenu;
     }
 
     /**
+     * Sets the Edit menu instance.
      *
-     * @param editMenu
+     * @param editMenuInput The Menu item for the Edit section of the menu bar.
      */
-    public void setEditMenu(Menu editMenu) {
-        this.editMenu = editMenu;
+    public final void setEditMenu(final Menu editMenuInput) {
+        this.editMenu = editMenuInput;
     }
 
     /**
+     * Returns the Help menu found on the MenuBar.
      *
-     * @return
+     * @return The Help Menu.
      */
-    public Menu getHelpMenu() {
+    public final Menu getHelpMenu() {
         return helpMenu;
     }
 
     /**
+     * Sets the Help menu instance.
      *
-     * @param helpMenu
+     * @param helpMenuInput The Menu item for the Help section of the menu bar.
      */
-    public void setHelpMenu(Menu helpMenu) {
-        this.helpMenu = helpMenu;
+    public final void setHelpMenu(final Menu helpMenuInput) {
+        this.helpMenu = helpMenuInput;
     }
 
     /**
+     * The Font Awesome Icon for the minimize button.
      *
-     * @return
+     * @return The minimize button.
      */
-    public FontAwesomeIconView getMinimiseIcon() {
+    public final FontAwesomeIconView getMinimiseIcon() {
         return minimiseIcon;
     }
 
     /**
+     * Sets the Font Awesome Icon for the minimize button.
      *
-     * @param minimiseIcon
+     * @param minimiseIconInput The minimize button.
      */
-    public void setMinimiseIcon(FontAwesomeIconView minimiseIcon) {
-        this.minimiseIcon = minimiseIcon;
+    public final void setMinimiseIcon(
+            final FontAwesomeIconView minimiseIconInput) {
+        this.minimiseIcon = minimiseIconInput;
     }
 
     /**
+     * Returns the Font Awesome resize icon button.
      *
-     * @return
+     * @return The resize button.
      */
-    public FontAwesomeIconView getResizeIcon() {
+    public final FontAwesomeIconView getResizeIcon() {
         return resizeIcon;
     }
 
     /**
+     * Sets the Font Awesome resize icon button.
      *
-     * @param resizeIcon
+     * @param resizeIconInput The resize button.
      */
-    public void setResizeIcon(FontAwesomeIconView resizeIcon) {
-        this.resizeIcon = resizeIcon;
+    public final void setResizeIcon(final FontAwesomeIconView resizeIconInput) {
+        this.resizeIcon = resizeIconInput;
     }
 
     /**
+     * Returns the Font Awesome Close icon button.
      *
-     * @return
+     * @return The close button.
      */
-    public FontAwesomeIconView getCloseIcon() {
+    public final FontAwesomeIconView getCloseIcon() {
         return closeIcon;
     }
 
     /**
+     * Sets the Font Awesome Close icon button.
      *
-     * @param closeIcon
+     * @param closeIconInput The close button.
      */
-    public void setCloseIcon(FontAwesomeIconView closeIcon) {
-        this.closeIcon = closeIcon;
+    public final void setCloseIcon(final FontAwesomeIconView closeIconInput) {
+        this.closeIcon = closeIconInput;
     }
 
     /**
+     * Gets the server start Item SubMenu.
      *
-     * @return
+     * @return The server start menu item.
      */
-    public MenuItem getmItemStartServer() {
+    public final MenuItem getmItemStartServer() {
         return mItemStartServer;
     }
 
     /**
+     * Sets the Start Server Menu Item instance.
      *
-     * @param mItemStartServer
+     * @param mItemStartServerInput The server start menu item.
      */
-    public void setmItemStartServer(MenuItem mItemStartServer) {
-        this.mItemStartServer = mItemStartServer;
+    public final void setmItemStartServer(
+            final MenuItem mItemStartServerInput) {
+        this.mItemStartServer = mItemStartServerInput;
     }
 
     /**
+     * Gets the Server Options item SubMenu.
      *
-     * @return
+     * @return The server options menu item.
      */
-    public MenuItem getmItemServerOptions() {
+    public final MenuItem getmItemServerOptions() {
         return mItemServerOptions;
     }
 
     /**
+     * Sets the Server Options Menu Item instance.
      *
-     * @param mItemServerOptions
+     * @param mItemServerOptionsInput The server options menu item.
      */
-    public void setmItemServerOptions(MenuItem mItemServerOptions) {
-        this.mItemServerOptions = mItemServerOptions;
+    public final void setmItemServerOptions(
+            final MenuItem mItemServerOptionsInput) {
+        this.mItemServerOptions = mItemServerOptionsInput;
     }
 
 //</editor-fold>
     /**
-     * Instantiates the Table Columns.
+     * Initializes the Table Columns.
      */
     private void setupTable() {
         tblTrafficLocation.setCellValueFactory(cellData
@@ -523,8 +610,9 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
+     * The action performed from a click on a Menu Item instance.
      *
-     * @param actionEvent
+     * @param actionEvent The action event for the menu item.
      */
     @FXML
     public final void performAction(final ActionEvent actionEvent) {
@@ -547,7 +635,7 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
+     * Opens the settings dialog to edit the configuration.
      */
     private void editServer() {
         serverConfig = new Settings().open(serverConfig);
@@ -568,10 +656,13 @@ public class ITTownMonitorOfficeController implements Initializable {
 //<editor-fold defaultstate="collapsed" desc="Table Import and Export">
 
     /**
+     * Imports the selected CSV file into the table.
      *
-     * @param event
+     * @param event The action event of the Menu item.
+     * @param clearTable If the table should be cleared once import has started.
      */
-    private void importTraffic(ActionEvent event, boolean clearTable) {
+    private void importTraffic(final ActionEvent event,
+            final boolean clearTable) {
         System.out.println("Importing File");
         String filePath = openFileDialog(event);
         if (clearTable) {
@@ -593,10 +684,11 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
+     * Exports the table information into a selected CSV file.
      *
-     * @param event
+     * @param event The action event of the menu item.
      */
-    public void exportTraffic(ActionEvent event) {
+    public final void exportTraffic(final ActionEvent event) {
         String exportFilePath = saveFileDialog(event);
         ArrayList<String> exportList = new ArrayList<>();
         tblView.getItems().forEach((traffic) -> {
@@ -609,7 +701,14 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
-    private String openFileDialog(ActionEvent event) {
+    /**
+     * Opens the file dialog for selection for CSV files.
+     *
+     * @param event Action event of the menu item.
+     * @return The string representation of the absolute file path to the
+     * specified CSV file.
+     */
+    private String openFileDialog(final ActionEvent event) {
         FileChooser fc = new FileChooser();
         System.out.println("Open Dialog");
         fc.setTitle("Open CSV File");
@@ -629,7 +728,14 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
-    private String saveFileDialog(ActionEvent event) {
+    /**
+     * Opens the save file dialog for a specific CSV file.
+     *
+     * @param event The action event of the Menu Item.
+     * @return The string representation of the absolute file path selected for
+     * saving the CSV file.
+     */
+    private String saveFileDialog(final ActionEvent event) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save CSV File");
         fc.getExtensionFilters().add(
@@ -645,13 +751,21 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
-    private String saveFileDialogButton(ActionEvent event) {
+    /**
+     * Opens the save file dialog for a specific TXT file.
+     *
+     * @param event The action event of the Button.
+     * @return The string representation for the absolute file path selected for
+     * saving the TXT file.
+     */
+    private String saveFileDialogButton(final ActionEvent event) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save TXT File");
         fc.getExtensionFilters().add(
                 new ExtensionFilter(
                         "Text File Document", "*.txt"));
-        File file = fc.showSaveDialog(((Node) event.getTarget()).getScene().getWindow());
+        File file = fc.showSaveDialog(
+                ((Node) event.getTarget()).getScene().getWindow());
         if (file != null) {
             return file.getAbsolutePath();
         } else {
@@ -660,37 +774,38 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param importTraffic
+     * Imports a single traffic report into the table.
+     * @param importTraffic The Traffic instance object.
      */
-    public void trafficImport(Traffic importTraffic) {
+    public final void trafficImport(final Traffic importTraffic) {
         tblView.getItems().add(importTraffic);
     }
 //</editor-fold>
 
     /**
-     *
-     * @param event
+     * Collects the client status of all monitoring office clients.
+     * @param event The action event of the button.
      */
     @FXML
-    public void checkClientStatus(ActionEvent event) {
+    public final void checkClientStatus(final ActionEvent event) {
         server.statusCheck();
     }
 
     /**
-     *
-     * @param string
+     * Prints the specified information into the message board text area.
+     * @param string The value to show to the user.
      */
-    public void printToMessageScreen(String string) {
+    public final void printToMessageScreen(final String string) {
         txtMesssages.setText(string);
     }
 
     /**
-     *
-     * @param event
+     * Displays the Binary Tree GUI frame and text representation of the
+     * Pre Order sort.
+     * @param event The action event of the button.
      */
     @FXML
-    public void preOrderDisplay(ActionEvent event) {
+    public final void preOrderDisplay(final ActionEvent event) {
         //Grab Vechicle Number
         BinaryTree bTree = new BinaryTree();
         tblView.getItems().forEach((obj) -> {
@@ -705,11 +820,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     * Saves the hash map data of the Pre Order sort from the binary tree into
+     * a selected text file.
+     * @param event The action event of a button.
      */
     @FXML
-    public void preOrderSave(ActionEvent event) {
+    public final void preOrderSave(final ActionEvent event) {
         try {
             BinaryTree bTree = new BinaryTree();
             tblView.getItems().forEach((obj) -> {
@@ -725,11 +841,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     * Displays the Binary Tree GUI frame and text representation of the
+     * In Order sort.
+     * @param event The action event of the button.
      */
     @FXML
-    public void inOrderDisplay(ActionEvent event) {
+    public final void inOrderDisplay(final ActionEvent event) {
         //Grab Vechicle Number
         BinaryTree bTree = new BinaryTree();
         tblView.getItems().forEach((obj) -> {
@@ -745,11 +862,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     * Saves the hash map data of the In Order sort from the binary tree into
+     * a selected text file.
+     * @param event The action event of a button.
      */
     @FXML
-    public void inOrderSave(ActionEvent event) {
+    public final void inOrderSave(final ActionEvent event) {
         try {
             BinaryTree bTree = new BinaryTree();
             tblView.getItems().forEach((obj) -> {
@@ -765,11 +883,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     * Displays the Binary Tree GUI frame and text representation of the
+     * Post Order sort.
+     * @param event The action event of the button.
      */
     @FXML
-    public void postOrderDisplay(ActionEvent event) {
+    public final void postOrderDisplay(final ActionEvent event) {
         //Grab Vechicle Number
         BinaryTree bTree = new BinaryTree();
         tblView.getItems().forEach((obj) -> {
@@ -785,11 +904,12 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     * Saves the hash map data of the Post Order sort from the binary tree into
+     * a selected text file.
+     * @param event The action event of a button.
      */
     @FXML
-    public void postOrderSave(ActionEvent event) {
+    public final void postOrderSave(final ActionEvent event) {
         try {
             BinaryTree bTree = new BinaryTree();
             tblView.getItems().forEach((obj) -> {
