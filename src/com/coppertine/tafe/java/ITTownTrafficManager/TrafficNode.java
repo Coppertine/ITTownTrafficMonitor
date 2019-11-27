@@ -24,6 +24,7 @@
 package com.coppertine.tafe.java.ITTownTrafficManager;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -32,17 +33,18 @@ import java.time.LocalDateTime;
 public class TrafficNode {
 
     /**
-     *
+     * The LocalDateTime value of the traffic node.
      */
     private LocalDateTime time;
     /**
-     *
+     * The key value in Integer form for the traffic node.
      */
     private int intKey;
 
     /**
+     * The constructor for the traffic node.
      *
-     * @param key
+     * @param key The LocalDateTime or Integer values of the key.
      */
     public TrafficNode(final Object key) {
         if (key instanceof LocalDateTime) {
@@ -51,4 +53,38 @@ public class TrafficNode {
             this.intKey = (Integer) key;
         }
     }
+
+    @Override
+    public final boolean equals(final Object value) {
+        if (value instanceof LocalDateTime) {
+            return this.time.equals(value);
+        } else if (value instanceof Integer) {
+            return this.intKey == (int) value;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * The initial value for the hash code calculation.
+     */
+    private static final int HASH_INITIAL_VALUE = 7;
+    /**
+     * The multiply value for the hash code calculation.
+     */
+    private static final int HASH_MULTIPLY_VALUE = 61;
+
+    @Override
+    @SuppressWarnings("all")
+    public final int hashCode() {
+        int hash = HASH_INITIAL_VALUE;
+        hash = HASH_MULTIPLY_VALUE * hash + Objects.hashCode(this.time);
+        hash = HASH_MULTIPLY_VALUE * hash + this.intKey;
+        return hash;
+    }
+
+    @Override
+    public final String toString() {
+        return "TrafficNode{" + "time=" + time + ", intKey=" + intKey + '}';
+    }
+
 }
