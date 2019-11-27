@@ -48,9 +48,17 @@ public class TrafficClient implements Runnable {
 
     /**
      *
-     * @param inputConfig
+     * When an object implementing interface <code>Runnable</code> is used to
+     * create a thread, starting the thread causes the object's <code>run</code>
+     * method to be called in that separately executing thread.
+     * <p>
+     * The general contract of the method <code>run</code> is that it may take
+     * any action whatsoever.
+     *
+     * @see java.lang.Thread#run()
+     * @param inputConfig The configuration of the server connection.
      */
-    public void run(final ConnectionConfig inputConfig) {
+    public final void run(final ConnectionConfig inputConfig) {
         try {
             config = inputConfig;
 
@@ -75,10 +83,11 @@ public class TrafficClient implements Runnable {
     }
 
     /**
+     * Handles the message coming from the server thread.
      *
-     * @param msg
+     * @param msg The message from the server.
      */
-    public void handle(String msg) {
+    public final void handle(final String msg) {
         if (msg.startsWith("id: ")) {
             clientID = Integer.parseInt(msg.substring("id: ".length()));
         } else if (msg.startsWith("exit")) {
@@ -92,10 +101,11 @@ public class TrafficClient implements Runnable {
     }
 
     /**
+     * Sends a specific message to the thread in question.
      *
-     * @param msg
+     * @param msg The string representation of the message from the client
      */
-    public void send(String msg) {
+    public final void send(final String msg) {
         try {
             System.out.println("Sending: " + msg);
             streamOut.writeUTF(msg);
@@ -110,54 +120,93 @@ public class TrafficClient implements Runnable {
      *
      * @throws IOException if DataInputStreams can not be created.
      */
-    public void open() throws IOException {
+    public final void open() throws IOException {
         streamIn = new DataInputStream(
                 new BufferedInputStream(socket.getInputStream()));
         streamOut = new DataOutputStream(
                 new BufferedOutputStream(socket.getOutputStream()));
     }
 
-    void remove(int clientID) {
+    /**
+     *
+     * Attempts to remove the client from the server.
+     *
+     * @param clientID The Location Id.
+     * @deprecated Unimplemented
+     */
+    void remove(final int clientID) {
     }
 
     /**
+     * Returns the integer representation of the location Id.
      *
-     * @return
+     * @return The client location Id.
      */
-    public int getClientID() {
+    public final int getClientID() {
         return clientID;
     }
 
     /**
+     * Sets the client location Id.
      *
-     * @param clientID
+     * @param clientIDInput The client location Id.
      */
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
+    public final void setClientID(final int clientIDInput) {
+        this.clientID = clientIDInput;
     }
 
-    public ConnectionConfig getConfig() {
+    /**
+     * Returns the client connection configuration object.
+     *
+     * @return The client configuration instance.
+     */
+    public final ConnectionConfig getConfig() {
         return config;
     }
 
-    public void setConfig(ConnectionConfig config) {
-        this.config = config;
+    /**
+     * Sets the client connection configuration object.
+     *
+     * @param configInput The client configuration instance.
+     */
+    public final void setConfig(final ConnectionConfig configInput) {
+        this.config = configInput;
     }
 
-    public DataInputStream getStreamIn() {
+    /**
+     * Returns the input stream of the server.
+     *
+     * @return The data input stream.
+     */
+    public final DataInputStream getStreamIn() {
         return streamIn;
     }
 
-    public void setStreamIn(DataInputStream streamIn) {
-        this.streamIn = streamIn;
+    /**
+     * Sets the input stream of the server.
+     *
+     * @param streamInInput The data input stream.
+     */
+    public final void setStreamIn(final DataInputStream streamInInput) {
+        this.streamIn = streamInInput;
     }
 
-    public DataOutputStream getStreamOut() {
+    /**
+     * Returns the output stream of the server.
+     *
+     * @return The data output stream.
+     */
+    public final DataOutputStream getStreamOut() {
         return streamOut;
     }
 
-    public void setStreamOut(DataOutputStream streamOut) {
-        this.streamOut = streamOut;
+    /**
+     * Sets the output stream object.
+     *
+     * @param streamOutInput The data output stream.
+     */
+    public final void setStreamOut(final DataOutputStream streamOutInput) {
+        this.streamOut = streamOutInput;
     }
 
 }
