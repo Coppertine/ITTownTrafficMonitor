@@ -5,7 +5,11 @@
  */
 package com.coppertine.tafe.java.ITTownTrafficManager.MonitorOffice;
 
+import com.coppertine.tafe.java.BinaryTree;
+import com.coppertine.tafe.java.DLNode;
+import com.coppertine.tafe.java.DList;
 import com.coppertine.tafe.java.FileIO;
+import com.coppertine.tafe.java.Hash;
 import com.coppertine.tafe.java.ITTownTrafficManager.BinaryTree.BinaryTreeView;
 import com.coppertine.tafe.java.ITTownTrafficManager.Connection.ConnectionConfig;
 import com.coppertine.tafe.java.ITTownTrafficManager.Location;
@@ -20,9 +24,6 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -156,8 +156,26 @@ public class ITTownMonitorOfficeController implements Initializable {
 
     @FXML
     private Text txtMesssages;
+    @FXML
+    private TextArea txtBinaryTree;
 
     private OfficeServer server;
+
+    @FXML
+    private Button btnPreOrderDisplay;
+
+    @FXML
+    private Button btnPreOrderSave;
+
+    @FXML
+    private Button btnInOrderDisplay;
+
+    @FXML
+    private Button btnInOrderSave;
+    @FXML
+    private Button btnPostOrderDisplay;
+    @FXML
+    private Button btnPostOrderSave;
 
     /**
      * Drags window on mouse held.
@@ -199,26 +217,6 @@ public class ITTownMonitorOfficeController implements Initializable {
     }
 
     /**
-     * Sorts the Table by location using the Bubble sort Method.
-     *
-     * @param event
-     */
-    @FXML
-    public void sortByLocation(MouseEvent event) {
-        ArrayList<Object> tableList = new ArrayList<>(tblView.getItems());
-        ArrayList<Object> sortedList;
-        sortedList = new SortingTools().sortAlgorithm(SortingType.BubbleSort, tableList);
-        tblView.getItems().clear();
-
-        sortedList.stream()
-                .filter(
-                        (traffic) -> (traffic instanceof Traffic))
-                .forEachOrdered((traffic) -> {
-                    tblView.getItems().add((Traffic) traffic);
-                });
-    }
-
-    /**
      *
      * @param event
      */
@@ -230,12 +228,62 @@ public class ITTownMonitorOfficeController implements Initializable {
         tree.run();
     }
 
+//<editor-fold defaultstate="collapsed" desc="Sorting Buttons">
+    /**
+     * Sorts the Table by location using the Bubble sort Method.
+     *
+     * @param event
+     */
+    @FXML
+    public void sortByLocation(ActionEvent event) {
+        ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
+        ArrayList<Traffic> sortedList;
+        sortedList = new SortingTools().sortAlgorithm(
+                SortingType.BubbleSort, tableList);
+        tblView.getItems().clear();
+
+        sortedList.stream()
+                .filter(
+                        (traffic) -> (traffic instanceof Traffic))
+                .forEachOrdered((traffic) -> {
+                    tblView.getItems().add((Traffic) traffic);
+                });
+        DList<Integer> doublelyLinkedList
+                = new DList<>(tblView.getItems().get(0).getLocation());
+        tblView.getItems().subList(1, tblView.getItems().size())
+                .forEach((traffic) -> {
+                    doublelyLinkedList.getHead().appendNode(
+                            new DLNode(traffic.getLocation()));
+                });
+        txtLinkedList.setText(doublelyLinkedList.toString());
+    }
+
     /**
      *
      * @param event
      */
     @FXML
-    public void sortByVehicle(MouseEvent event) {
+    public void sortByVehicle(ActionEvent event) {
+        ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
+        ArrayList<Traffic> sortedList;
+        sortedList = new SortingTools().sortAlgorithm(
+                SortingType.Insertion, tableList);
+        tblView.getItems().clear();
+
+        sortedList.stream()
+                .filter(
+                        (traffic) -> (traffic instanceof Traffic))
+                .forEachOrdered((traffic) -> {
+                    tblView.getItems().add((Traffic) traffic);
+                });
+        DList<Integer> doublelyLinkedList
+                = new DList<>(tblView.getItems().get(0).getLocation());
+        tblView.getItems().subList(1, tblView.getItems().size())
+                .forEach((traffic) -> {
+                    doublelyLinkedList.getHead().appendNode(
+                            new DLNode(traffic.getTotalVehicle()));
+                });
+        txtLinkedList.setText(doublelyLinkedList.toString());
 
     }
 
@@ -244,9 +292,30 @@ public class ITTownMonitorOfficeController implements Initializable {
      * @param event
      */
     @FXML
-    public void sortByVelocity(MouseEvent event) {
+    public void sortByVelocity(ActionEvent event) {
+        ArrayList<Traffic> tableList = new ArrayList<>(tblView.getItems());
+        ArrayList<Traffic> sortedList;
+        sortedList = new SortingTools().sortAlgorithm(
+                SortingType.QuickSort, tableList);
+        tblView.getItems().clear();
+
+        sortedList.stream()
+                .filter(
+                        (traffic) -> (traffic instanceof Traffic))
+                .forEachOrdered((traffic) -> {
+                    tblView.getItems().add((Traffic) traffic);
+                });
+        DList<Integer> doublelyLinkedList
+                = new DList<>(tblView.getItems().get(0).getLocation());
+        tblView.getItems().subList(1, tblView.getItems().size())
+                .forEach((traffic) -> {
+                    doublelyLinkedList.getHead().appendNode(
+                            new DLNode(traffic.getAverageVelocity()));
+                });
+        txtLinkedList.setText(doublelyLinkedList.toString());
 
     }
+//</editor-fold>
 
     /**
      *
@@ -458,7 +527,7 @@ public class ITTownMonitorOfficeController implements Initializable {
      * @param actionEvent
      */
     @FXML
-    public final void performAction(ActionEvent actionEvent) {
+    public final void performAction(final ActionEvent actionEvent) {
         MenuItem target = (MenuItem) actionEvent.getSource();
 
         if (target.getId().equals("mItemServerOptions")) {
@@ -496,6 +565,7 @@ public class ITTownMonitorOfficeController implements Initializable {
             server = null;
         }
     }
+//<editor-fold defaultstate="collapsed" desc="Table Import and Export">
 
     /**
      *
@@ -575,6 +645,20 @@ public class ITTownMonitorOfficeController implements Initializable {
         }
     }
 
+    private String saveFileDialogButton(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save TXT File");
+        fc.getExtensionFilters().add(
+                new ExtensionFilter(
+                        "Text File Document", "*.txt"));
+        File file = fc.showSaveDialog(((Node) event.getTarget()).getScene().getWindow());
+        if (file != null) {
+            return file.getAbsolutePath();
+        } else {
+            return "";
+        }
+    }
+
     /**
      *
      * @param importTraffic
@@ -582,17 +666,141 @@ public class ITTownMonitorOfficeController implements Initializable {
     public void trafficImport(Traffic importTraffic) {
         tblView.getItems().add(importTraffic);
     }
+//</editor-fold>
 
     /**
      *
      * @param event
      */
     @FXML
-    public void checkClientStatus(MouseEvent event) {
+    public void checkClientStatus(ActionEvent event) {
         server.statusCheck();
     }
 
+    /**
+     *
+     * @param string
+     */
     public void printToMessageScreen(String string) {
         txtMesssages.setText(string);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void preOrderDisplay(ActionEvent event) {
+        //Grab Vechicle Number
+        BinaryTree bTree = new BinaryTree();
+        tblView.getItems().forEach((obj) -> {
+            bTree.addNode(obj.getTotalVehicle());
+        });
+
+        BinaryTreeView view = new BinaryTreeView();
+        view.include(bTree.getRootNode());
+        view.run();
+
+        txtBinaryTree.setText(bTree.getPreOrder());
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void preOrderSave(ActionEvent event) {
+        try {
+            BinaryTree bTree = new BinaryTree();
+            tblView.getItems().forEach((obj) -> {
+                bTree.addNode(obj.getTotalVehicle());
+            });
+            ArrayList<String> output = new ArrayList<>();
+            output.add(new Hash().toHashMap(bTree.getPreOrderArrayList())
+                    .toString());
+            FileIO.writeFile(saveFileDialogButton(event), Boolean.TRUE, output);
+        } catch (IOException e) {
+            System.out.println("Error:" + e.toString());
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void inOrderDisplay(ActionEvent event) {
+        //Grab Vechicle Number
+        BinaryTree bTree = new BinaryTree();
+        tblView.getItems().forEach((obj) -> {
+            bTree.addNode(obj.getTotalVehicle());
+        });
+
+        BinaryTreeView view = new BinaryTreeView();
+        view.include(bTree.getRootNode());
+        view.run();
+
+        txtBinaryTree.setText(bTree.getInOrder());
+
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void inOrderSave(ActionEvent event) {
+        try {
+            BinaryTree bTree = new BinaryTree();
+            tblView.getItems().forEach((obj) -> {
+                bTree.addNode(obj.getTotalVehicle());
+            });
+            ArrayList<String> output = new ArrayList<>();
+            output.add(new Hash().toHashMap(bTree.getInOrderArrayList())
+                    .toString());
+            FileIO.writeFile(saveFileDialogButton(event), Boolean.TRUE, output);
+        } catch (IOException e) {
+            System.out.println("Error:" + e.toString());
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void postOrderDisplay(ActionEvent event) {
+        //Grab Vechicle Number
+        BinaryTree bTree = new BinaryTree();
+        tblView.getItems().forEach((obj) -> {
+            bTree.addNode(obj.getTotalVehicle());
+        });
+
+        BinaryTreeView view = new BinaryTreeView();
+        view.include(bTree.getRootNode());
+        view.run();
+
+        txtBinaryTree.setText(bTree.getPostOrder());
+
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void postOrderSave(ActionEvent event) {
+        try {
+            BinaryTree bTree = new BinaryTree();
+            tblView.getItems().forEach((obj) -> {
+                bTree.addNode(obj.getTotalVehicle());
+            });
+            ArrayList<String> output = new ArrayList<>();
+            output.add(new Hash().toHashMap(bTree.getPostOrderArrayList())
+                    .toString());
+            FileIO.writeFile(saveFileDialogButton(event), Boolean.TRUE, output);
+        } catch (IOException e) {
+            System.out.println("Error:" + e.toString());
+        }
     }
 }

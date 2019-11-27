@@ -49,8 +49,8 @@
                                     <buttons>
                               <Label alignment="CENTER_RIGHT" text="Sort:" textFill="WHITE" />
                                         <Button fx:id="btnSortLocation" mnemonicParsing="false" onAction="#sortByLocation" text="Location" />
-                                        <Button fx:id="btnSortVehicle" mnemonicParsing="false" text="Vehicle #" />
-                                        <Button mnemonicParsing="false" text="Velocity" />
+                                        <Button fx:id="btnSortVehicle" mnemonicParsing="false" onAction="#sortByVehicle" text="Vehicle #" />
+                                        <Button mnemonicParsing="false" onAction="#sortByVelocity" text="Velocity" />
                                     </buttons>
                                 </ButtonBar>
                             </children>
@@ -69,7 +69,7 @@
                                     <Button fx:id="btnStatusCheck" mnemonicParsing="false" onAction="#checkClientStatus" text="Status Check" />
                                           </children>
                                       </HBox>
-                              <Text fx:id="txtMesssages" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="406.0" />
+                              <Text fx:id="txtMesssages" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="406.0" />
                            </children>
                         </VBox>
                             </children>
@@ -79,7 +79,7 @@
                 <VBox prefHeight="118.0" prefWidth="869.0">
                     <children>
                         <Label prefHeight="9.0" prefWidth="869.0" text="Linked List" textFill="WHITE" />
-                        <TextArea fx:id="txtLinkedList" prefHeight="70.0" prefWidth="869.0">
+                        <TextArea fx:id="txtLinkedList" editable="false" prefHeight="70.0" prefWidth="869.0" style="-fx-text-fill: #ffffff;">
                             <VBox.margin>
                                 <Insets top="15.0" />
                             </VBox.margin>
@@ -94,7 +94,7 @@
                                 <Button alignment="TOP_RIGHT" mnemonicParsing="false" onMouseClicked="#displayBinaryTree" text="Display" />
                             </children>
                         </HBox>
-                        <TextArea prefHeight="75.0" prefWidth="869.0" />
+                        <TextArea fx:id="txtBinaryTree" prefHeight="75.0" prefWidth="869.0" />
                     </children>
                 </VBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -104,12 +104,12 @@
                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="199.0" styleClass="orderLabel" text="Pre-Order" textFill="WHITE" />
                                 <ButtonBar prefHeight="31.0" prefWidth="145.0">
                                     <buttons>
-                                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" text="Button">
+                                        <Button fx:id="btnPreOrderDisplay" alignment="CENTER" mnemonicParsing="false" onAction="#preOrderDisplay" prefHeight="31.0" prefWidth="138.0" text="Display">
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
-                                        <Button mnemonicParsing="false" text="Button" />
+                                        <Button fx:id="btnPreOrderSave" mnemonicParsing="false" onAction="#preOrderSave" text="Save" />
                                     </buttons>
                                 </ButtonBar>
                             </children>
@@ -122,8 +122,8 @@
                                 <Label alignment="CENTER" prefHeight="21.0" prefWidth="187.0" styleClass="orderLabel" text="In-Order" />
                                 <ButtonBar prefHeight="31.0" prefWidth="154.0">
                                     <buttons>
-                                        <Button mnemonicParsing="false" text="Button" />
-                                        <Button mnemonicParsing="false" text="Button" />
+                                        <Button fx:id="btnInOrderDisplay" mnemonicParsing="false" onAction="#inOrderDisplay" text="Display" />
+                                        <Button fx:id="btnInOrderSave" mnemonicParsing="false" onAction="#inOrderSave" text="Save" />
                                     </buttons>
                                 </ButtonBar>
                             </children>
@@ -136,8 +136,8 @@
                                 <Label alignment="CENTER" prefHeight="21.0" prefWidth="272.0" styleClass="orderLabel" text="Post-Order" />
                                 <ButtonBar>
                                     <buttons>
-                                        <Button mnemonicParsing="false" text="Button" />
-                                        <Button mnemonicParsing="false" text="Button" />
+                                        <Button fx:id="btnPostOrderDisplay" mnemonicParsing="false" onAction="#postOrderDisplay" text="Display" />
+                                        <Button fx:id="btnPostOrderSave" mnemonicParsing="false" onAction="#postOrderSave" text="Save" />
                                     </buttons>
                                 </ButtonBar>
                             </children>

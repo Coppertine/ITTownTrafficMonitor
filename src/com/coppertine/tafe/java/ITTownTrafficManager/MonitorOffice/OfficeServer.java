@@ -118,7 +118,7 @@ public class OfficeServer implements Runnable {
                 break;
             case "status ready":
                 controller.printToMessageScreen("Client "
-                        + findClient(ID).getClientID() + "Ready");
+                        + ID + "Ready");
                 break;
             default:
                 System.out.println(ID + ": " + input);

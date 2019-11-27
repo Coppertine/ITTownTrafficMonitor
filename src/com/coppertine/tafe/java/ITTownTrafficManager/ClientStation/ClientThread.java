@@ -24,6 +24,7 @@
 package com.coppertine.tafe.java.ITTownTrafficManager.ClientStation;
 
 import com.coppertine.tafe.java.Debug;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -53,15 +54,22 @@ public class ClientThread extends Thread {
 
         this.clientID = client;
         this.clientPort = 0;
+        this.client = aThis;
+        
+        this.start();
     }
 
     @Override
     public void run() {
+        System.out.println("Start Running");
         while (!stopped) { // Why? just, why?
             try {
-                //client.handle(streamIn.readUTF());
-            } catch (Exception e) {
-                Debug.log(e.getMessage());
+                System.out.println("I am Repeating!!");
+                client.handle(client.getStreamIn().readUTF());
+//                System.out.println(client.getStreamIn().readUTF());
+
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

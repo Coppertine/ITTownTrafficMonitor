@@ -44,6 +44,7 @@ public class TrafficClient implements Runnable {
     private DataInputStream streamIn;
     private DataOutputStream streamOut;
     private Socket socket;
+    private ClientThread thread;
 
     /**
      *
@@ -52,11 +53,13 @@ public class TrafficClient implements Runnable {
     public void run(final ConnectionConfig inputConfig) {
         try {
             config = inputConfig;
+
             config.setSocket(
                     new Socket(config.getHostURL(), config.getHostPort()));
             socket = config.getSocket();
             System.out.println("Connected: " + config.getSocket());
             open();
+            thread = new ClientThread(this, socket, socket.getPort());
         } catch (UnknownHostException uhe) {
             Debug.log("Host unknown: " + uhe.getMessage());
         } catch (IOException ioe) {
@@ -72,19 +75,19 @@ public class TrafficClient implements Runnable {
     }
 
     /**
-     * 
-     * @param msg 
+     *
+     * @param msg
      */
-    public final void handle(String msg) {
+    public void handle(String msg) {
         if (msg.startsWith("id: ")) {
-            System.out.println(msg);
-            clientID = Integer.parseInt(msg.substring("id: ".length() + 1));
-        }
-        if (msg.startsWith("exit")) {
-
-        }
-        if (msg.startsWith("status")) {
+            clientID = Integer.parseInt(msg.substring("id: ".length()));
+        } else if (msg.startsWith("exit")) {
+            thread.stopped = true;
+        } else if (msg.startsWith("status")) {
+            System.out.println("Status found");
             send("status ready");
+        } else {
+            System.out.println(msg);
         }
     }
 
@@ -94,6 +97,7 @@ public class TrafficClient implements Runnable {
      */
     public void send(String msg) {
         try {
+            System.out.println("Sending: " + msg);
             streamOut.writeUTF(msg);
             streamOut.flush();
         } catch (IOException e) {
@@ -130,6 +134,30 @@ public class TrafficClient implements Runnable {
      */
     public void setClientID(int clientID) {
         this.clientID = clientID;
+    }
+
+    public ConnectionConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(ConnectionConfig config) {
+        this.config = config;
+    }
+
+    public DataInputStream getStreamIn() {
+        return streamIn;
+    }
+
+    public void setStreamIn(DataInputStream streamIn) {
+        this.streamIn = streamIn;
+    }
+
+    public DataOutputStream getStreamOut() {
+        return streamOut;
+    }
+
+    public void setStreamOut(DataOutputStream streamOut) {
+        this.streamOut = streamOut;
     }
 
 }

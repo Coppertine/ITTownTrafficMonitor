@@ -66,6 +66,7 @@ public class OfficeThread extends Thread {
         this.clientID = client;
     }
 
+    @Override
     public void run() {
         while (!stopped) { // Why? just, why?
             try {
@@ -83,6 +84,7 @@ public class OfficeThread extends Thread {
      */
     public void send(String msg) {
         try {
+            System.out.println("Sending " + msg);
             streamOut.writeUTF(msg);
             streamOut.flush();
         } catch (IOException e) {
