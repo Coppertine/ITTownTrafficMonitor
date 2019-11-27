@@ -33,8 +33,9 @@ public class DList<K> {
     // Using Generic Type K for Key and V for Value of Key
 
     /**
-     * Head DLNode to store all data placed into list. *
+     * Head DLNode to store all data placed into list.
      */
+    @SuppressWarnings("FieldMayBeFinal")
     private DLNode head;
 
     /**
@@ -50,21 +51,63 @@ public class DList<K> {
      * @param inputSearch
      * @return
      */
-    public DLNode findNode(Object inputSearch) {
+    public DLNode findNode(K inputSearch) {
+        for (DLNode current = head.getNext();
+                current != head; current = current.getNext()) {
+            if (current.getTrafficData().equals(inputSearch)) {
+                return current;
+            }
+        }
         return null;
     }
 
     /**
+     * Returns the value from index.
      *
-     * @param i
-     * @return
+     * @param i Index value to object to find.
+     * @throws ArrayIndexOutOfBoundsException If index is less than 0 or current
+     * value is not found.
+     * @return List Node from Index.
      */
-    public DLNode find(int i) {
-        return null;
+    public final DLNode getFromIndex(final int i)
+            throws ArrayIndexOutOfBoundsException {
+        DLNode current = this.head;
+        if (i < 0 || current == null) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        while (i > 0) {
+            current = current.getNext();
+            if (current == null) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+        }
+        return current;
     }
 
     @Override
-    public String toString() {
-        return "";
+    public final String toString() {
+
+        if (head.getNext() == head) { // List Empty, only head node
+            return "List Empty";
+        }
+        StringBuilder str = new StringBuilder("List Content = ");
+        for (DLNode current = head.getNext();
+                current != head;
+                current = current.getNext()) {
+            if (current == null) {
+                break;
+            }
+            str.append(current.toString());
+        }
+        return str.toString();
     }
+
+    public DLNode getHead() {
+        return head;
+    }
+
+    public void setHead(DLNode head) {
+        this.head = head;
+    }
+
 }
