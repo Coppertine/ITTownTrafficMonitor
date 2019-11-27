@@ -75,7 +75,7 @@ public class BTNode {
      * Creates String value of Node's Value.
      *
      * @param n <code>BTNode</code> of BinaryTree.
-     * @see Object.toString()
+     * @see toString()
      */
     public final void displayNode(final BTNode n) {
         System.out.print(n.values.toString() + " ");
