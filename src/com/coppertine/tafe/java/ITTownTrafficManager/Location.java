@@ -34,8 +34,8 @@ public class Location {
 
     /**
      *
-     * @param stationNum
-     * @param name
+     * @param stationNum The station number according to the office.
+     * @param name The location name.
      */
     public Location(int stationNum, String name) {
         this.stationNum = stationNum;
@@ -43,16 +43,16 @@ public class Location {
     }
 
     /**
-     *
-     * @return
+     * Returns the station number of the location.
+     * @return Station Number according to the Office
      */
     public int getStationNum() {
         return stationNum;
     }
 
     /**
-     *
-     * @param stationNum
+     * Sets the Station number of the location.
+     * @param stationNum Station number of the location.
      */
     public void setStationNum(int stationNum) {
         this.stationNum = stationNum;
@@ -60,7 +60,7 @@ public class Location {
 
     /**
      *
-     * @return
+     * @return The location name.
      */
     public String getName() {
         return name;
@@ -68,7 +68,7 @@ public class Location {
 
     /**
      *
-     * @param name
+     * @param name The location name.
      */
     public void setName(String name) {
         this.name = name;
