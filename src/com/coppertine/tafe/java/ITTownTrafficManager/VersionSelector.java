@@ -18,15 +18,10 @@ import javafx.stage.StageStyle;
  */
 public class VersionSelector extends Application {
 
-    /**
-     * {@inheritDoc. }
-     *
-     * @param stage
-     * @throws java.lang.Exception
-     */
     @Override
     public final void start(final Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("VersionSelector.fxml"));
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("VersionSelector.fxml"));
         stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         stage.setScene(scene);
