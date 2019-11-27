@@ -33,13 +33,17 @@ import java.util.ArrayList;
 public class SortingTools {
 
     /**
+     * Sorts the list of {@link Traffic} Objects using selected
+     * {@link SortingType}.
      *
-     * @param type
-     * @param input
-     * @return
+     * @param type The type of sorting method to utilize.
+     * @param input The list of traffic objects to parse through.
+     * @return The sorted list of traffic objects. If no sorting type is found,
+     * an empty list is given instead.
+     * @see Traffic
      */
-    public ArrayList<Traffic> sortAlgorithm(SortingType type,
-            ArrayList<Traffic> input) {
+    public final ArrayList<Traffic> sortAlgorithm(final SortingType type,
+            final ArrayList<Traffic> input) {
         switch (type) {
             case BubbleSort:
                 return sortBubble(input);
@@ -57,8 +61,9 @@ public class SortingTools {
      * {@link sortAlgorithm()} method. Relies on the structure of
      * {@link Traffic}
      *
-     * @param input
-     * @return ArrayList
+     * @param input The list of Traffic objects
+     * @return ArrayList of Objects from the sorted array. Must be accessed
+     * using the {@link sortAlgorithm()} method.
      */
     private ArrayList<Traffic> sortBubble(final ArrayList<Traffic> input) {
         try {
@@ -93,7 +98,7 @@ public class SortingTools {
     /**
      * Uses the Insertion algorithm to sort an ArrayList of objects.
      *
-     * @param input
+     * @param input The list of Traffic Objects
      * @return ArrayList of Objects from the sorted array. Must be accessed
      * using the {@link sortAlgorithm()} method.
      */
@@ -117,9 +122,9 @@ public class SortingTools {
      * Grabs the partition integer from the ArrayList. Must be accessed using
      * the {@link sortAlgorithm()} method with type = QuickSort
      *
-     * @param input
-     * @param lowValue
-     * @param highValue
+     * @param input The list of objects.
+     * @param lowValue The low index integer.
+     * @param highValue The high index integer.
      * @return The partition index.
      */
     private int partitionArray(final ArrayList<Traffic> input,
@@ -144,16 +149,16 @@ public class SortingTools {
     }
 
     /**
-     * Quick Sort method utilising the recursion of the function. Must be
+     * Quick Sort method utilizing the recursion of the function. Must be
      * accessed using the {@link sortAlgorithm()} method.
      *
-     * @param input
-     * @param indexLow
-     * @param indexHigh
-     * @return
+     * @param input The list of Traffic objects.
+     * @param indexLow The low index of the selection.
+     * @param indexHigh The high index of the selection.
+     * @return The list of sorted traffic objects.
      */
-    private ArrayList<Traffic> sortQuick(ArrayList<Traffic> input,
-            int indexLow, int indexHigh) {
+    private ArrayList<Traffic> sortQuick(final ArrayList<Traffic> input,
+            final int indexLow, final int indexHigh) {
         if (indexLow < indexHigh) {
             int partitionIndex = partitionArray(input, indexLow, indexHigh);
             sortQuick(input, indexLow, partitionIndex - 1);
