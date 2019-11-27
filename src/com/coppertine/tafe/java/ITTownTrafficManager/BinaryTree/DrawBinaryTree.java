@@ -49,38 +49,66 @@ public class DrawBinaryTree extends JPanel {
      * The oval width in pixels.
      */
     private static final int OVAL_WIDTH = 40;
-    private static final int DATA_STRING_OFFSET_X = 10;
-    private static final int DATA_STRING_OFFSET_Y = 25;
 
     /**
+     * The drawable text offset from each oval within the GUI in the x axis.
+     */
+    private static final int DATA_STRING_OFFSET_X = 10;
+
+    /**
+     * The drawable text offset from each oval within the GUI in the y axis.
+     */
+    private static final int DATA_STRING_OFFSET_Y = 25;
+
+    /*
      * Offsets for the Line of the Node.
      */
+    /**
+     * The start point offset of the line pointing to the left in the x axis.
+     */
     private static final int LINE_START_OFFSET_X = 15;
+    /**
+     * The start point offset of the line pointing to the left in the y axis.
+     */
     private static final int LINE_START_OFFSET_Y = 40;
+
+    /**
+     * The end point offset of the line pointing to the right in the X axis.
+     */
     private static final int RIGHT_LINE_END_OFFSET_X = 100;
+    /**
+     * The end point offset of the line pointing to the left in the X aixs.
+     */
     private static final int LEFT_LINE_END_OFFSET_X = -50;
+    /**
+     * The end point offset of the line in the Y axis.
+     */
     private static final int LINE_END_OFFSET_Y = 100;
 
     /**
-     *
-     * @param nodeListInput
+     * The constructor for drawing the binary tree.
+     * @param nodeListInput The list of Binary Tree nodes.
      */
-    public DrawBinaryTree(ArrayList<BTNode> nodeListInput) {
+    public DrawBinaryTree(final ArrayList<BTNode> nodeListInput) {
         nodeList = nodeListInput;
     }
 
     @Override
     public final void paintComponent(final Graphics graphics) {
-        for (BTNode node : nodeList) {
+        nodeList.stream().map((node) -> {
             graphics.drawOval(
                     node.getPositionX(),
                     node.getPositionY(),
                     OVAL_HEIGHT, OVAL_WIDTH);
+            return node;
+        }).map((node) -> {
             String stringValue = String.valueOf(node.getValues());
             graphics.drawString(
                     stringValue,
                     node.getPositionX() + DATA_STRING_OFFSET_X,
                     node.getPositionY() + DATA_STRING_OFFSET_Y);
+            return node;
+        }).map((node) -> {
             if (node.getRight() != null) {
                 graphics.setColor(Color.red);
                 graphics.drawLine(
@@ -89,6 +117,8 @@ public class DrawBinaryTree extends JPanel {
                         node.getPositionX() + RIGHT_LINE_END_OFFSET_X,
                         node.getPositionY() + LINE_END_OFFSET_Y);
             }
+            return node;
+        }).map((node) -> {
             if (node.getLeft() != null) {
                 graphics.setColor(Color.green);
                 graphics.drawLine(
@@ -97,7 +127,9 @@ public class DrawBinaryTree extends JPanel {
                         node.getPositionX() + LEFT_LINE_END_OFFSET_X,
                         node.getPositionY() + LINE_END_OFFSET_Y);
             }
+            return node;
+        }).forEachOrdered((i) -> {
             graphics.setColor(Color.black);
-        }
+        });
     }
 }
