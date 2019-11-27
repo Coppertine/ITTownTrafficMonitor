@@ -40,34 +40,54 @@ import java.net.Socket;
  */
 public class OfficeThread extends Thread {
 
-    private OfficeServer client;
-    private Socket socket;
-    private int clientID;
-    private int clientPort;
+    /**
+     * The server instance.
+     */
+    private final OfficeServer client;
+    /**
+     * The server socket to send and receive information.
+     */
+    private final Socket socket;
+    /**
+     * The client location ID.
+     */
+    private final int clientID;
+    /**
+     * The port number of the client.
+     */
+    private final int clientPort;
+    /**
+     * The incoming stream of information from the clients.
+     */
     private DataInputStream streamIn;
+    /**
+     * The outgoing stream of information to the client.
+     */
     private DataOutputStream streamOut;
 
     /**
-     *
+     * A volatile boolean to prevent exceptions from thread closure.
      */
     public volatile boolean stopped = false;
 
     /**
+     * The constructor of the Office Thread.
      *
-     * @param aThis
-     * @param socketInput
-     * @param client
+     * @param aThis The office Server instance.
+     * @param socketInput The socket for the server.
+     * @param clientIdInput The client location ID.
      */
-    public OfficeThread(OfficeServer aThis, Socket socketInput, int client) {
+    public OfficeThread(final OfficeServer aThis, final Socket socketInput,
+            final int clientIdInput) {
         super();
         this.client = aThis;
         this.socket = socketInput;
         this.clientPort = socket.getPort();
-        this.clientID = client;
+        this.clientID = clientIdInput;
     }
 
     @Override
-    public void run() {
+    public final void run() {
         while (!stopped) { // Why? just, why?
             try {
                 client.handle(clientID, streamIn.readUTF());
@@ -79,10 +99,11 @@ public class OfficeThread extends Thread {
     }
 
     /**
+     * Sends a specific message to the thread in question.
      *
-     * @param msg
+     * @param msg The string representation of the message from the client
      */
-    public void send(String msg) {
+    public final void send(final String msg) {
         try {
             System.out.println("Sending " + msg);
             streamOut.writeUTF(msg);
@@ -99,7 +120,7 @@ public class OfficeThread extends Thread {
      *
      * @throws IOException if DataInputStreams can not be created.
      */
-    public void open() throws IOException {
+    public final void open() throws IOException {
         streamIn = new DataInputStream(
                 new BufferedInputStream(socket.getInputStream()));
         streamOut = new DataOutputStream(
@@ -107,75 +128,48 @@ public class OfficeThread extends Thread {
     }
 
     /**
+     * Gets the server instance.
      *
-     * @return
+     * @return The Office Server instance.
      */
-    public OfficeServer getServer() {
+    public final OfficeServer getServer() {
         return client;
     }
 
     /**
+     * Returns the socket of the client thread.
      *
-     * @return
+     * @return The client socket instance.
      */
-    public Socket getSocket() {
+    public final Socket getSocket() {
         return socket;
     }
 
     /**
+     * Returns the client location.
      *
-     * @return
+     * @return The integer representation of the location id.
      */
-    public int getClientID() {
+    public final int getClientID() {
         return clientID;
     }
 
     /**
+     * Returns the client port number.
      *
-     * @return
+     * @return The integer representation of the port number.
      */
-    public int getClientPort() {
+    public final int getClientPort() {
         return clientPort;
     }
 
     /**
+     * Returns the input stream of the client.
      *
-     * @return
+     * @return The data input stream.
      */
-    public DataInputStream getStreamIn() {
+    public final DataInputStream getStreamIn() {
         return streamIn;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public DataOutputStream getStreamOut() {
-        return streamOut;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getMIN_PRIORITY() {
-        return MIN_PRIORITY;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getNORM_PRIORITY() {
-        return NORM_PRIORITY;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getMAX_PRIORITY() {
-        return MAX_PRIORITY;
     }
 
 }
